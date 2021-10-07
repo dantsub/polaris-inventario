@@ -1,0 +1,44 @@
+{% extends 'base.html' %} {% block title %} Products {% endblock %} {% block
+content %}
+<h2>Products</h2>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Codigo</th>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Proveedores</th>
+        <th>Cant. Minima</th>
+        <th>Existencia</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="me-75">A001</th>
+        <th>Puertas Toyota</th>
+        <th>Puertas de acceso para vehiculos</th>
+        <th>Toyota</th>
+        <th>10</th>
+        <th>20</th>
+        <th>
+          <i class="fas fa-edit" style="color: red"></i>
+        </th>
+      </tr>
+      <tr>
+        <th>A001</th>
+        <th>Puertas Toyota</th>
+        <th>Puertas de acceso para vehiculos</th>
+        <th>Toyota</th>
+        <th>10</th>
+        <th>20</th>
+        <th>
+          <i class="fas fa-edit" style="color: red"></i>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+  {% endblock %}
+</div>
