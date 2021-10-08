@@ -92,8 +92,11 @@
             </a>
           </li>
           <li class="nav-item">
-            <i class="fa fa-power-off"></i>
+          <!-- Agregué un acceso directo a login en cerrar sesión -->
+            <a href="./login">
+              <i class="fa fa-power-off"></i>
             <span class="">Cerrar sesión</span>
+            </a>
           </li>
         </ul>
         <li class="nav-item dropdown dropdown-user">
@@ -150,19 +153,19 @@
       <ul class="navigation navigation-main">
         <li class="navigation-header"><span>GESTIONES</span></li>
         <li class="nav-item">
-          <a href={{url_for('productos')}}>
+          <a href='./productos'>
             <i class="fa fa-box"></i>
             <span class="menu-title text-truncate">Productos</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="">
+          <a href="./providers">
             <i class="fa fa-truck-loading"></i>
             <span class="menu-title text-truncate">Proveedores</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="">
+          <a href="./users">
             <i class="fa fa-users"></i>
             <span class="menu-title text-truncate">Usuarios</span>
           </a>
