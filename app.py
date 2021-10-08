@@ -19,5 +19,14 @@ def login():
     return render_template('modules/login.html')
 
 
+@app.route('/providers')
+def providers():
+    return render_template('modules/providers.html')
+
+
+@app.route('/users')
+def users():
+    return render_template('modules/users.html')
+
 if __name__ == '__main__':
     app.run(debug=True, port=5504)
