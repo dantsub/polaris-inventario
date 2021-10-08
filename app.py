@@ -14,9 +14,9 @@ def productos():
     return render_template('modules/products.html')
 
 
-@app.route('/pruebas')
-def pruebas():
-    return render_template('/pruebas.html')
+@app.route('/login')
+def login():
+    return render_template('modules/login.html')
 
 
 if __name__ == '__main__':

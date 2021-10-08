@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
+    rel="stylesheet">
+
+  <title>Login Polaris</title>
+
+  <!-- BEGIN: Theme CSS-->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap-extended.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/colors.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/components.min.css') }}">
+  
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dark-layout.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/semi-dark-layout.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bordered-layout.min.css') }}">
+  
+  <!-- BEGIN: Page CSS-->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/vertical-menu.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/form-validation.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/authentication.css') }}">
+
+  <!-- END: Page CSS-->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  <!-- BEGIN: Font Awesome -->
+  <script src="https://kit.fontawesome.com/e96df3b32d.js" crossorigin="anonymous"></script>
+  <!-- END: Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
+    rel="stylesheet">
+
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click"
+  data-menu="vertical-menu-modern" data-col="blank-page">
+  <!-- BEGIN: Content-->
+  <div class="app-content content ">
+    <div class="content-wrapper">
+      <div class="content-body">
+        <div class="auth-wrapper auth-cover">
+          <div class="auth-inner row m-0">
+            <!-- Brand logo-->
+            <a class="brand-logo" href="">
+              <img src="{{ url_for('static', filename='img/Logo_Polaris.png') }}" width="250" height="50">
+            </a>
+            <!-- /Brand logo-->
+            <!-- Left Text-->
+            <div class="d-none d-lg-flex row align-items-center p-5">
+              <div class="w-150 col-8 d-lg-flex align-items-center justify-content-center px-5">
+                <img class="img-fluid" src="{{ url_for('static', filename='img/Imagen_carro2.png') }}" alt="Login V2" />
+              </div>
+              <!-- Login-->
+              <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
+                <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
+                  <h2 class="card-title fw-bold mb-1">Hola, Bienvenidos a Inventario Polaris 👋</h2>
+                  <p class="card-text mb-2">Por favor inicia sesión para empezar</p>
+                  <form class="auth-login-form mt-2" action="index.html" method="POST">
+                    <div class="mb-1">
+                      <label class="form-label" for="login-email">Usuario</label>
+                      <input class="form-control" id="login-email" type="text" name="login-email"
+                        placeholder="john@example.com" aria-describedby="login-email" autofocus="" tabindex="1" />
+                    </div>
+                    <div class="mb-1">
+                      <div class="d-flex justify-content-between">
+                        <label class="form-label" for="login-password">Contraseña</label>
+                      </div>
+                      <div class="input-group input-group-merge form-password-toggle">
+                        <input class="form-control form-control-merge" id="login-password" type="password"
+                          name="login-password" placeholder="············" aria-describedby="login-password"
+                          tabindex="2" />
+                        <span class="input-group-text cursor-pointer">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-eye-off font-small-4">
+                            <path
+                              d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24">
+                            </path>
+                            <line x1="1" y1="1" x2="23" y2="23"></line>
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+
+                    <button class="btn btn-primary w-100" tabindex="4">Iniciar Sesión</button>
+                  </form>
+
+                </div>
+                <!-- /Login-->
+              </div>
+            </div>
+            <!-- /Left Text-->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END: Content-->
+
+
+  <!-- BEGIN: Vendor JS-->
+  <script src="{{ url_for('static', filename='js/vendors.min.js') }}"></script>
+  <!-- BEGIN Vendor JS-->
+
+  <!-- BEGIN: Page Vendor JS-->
+  <script src="{{ url_for('static', filename='js/jquery.validate.min.js') }}"></script>
+  <!-- END: Page Vendor JS-->
+
+  <!-- BEGIN: Theme JS-->
+  <script src="{{ url_for('static', filename='js/app-menu.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.min.js') }}"></script>
+  <!-- END: Theme JS-->
+
+  <!-- BEGIN: Page JS-->
+  <script src="{{ url_for('static', filename='js/auth-login.js') }}"></script>
+  <!-- END: Page JS-->
+
+  <script>
+    $(window).on('load', function () {
+      if (feather) {
+        feather.replace({ width: 14, height: 14 });
+      }
+    })
+  </script>
+</body>
+<!-- END: Body-->
+
+</html>
