@@ -4,6 +4,7 @@
 <!-- BEGIN: Head-->
 
 <head>
+  
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta charset="UTF-8">
@@ -65,11 +66,11 @@
                 <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
                   <h2 class="card-title fw-bold mb-1">Hola, Bienvenidos a Inventario Polaris 👋</h2>
                   <p class="card-text mb-2">Por favor inicia sesión para empezar</p>
-                  <form class="auth-login-form mt-2" action="/" method="GET">
+                  <form class="auth-login-form mt-2" action="{{url_for('login')}}" method="POST" novalidate="novalidate">
                     <div class="mb-1">
                       <label class="form-label" for="login-email">Usuario</label>
                       <input class="form-control" id="login-email" type="text" name="login-email"
-                        placeholder="john@example.com" aria-describedby="login-email" autofocus="" tabindex="1" />
+                        placeholder="usuario" aria-describedby="login-email" autofocus="" tabindex="1" />
                     </div>
                     <div class="mb-1">
                       <div class="d-flex justify-content-between">
@@ -124,7 +125,7 @@
   <!-- END: Theme JS-->
 
   <!-- BEGIN: Page JS-->
-  <script src="{{ url_for('static', filename='js/auth-login.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/page-auth-login.js') }}"></script>
   <!-- END: Page JS-->
 
   <script>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -93,7 +94,7 @@
           </li>
           <li class="nav-item">
           <!-- Agregué un acceso directo a login en cerrar sesión -->
-            <a href="./login">
+            <a href="{{url_for('login')}}">
               <i class="fa fa-power-off"></i>
             <span class="">Cerrar sesión</span>
             </a>
@@ -153,19 +154,19 @@
       <ul class="navigation navigation-main">
         <li class="navigation-header"><span>GESTIONES</span></li>
         <li class="nav-item">
-          <a href='./productos'>
+          <a href="{{url_for('productos')}}">
             <i class="fa fa-box"></i>
             <span class="menu-title text-truncate">Productos</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="./providers">
+          <a href="{{url_for('providers')}}">
             <i class="fa fa-truck-loading"></i>
             <span class="menu-title text-truncate">Proveedores</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="./users">
+          <a href="{{url_for('users')}}" restrict access="user">
             <i class="fa fa-users"></i>
             <span class="menu-title text-truncate">Usuarios</span>
           </a>
