@@ -25,7 +25,7 @@ def login():
 
         if not utils.isUsernameValid(usuario):
             error="El usuario debe ser alfanumérico y/o contener -_."
-            #Aquí poner la vista de error que va contener el formulario
+            #Aquí poner la vista de error que va contener el formulario           
             return render_template("modules/login.html")
 
         if not utils.isPasswordValid(clave):

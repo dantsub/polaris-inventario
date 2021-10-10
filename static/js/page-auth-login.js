@@ -16,6 +16,9 @@ $(function () {
   // --------------------------------------------------------------------
   if (pageLoginForm.length) {
     pageLoginForm.validate({
+      onkeyup: function (element) {
+        $(element).valid();
+      },
       /*
       * ? To enable validation onkeyup
       onkeyup: function (element) {
@@ -32,7 +35,8 @@ $(function () {
         },
         'login-password': {
           required: true,
-          minlength:8
+          minlength:8,
+          email:true
         }
       }
     });
