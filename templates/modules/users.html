@@ -177,10 +177,10 @@
             <label for="">Correo</label>
             <input type="email" id="correo">
             <label for="">Rol</label>
-            <select name="rol" id="rol">
-              <option value="Super">Super Administrador</option>
-              <option value="Admin">Administrador</option>
-              <option value="Usufin">Usuario final</option>
+            <select class= "select-crear" name="rol-crear" id="rol-crear">
+              <option  value="Usufin">Usuario final</option>
+              <option  class = "select-crear-super" value="Admin">Administrador</option>
+              <option  class = "select-crear-super" value="Super">Super Administrador</option>
             </select>
             <label for="">Contraseña</label>
             <input type="password" id="passwd">
@@ -218,12 +218,15 @@
             <input type="text" id="cedula">
             <label for="">Correo</label>
             <input type="email" id="correo">
-            <label for="">Rol</label>
-            <select name="rol" id="rol">
-              <option value="Super">Super Administrador</option>
-              <option value="Admin">Administrador</option>
-              <option value="Usufin">Usuario final</option>
+
+
+            <label for="exampleInputPassword1">Rol</label>
+            <select   name="rol-editar" id="rol-editar">
+              <option  value="Usufin">Usuario final</option>
+              <option  class = "select-editar-admin" value="Admin">Administrador</option>
+              <option class = "select-editar-super" value="Super">Super Administrador</option>
             </select>
+
             <label for="">Fecha de vencimiento</label>
             <input type="date" id="fec_venci">
           </div>
@@ -266,6 +269,7 @@
       </div>
     </div>
   </div>
+
 </main>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
   integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
