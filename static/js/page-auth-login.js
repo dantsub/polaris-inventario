@@ -35,8 +35,16 @@ $(function () {
         },
         'login-password': {
           required: true,
-          minlength:8,
-          email:true
+          minlength: 6, 
+        }
+      },
+      messages : {
+        'login-email': {
+          required: "El campo usuario no puede estar vacío",
+        },
+        'login-password': {
+          required: "El campo contraseña no puede estar vacío",
+          minlength: "La contraseña debe ser de mínimo 6 caracteres"
         }
       }
     });

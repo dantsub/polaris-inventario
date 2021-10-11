@@ -2,275 +2,380 @@
 
 {% block content %}
 <main class="container">
-  <div class="table-responsive">
-    <div class="row">
-      <div class="col-7">
-        <div class="form-group">
-          <input type="text">
-          <button class="btn btn-primary" id="buscar">Buscar</button>
-        </div>
-        <div class="form-group">
-          <input type="radio" name="tipo_b" value="1">
-          Usuario
-          <input type="radio" name="tipo_b" value="2">
-          Nombre
-        </div>
+    <div class="table-responsive">
+        <div class="row">
+            <div class="col-7">
+                <div class="form-group">
+                    <input type="text">
+                    <button class="btn btn-primary" id="buscar">Buscar</button>
+                </div>
+                <div class="form-group">
+                    <input type="radio" name="tipo_b" value="1">
+                    Usuario
+                    <input type="radio" name="tipo_b" value="2">
+                    Nombre
+                </div>
 
-      </div>
-      <div class="col-5">
-        <div class="crearusuario">
-          <label for="">Crear Usuario</label>
-          <button class="btn btn-primary" id="crear" data-toggle="modal" data-target="#modal_crear">
-            <span class="fa fa-user-plus"></span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Nombre usuario</th>
-          <th>Nombres</th>
-          <th>Apellidos</th>
-          <th>Cedula</th>
-          <th>Correo</th>
-          <th>Rol</th>
-          <th>Fecha creación</th>
-          <th>Fecha de vencimiento</th>
-          <th colspan="2">Acciones</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr>
-          <td>MGARCIA</td>
-          <td>Manuel</td>
-          <td>Garcia</td>
-          <td>123456789</td>
-          <td>mgarcia@uninorte.edu.co</td>
-          <td>Superadministrador</td>
-          <td>01-01-2021</td>
-          <td> </td>
-
-          <td colspan="2">
-            <button class="btn btn-primary p-0" id="editar" data-toggle="modal" data-target="#modal_editar"
-              style="width:30px">
-              <span class="fas fa-edit p-0"></span>
-            </button>
-            <button class="btn btn-primary p-0" id="eliminar" data-toggle="modal" data-target="#modal_eliminar"
-              style="width:30px">
-              <span class="fa fa-user-times p-0"></span>
-            </button>
-          </td>
-
-        </tr>
-
-        <tr>
-          <td>LCAMPOS</td>
-          <td>Lesly</td>
-          <td>Campos</td>
-          <td>123456789</td>
-          <td>lcampos@uninorte.edu.co</td>
-          <td>Administrador</td>
-          <td>01-01-2021</td>
-          <td> </td>
-          <td>
-            <button class="btn btn-primary p-0" id="editar" data-toggle="modal" data-target="#modal_editar"
-              style="width:30px">
-              <span class="fas fa-edit"></span>
-            </button>
-            <button class="btn btn-primary p-0" id="eliminar" data-toggle="modal" data-target="#modal_eliminar"
-              style="width:30px">
-              <span class="fa fa-user-times p-0"></span>
-            </button>
-          </td>
-        </tr>
-
-        <tr>
-          <td>LGOMEZ</td>
-          <td>Luis</td>
-          <td>Gomez</td>
-          <td>123456789</td>
-          <td>lgomez@uninorte.edu.co</td>
-          <td>Administrador</td>
-          <td>01-01-2021</td>
-          <td> </td>
-          <td>
-            <button class="btn btn-primary p-0" id="editar" data-toggle="modal" data-target="#modal_editar"
-              style="width:30px">
-              <span class="fas fa-edit"></span>
-            </button>
-            <button class="btn btn-primary p-0" id="eliminar" data-toggle="modal" data-target="#modal_eliminar"
-              style="width:30px">
-              <span class="fa fa-user-times p-0"></span>
-            </button>
-          </td>
-        </tr>
-
-        <tr>
-          <td>JMARTINEZ</td>
-          <td>Joshua </td>
-          <td>Martinez</td>
-          <td>123456789</td>
-          <td>jmartinez@uninorte.edu.co</td>
-          <td>Administrador</td>
-          <td>01-01-2021</td>
-          <td> </td>
-          <td>
-            <button class="btn btn-primary p-0" id="editar" data-toggle="modal" data-target="#modal_editar"
-              style="width:30px">
-              <span class="fas fa-edit"></span>
-            </button>
-            <button class="btn btn-primary p-0" id="eliminar" data-toggle="modal" data-target="#modal_eliminar"
-              style="width:30px">
-              <span class="fa fa-user-times p-0"></span>
-            </button>
-          </td>
-        </tr>
-
-        <tr>
-          <td>NDAMS</td>
-          <td>Nora </td>
-          <td>Dams</td>
-          <td>123456789</td>
-          <td>ndams@uninorte.edu.co</td>
-          <td>Usuario final</td>
-          <td>01-01-2021</td>
-          <td>07-10-2021</td>
-          <td>
-            <button class="btn btn-primary p-0" id="editar" data-toggle="modal" data-target="#modal_editar"
-              style="width:30px">
-              <span class="fas fa-edit p-0"></span>
-            </button>
-            <button class="btn btn-primary p-0" id="eliminar" data-toggle="modal" data-target="#modal_eliminar"
-              style="width:30px">
-              <span class="fa fa-user-times p-0"></span>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-
-    </table>
-  </div>
-  <div class="modal fade" id="modal_crear" tabindex="-1" role="dialog" aria-labelledby="titulo_crear"
-    aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 id="titulo_crear">Crear Usuario</h5>
-          <button class="close" data-dismiss="modal" aria-label="Cerrar">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="d-flex flex-column">
-            <label for="">Nombre de usuario</label>
-            <input type="text" id="id">
-            <label for="">Nombres</label>
-            <input type="text" id="nombres">
-            <label for="">Apellidos</label>
-            <input type="text" id="apellidos">
-            <label for="">Cedula</label>
-            <input type="text" id="cedula">
-            <label for="">Correo</label>
-            <input type="email" id="correo">
-            <label for="">Rol</label>
-            <select name="rol" id="rol">
-              <option value="Super">Super Administrador</option>
-              <option value="Admin">Administrador</option>
-              <option value="Usufin">Usuario final</option>
-            </select>
-            <label for="">Contraseña</label>
-            <input type="password" id="passwd">
-          </div>
-
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-success" type="button">
-            Crear
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="modal_editar" tabindex="-1" role="dialog" aria-labelledby="titulo_editar"
-    aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 id="titulo_editar">Editar Usuario</h5>
-          <button class="close" data-dismiss="modal" aria-label="Cerrar">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="d-flex flex-column">
-            <label for="">Nombre de usuario</label>
-            <input type="text" id="id">
-            <label for="">Nombres</label>
-            <input type="text" id="nombres">
-            <label for="">Apellidos</label>
-            <input type="text" id="apellidos">
-            <label for="">Cedula</label>
-            <input type="text" id="cedula">
-            <label for="">Correo</label>
-            <input type="email" id="correo">
-            <label for="">Rol</label>
-            <select name="rol" id="rol">
-              <option value="Super">Super Administrador</option>
-              <option value="Admin">Administrador</option>
-              <option value="Usufin">Usuario final</option>
-            </select>
-            <label for="">Fecha de vencimiento</label>
-            <input type="date" id="fec_venci">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-success" type="button">
-            Editar
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="modal_eliminar" tabindex="-1" role="dialog" aria-labelledby="titulo_eliminar"
-    aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 id="titulo_eliminar">Eliminar Usuario</h5>
-          <button class="close" data-dismiss="modal" aria-label="Cerrar">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div>
-            <div>
-              <label for="">¿Está seguro que desea eliminar el usuario?</label>
             </div>
-
-            <div class="modal-footer">
-              <button class="btn btn-success" type="button" id="si">
-                SI
-              </button>
-              <button class="btn btn-success" type="button" id="no">
-                NO
-              </button>
+            <div class="col-5">
+                <div class="crearusuario">
+                    <label for="">Crear Usuario</label>
+                    <button class="btn btn-primary" id="crear" data-toggle="modal" data-target="#modal_crear">
+                        <span class="fa fa-user-plus"></span>
+                    </button>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre usuario</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Cedula</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                    <th>Fecha creación</th>
+                    <th>Fecha de vencimiento</th>
+                    <th colspan="2">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>MGARCIA</td>
+                    <td>Manuel</td>
+                    <td>Garcia</td>
+                    <td>123456789</td>
+                    <td>mgarcia@uninorte.edu.co</td>
+                    <td>Superadministrador</td>
+                    <td>01-01-2021</td>
+                    <td> </td>
+
+                    <td colspan="2">
+                        <button class="btn btn-primary p-0" id="editar" data-toggle="modal" data-target="#modal_editar"
+                            style="width:30px">
+                            <span class="fas fa-edit p-0"></span>
+                        </button>
+                        <button class="btn btn-primary p-0" id="eliminar" data-toggle="modal"
+                            data-target="#modal_eliminar" style="width:30px">
+                            <span class="fa fa-user-times p-0"></span>
+                        </button>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>LCAMPOS</td>
+                    <td>Lesly</td>
+                    <td>Campos</td>
+                    <td>123456789</td>
+                    <td>lcampos@uninorte.edu.co</td>
+                    <td>Administrador</td>
+                    <td>01-01-2021</td>
+                    <td> </td>
+                    <td>
+                        <button class="btn btn-primary p-0" id="editar" data-toggle="modal" data-target="#modal_editar"
+                            style="width:30px">
+                            <span class="fas fa-edit"></span>
+                        </button>
+                        <button class="btn btn-primary p-0" id="eliminar" data-toggle="modal"
+                            data-target="#modal_eliminar" style="width:30px">
+                            <span class="fa fa-user-times p-0"></span>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>LGOMEZ</td>
+                    <td>Luis</td>
+                    <td>Gomez</td>
+                    <td>123456789</td>
+                    <td>lgomez@uninorte.edu.co</td>
+                    <td>Administrador</td>
+                    <td>01-01-2021</td>
+                    <td> </td>
+                    <td>
+                        <button class="btn btn-primary p-0" id="editar" data-toggle="modal" data-target="#modal_editar"
+                            style="width:30px">
+                            <span class="fas fa-edit"></span>
+                        </button>
+                        <button class="btn btn-primary p-0" id="eliminar" data-toggle="modal"
+                            data-target="#modal_eliminar" style="width:30px">
+                            <span class="fa fa-user-times p-0"></span>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>JMARTINEZ</td>
+                    <td>Joshua </td>
+                    <td>Martinez</td>
+                    <td>123456789</td>
+                    <td>jmartinez@uninorte.edu.co</td>
+                    <td>Administrador</td>
+                    <td>01-01-2021</td>
+                    <td> </td>
+                    <td>
+                        <button class="btn btn-primary p-0" id="editar" data-toggle="modal" data-target="#modal_editar"
+                            style="width:30px">
+                            <span class="fas fa-edit"></span>
+                        </button>
+                        <button class="btn btn-primary p-0" id="eliminar" data-toggle="modal"
+                            data-target="#modal_eliminar" style="width:30px">
+                            <span class="fa fa-user-times p-0"></span>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>NDAMS</td>
+                    <td>Nora </td>
+                    <td>Dams</td>
+                    <td>123456789</td>
+                    <td>ndams@uninorte.edu.co</td>
+                    <td>Usuario final</td>
+                    <td>01-01-2021</td>
+                    <td>07-10-2021</td>
+                    <td>
+                        <button class="btn btn-primary p-0" id="editar" data-toggle="modal" data-target="#modal_editar"
+                            style="width:30px">
+                            <span class="fas fa-edit p-0"></span>
+                        </button>
+                        <button class="btn btn-primary p-0" id="eliminar" data-toggle="modal"
+                            data-target="#modal_eliminar" style="width:30px">
+                            <span class="fa fa-user-times p-0"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
     </div>
-  </div>
+
+    <!-- / Inicio Modal Crear -->
+    <div class="modal fade" id="modal_crear" tabindex="-1" role="dialog" aria-labelledby="titulo_crear"
+        aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="titulo_crear">Crear Usuario</h5>
+                    <button class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form_crear" class="row g-3 needs-validation" novalidate>
+                        <div class="row">
+                            <div class="col-12  mb-1">
+                                <label for="id">Nombre de usuario</label>
+                                <input type="text" class="form-control form-control-sm" id="id"
+                                    placeholder="Nombre de usuario" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el nombre de usuario.
+                                </div>
+                            </div>
+
+                            <div class="col-12 mb-1">
+                                <label for="nombres">Nombres</label>
+                                <input type="text" class="form-control form-control-sm" id="nombres"
+                                    placeholder="ingrese los nombres" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese los nombres.
+                                </div>
+                            </div>
+
+                            <div class="col-12 mb-1">
+                                <label for="apellidos">Apellidos</label>
+                                <input type="text" class="form-control form-control-sm" id="apellidos"
+                                    placeholder="ingrese los apellidos" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese los apellidos.
+                                </div>
+                            </div>
+
+                            <div class="col-12 mb-1">
+                                <label for="cedula">Documento</label>
+                                <input type="number" class="form-control form-control-sm" id="cedula"
+                                    placeholder="ingrese el número del documento" required number>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el número de documento.
+                                </div>
+                            </div>
+
+                            <div class="col-12 mb-1">
+                                <label for="correo">Correo </label>
+                                <input type="email" class="form-control form-control-sm" id="correo"
+                                    placeholder="ingrese el correo electrónico" required email>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese un correo electrónico valido.
+                                </div>
+                            </div>
+
+                            <div class="col-12 mb-1">
+                                <label for="rol_crear" class="form-label">Rol</label>
+                                <select class="form-select form-select form-select-sm" id="rol_crear" required>
+                                    <option value="Usufin">Usuario final</option>
+                                    <option class= "select-crear-admin" value="Admin">Administrador</option>
+                                    <option class= "select-crear-super" value="Super">Super Administrador</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el rol.
+                                </div>
+                            </div>
+
+                            <div class="col-12 mb-1">
+                                <label for="correo">Contraseña </label>
+                                <input type="password" class="form-control form-control-sm" id="passw"
+                                    placeholder="ingrese el correo electrónico" required minlength="6">
+                                <div class="invalid-feedback">
+                                    Por favor ingrese una contraseña valida de mínimo 6 caracteres.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-success" type="submit">
+                                Crear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / Fin Modal Crear -->
+
+    <!-- Inicio Modal Editar -->
+    <div class="modal fade" id="modal_editar" tabindex="-1" role="dialog" aria-labelledby="titulo_crear"
+        aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="titulo_crear">Editar Usuario</h5>
+                    <button class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form_crear" class="row g-3 needs-validation" novalidate>
+                        <div class="row">
+                            <div class="col-12  mb-1">
+                                <label for="id">Nombre de usuario</label>
+                                <input type="text" class="form-control form-control-sm" id="id"
+                                    placeholder="Nombre de usuario" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el nombre de usuario.
+                                </div>
+                            </div>
+
+                            <div class="col-12 mb-1">
+                                <label for="nombres">Nombres</label>
+                                <input type="text" class="form-control form-control-sm" id="nombres"
+                                    placeholder="ingrese los nombres" required >
+                                <div class="invalid-feedback">
+                                    Por favor ingrese los nombres.
+                                </div>
+                            </div>
+
+                            <div class="col-12 mb-1">
+                                <label for="apellidos">Apellidos</label>
+                                <input type="text" class="form-control form-control-sm" id="apellidos"
+                                    placeholder="ingrese los apellidos" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese los apellidos.
+                                </div>
+                            </div>
+
+                            <div class="col-12 mb-1">
+                                <label for="cedula">Documento</label>
+                                <input type="number" class="form-control form-control-sm" id="cedula"
+                                    placeholder="ingrese el número del documento" required number>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese un número de documento solo de números.
+                                </div>
+                            </div>
+
+                            <div class="col-12 mb-1">
+                                <label for="correo">Correo </label>
+                                <input type="email" class="form-control form-control-sm" id="correo"
+                                    placeholder="ingrese el correo electrónico" required email>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese un correo electrónico valido.
+                                </div>
+                            </div>
+
+                            <div class="col-12 mb-1">
+                                <label for="rol_crear" class="form-label">Rol</label>
+                                <select class="form-select form-select form-select-sm" id="rol_crear" required>
+                                    <option value="Usufin">Usuario final</option>
+                                    <option class= "select-editar-admin" value="Admin">Administrador</option>
+                                    <option class= "select-editar-super" value="Super">Super Administrador</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el rol.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-success" type="submit">
+                                Editar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Fin Modal Editar -->
+    <div class="modal fade" id="modal_eliminar" tabindex="-1" role="dialog" aria-labelledby="titulo_eliminar"
+        aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="titulo_eliminar">Eliminar Usuario</h5>
+                    <button class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div>
+                            <label for="">¿Está seguro que desea eliminar el usuario?</label>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-success" type="button" id="si">
+                                SI
+                            </button>
+                            <button class="btn btn-success" type="button" id="no">
+                                NO
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </main>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-  integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+    crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
-  integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+    crossorigin="anonymous"></script>
+<script src="./../../static/js/validacionCrearUsuario.js"></script>
+<script>
+    $('#modal_crear').on('show.bs.modal', function (event) {
+        $('#form_crear').trigger("reset");
+    });
+</script>
 {% endblock content %}

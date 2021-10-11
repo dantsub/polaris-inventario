@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/roles.js') }}"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/roles.css') }}"
+    />
+
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -152,19 +160,19 @@
       <!-- GESTIONES -->
       <ul class="navigation navigation-main">
         <li class="navigation-header"><span>GESTIONES</span></li>
-        <li class="nav-item">
+        <li class="nav-item-productos">
           <a href="{{url_for('productos')}}">
             <i class="fa fa-box"></i>
             <span class="menu-title text-truncate">Productos</span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item-proveedores">
           <a href="{{url_for('providers')}}">
             <i class="fa fa-truck-loading"></i>
             <span class="menu-title text-truncate">Proveedores</span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item-usuarios">
           <a href="{{url_for('users')}}" restrict access="user">
             <i class="fa fa-users"></i>
             <span class="menu-title text-truncate">Usuarios</span>
