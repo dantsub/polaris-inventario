@@ -5,7 +5,7 @@
 
 $(function () {
         'use strict';
-        var role= 'administrador'
+        var role= 'superadmin'
         var usuarios = $('.nav-item-usuarios');
         var crearroladmin = $('.select-crear-admin');
         var crearrolsuper = $('.select-crear-super');
@@ -26,7 +26,7 @@ $(function () {
  
         } 
 
-        if (role=='superadministrador'){
+        if (role=='superadmin'){
             crearroladmin.show();
             crearrolsuper.show();
             editarroladmin.show();

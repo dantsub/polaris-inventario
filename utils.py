@@ -1,7 +1,8 @@
 import re
 from validate_email import validate_email
 
-pass_regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,}$"
+#pass_regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,}$"
+pass_regex = "^[a-zA-Z0-9\d@$!%*?&._-]{6,}$"
 # Esta expresión de password indica que el debe tener mínimo 8 caracteres, una mayúscula, una minuscula, un número y un caracter:@$!%*?&.
 user_regex = "^[a-zA-Z0-9_.-]+$"
 # ^ matches the beginning of the string

@@ -199,7 +199,7 @@
                             <div class="col-12 mb-1">
                                 <label for="cedula">Documento</label>
                                 <input type="number" class="form-control form-control-sm" id="cedula"
-                                    placeholder="ingrese el número del documento" required>
+                                    placeholder="ingrese el número del documento" required number>
                                 <div class="invalid-feedback">
                                     Por favor ingrese el número de documento.
                                 </div>
@@ -208,7 +208,7 @@
                             <div class="col-12 mb-1">
                                 <label for="correo">Correo </label>
                                 <input type="email" class="form-control form-control-sm" id="correo"
-                                    placeholder="ingrese el correo electrónico" required>
+                                    placeholder="ingrese el correo electrónico" required email>
                                 <div class="invalid-feedback">
                                     Por favor ingrese un correo electrónico valido.
                                 </div>
@@ -218,8 +218,8 @@
                                 <label for="rol_crear" class="form-label">Rol</label>
                                 <select class="form-select form-select form-select-sm" id="rol_crear" required>
                                     <option value="Usufin">Usuario final</option>
-                                    <option value="Admin">Administrador</option>
-                                    <option value="Super">Super Administrador</option>
+                                    <option class= "select-crear-admin" value="Admin">Administrador</option>
+                                    <option class= "select-crear-super" value="Super">Super Administrador</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Por favor ingrese el rol.
@@ -229,9 +229,9 @@
                             <div class="col-12 mb-1">
                                 <label for="correo">Contraseña </label>
                                 <input type="password" class="form-control form-control-sm" id="passw"
-                                    placeholder="ingrese el correo electrónico" required>
+                                    placeholder="ingrese el correo electrónico" required minlength="6">
                                 <div class="invalid-feedback">
-                                    Por favor ingrese una contraseña valida.
+                                    Por favor ingrese una contraseña valida de mínimo 6 caracteres.
                                 </div>
                             </div>
 
@@ -275,7 +275,7 @@
                             <div class="col-12 mb-1">
                                 <label for="nombres">Nombres</label>
                                 <input type="text" class="form-control form-control-sm" id="nombres"
-                                    placeholder="ingrese los nombres" required>
+                                    placeholder="ingrese los nombres" required >
                                 <div class="invalid-feedback">
                                     Por favor ingrese los nombres.
                                 </div>
@@ -293,16 +293,16 @@
                             <div class="col-12 mb-1">
                                 <label for="cedula">Documento</label>
                                 <input type="number" class="form-control form-control-sm" id="cedula"
-                                    placeholder="ingrese el número del documento" required>
+                                    placeholder="ingrese el número del documento" required number>
                                 <div class="invalid-feedback">
-                                    Por favor ingrese el número de documento.
+                                    Por favor ingrese un número de documento solo de números.
                                 </div>
                             </div>
 
                             <div class="col-12 mb-1">
                                 <label for="correo">Correo </label>
                                 <input type="email" class="form-control form-control-sm" id="correo"
-                                    placeholder="ingrese el correo electrónico" required>
+                                    placeholder="ingrese el correo electrónico" required email>
                                 <div class="invalid-feedback">
                                     Por favor ingrese un correo electrónico valido.
                                 </div>
@@ -312,8 +312,8 @@
                                 <label for="rol_crear" class="form-label">Rol</label>
                                 <select class="form-select form-select form-select-sm" id="rol_crear" required>
                                     <option value="Usufin">Usuario final</option>
-                                    <option value="Admin">Administrador</option>
-                                    <option value="Super">Super Administrador</option>
+                                    <option class= "select-editar-admin" value="Admin">Administrador</option>
+                                    <option class= "select-editar-super" value="Super">Super Administrador</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Por favor ingrese el rol.
