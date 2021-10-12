@@ -1,7 +1,5 @@
-// Show li html based on role
-// nav-item-proveedores
-//nav-item-usuarios
-//nav-item-productos  "select-crear-admin" "select-crear-super" "select-editar-admin""select-editar-super" 
+// Show html based on role
+
 
 $(function () {
         'use strict';
