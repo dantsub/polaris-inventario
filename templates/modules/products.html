@@ -234,8 +234,8 @@ content %}
                     </div>
                   </form>
                   {% if error %}
-                  <script>
-                    document.formulariocrearprod.nombreproducto.value = 34;
+                  <script type="text/javascript">
+                    $('#nombreproducto').val('{{select}}');
                   </script>
                   {% endif %}
                 </div>

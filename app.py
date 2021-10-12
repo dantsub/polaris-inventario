@@ -37,7 +37,7 @@ def crearproductos():
         if select == None:
             data3 = "Seleccione un proveedor"
             error = True
-    return render_template('modules/products.html', data1=data1, data2=data2, data3=data3, error=error, nombre=nombre)
+    return render_template('modules/products.html', data1=data1, data2=data2, data3=data3, error=error, nombre=nombre, select=select, descripcion=descripcion)
 
 
 @app.route('/crearproductos')
