@@ -4,6 +4,6 @@
 .sr-only {
   overflow: hidden;
 }
-.crearprov {
-  
+.table-buttons {
+  padding: 0.5rem 0.7rem !important;
 }

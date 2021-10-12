@@ -12,7 +12,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/productos', methods=['GET', 'POST'])
+@app.route('/productos', methods=["GET", "POST"])
 def productos():
     return render_template('modules/products.html')
 
@@ -40,7 +40,7 @@ def crearproductos():
     return render_template('modules/products.html', data1=data1, data2=data2, data3=data3, error=error, nombre=nombre, select=select, descripcion=descripcion)
 
 
-@app.route('/crearproductos')
+@app.route('/crearproductos', methods=["GET", "POST"])
 def crearproductossin():
     return render_template('modules/products.html')
 
@@ -67,12 +67,12 @@ def login():
     return render_template("modules/login.html")
 
 
-@app.route('/providers')
+@app.route('/providers', methods=["GET", "POST"])
 def providers():
     return render_template('modules/providers.html')
 
 
-@app.route('/users')
+@app.route('/users', methods=["GET", "POST"])
 def users():
     return render_template('modules/users.html')
 
