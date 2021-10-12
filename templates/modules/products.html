@@ -1,17 +1,14 @@
 {% extends 'base.html' %} {% block title %} Products {% endblock %} {% block
-content %}
-
-{% if error %}
+content %} {% if error %}
 <script>
   (function abrirmodal() {
     $(function () {
       // abrir modal
-      $('#modalNew').modal('show');
+      $("#modalNew").modal("show");
     });
   })();
 </script>
 {% endif %}
-
 
 <div class="card">
   <div class="card-body border-bottom">
@@ -22,7 +19,13 @@ content %}
     <div class="row">
       <div class="col-md-3">
         <label class="form-label" for="Search">Busqueda</label>
-        <input type="search" class="form-control" id="Search" placeholder="Busqueda" aria-controls="Buscar" />
+        <input
+          type="search"
+          class="form-control"
+          id="Search"
+          placeholder="Busqueda"
+          aria-controls="Buscar"
+        />
       </div>
       <div class="col-md-3">
         <label class="form-label" for="Search">Proveedores</label>
@@ -34,39 +37,47 @@ content %}
         </select>
       </div>
       <div class="col-md-3 d-flex align-items-end">
-        <button type="button" class="btn btn-primary align-self-end">Buscar</button>
+        <button type="button" class="btn btn-primary align-self-end">
+          Buscar
+        </button>
       </div>
       <div class="col-md-3 d-flex align-items-end">
         <span class="mr-1" style="margin-bottom: 10px">Crear producto</span>
-        <button type="button" id="abrirmodalnuevo" class="btn btn-primary align-self-end btn-crear"
-          data-bs-toggle="modal" data-bs-target="#modalNew" title="Crear Nuevo Producto">
+        <button
+          type="button"
+          id="abrirmodalnuevo"
+          class="btn btn-primary align-self-end btn-crear"
+          data-bs-toggle="modal"
+          data-bs-target="#modalNew"
+          title="Crear Nuevo Producto"
+        >
           <i class="fas fa-plus"></i>
         </button>
       </div>
     </div>
-    <div class="row" style="padding-top:10px; padding-left: 14px;">
+    <div class="row" style="padding-top: 10px; padding-left: 14px">
       <div class="col-md-3 form-check-inline">
         <label class="form-check-label" for="Search">
           <input type="checkbox" class="form-check-input" id="Search" />
           Listar productos disponibles
         </label>
-
       </div>
       <div class="col-md-4 form-check-inline">
         <label class="form-check-label" for="Search">
           <input type="checkbox" class="form-check-input" id="Search" />
           Listar productos por debajo del minimo
         </label>
-
       </div>
     </div>
-
-
-  </div> <!-- Fin card-body -->
+  </div>
+  <!-- Fin card-body -->
 
   <div>
     <!-- Seccion de tabla -->
-    <div class="card-dataTable table-responsive pt-0" style="padding: 5px!important;">
+    <div
+      class="card-dataTable table-responsive pt-0"
+      style="padding: 5px !important"
+    >
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
@@ -88,8 +99,13 @@ content %}
               <td>Toyota</td>
               <td>10</td>
               <td>20</td>
-              <td style="text-align: center">
-                <button class="btn btn-primary table-buttons" id="editar" data-bs-toggle="modal" data-bs-target="#modalEdit">
+              <td class="py-1 px-2" text-align="center">
+                <button
+                  class="btn btn-primary table-buttons"
+                  id="editar"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalEdit"
+                >
                   <span class="fas fa-edit"></span>
                 </button>
                 <!-- <a data-bs-toggle="modal" data-bs-target="#modalEdit">
@@ -98,7 +114,11 @@ content %}
                     ></span>
                   </a> -->
                 &nbsp;
-                <a class="btn btn-danger table-buttons" data-bs-toggle="modal" data-bs-target="#modalDelete">
+                <a
+                  class="btn btn-danger table-buttons"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalDelete"
+                >
                   <span><i class="fa fa-trash"></i></span>
                 </a>
               </td>
@@ -106,28 +126,46 @@ content %}
           </tbody>
         </table>
 
-
-
-
-
-
-
         <!-- Modal Crear Producto -->
-        <div class="modal fade" id="modalNew" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-          name="modalNew">
+        <div
+          class="modal fade"
+          id="modalNew"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+          name="modalNew"
+        >
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Crear Producto</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Crear Producto
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
               </div>
-              <form id="formulariocrearprod" method="post" action="{{url_for('crearproductos')}}"
-                class="needs-validation" novalidate>
+              <form
+                id="formulariocrearprod"
+                method="post"
+                action="{{url_for('crearproductos')}}"
+                class="needs-validation"
+                novalidate
+              >
                 <div class="modal-body">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Nombre*</label>
-                    <input type="text" class="form-control" id="nombreproducto" placeholder="Nombre" required
-                      name="nombreproducto" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nombreproducto"
+                      placeholder="Nombre"
+                      required
+                      name="nombreproducto"
+                    />
 
                     <div id="errornomprod" style="color: red">
                       {% if data1 %} {{data1}} {% endif %}
@@ -138,15 +176,25 @@ content %}
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Descripcion*</label>
-                    <textarea class="form-control" id="descripcionprod" placeholder="Descripcion" required
-                      name="descripcionprod"></textarea>
+                    <textarea
+                      class="form-control"
+                      id="descripcionprod"
+                      placeholder="Descripcion"
+                      required
+                      name="descripcionprod"
+                    ></textarea>
                     <div id="errordescripcion" style="color: red">
                       {% if data2 %} {{data2}} {% endif %}
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="menuproveedor">Proveedores*</label>
-                    <select class="custom-select" id="menuproveedor" required name="menuproveedor">
+                    <select
+                      class="custom-select"
+                      id="menuproveedor"
+                      required
+                      name="menuproveedor"
+                    >
                       <option selected disabled value="">Seleccione</option>
                       <option value="1">Proveedor 1</option>
                       <option value="2">Proveedor 2</option>
@@ -161,57 +209,92 @@ content %}
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Cant. Minima*</label>
-                    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Cant. Minima"
-                      min="1" />
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="exampleInputPassword1"
+                      placeholder="Cant. Minima"
+                      min="1"
+                    />
                     <div id="errorcantmin"></div>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Existencia*</label>
-                    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Existencia"
-                      min="1" />
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="exampleInputPassword1"
+                      placeholder="Existencia"
+                      min="1"
+                    />
                     <div id="errorexistencia"></div>
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
                     Cancelar
                   </button>
-                  <button type="submit" class="btn btn-primary" onclick="Javascript:fnt_create_product_validate()">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    onclick="Javascript:fnt_create_product_validate()"
+                  >
                     Crear Producto
                   </button>
                 </div>
               </form>
               {% if error %}
               <script type="text/javascript">
-                $('#nombreproducto').val('{{select}}');
+                $("#nombreproducto").val("{{select}}");
               </script>
               {% endif %}
             </div>
           </div>
         </div>
 
-
-
-
-
-
-
-
         <!-- Modal Editar -->
-        <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div
+          class="modal fade"
+          id="modalEdit"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Editar Producto</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Editar Producto
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
               </div>
-              <form method="post" action="{{url_for('productos')}}" id="fromularioeditarprod" class="needs-validation"
-                novalidate>
+              <form
+                method="post"
+                action="{{url_for('productos')}}"
+                id="fromularioeditarprod"
+                class="needs-validation"
+                novalidate
+              >
                 <div class="modal-body">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Nombre*</label>
-                    <input type="text" class="form-control" id="nombreproducto2" placeholder="Nombre" required
-                      name="nombreproducto2" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nombreproducto2"
+                      placeholder="Nombre"
+                      required
+                      name="nombreproducto2"
+                    />
                     <div id="errornomprod2" style="color: red">
                       {% if data %} {{data}} {% endif %}
                     </div>
@@ -221,8 +304,12 @@ content %}
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Descripcion*</label>
-                    <textarea class="form-control" id="descripcionprod2" placeholder="Descripcion"
-                      required="required"></textarea>
+                    <textarea
+                      class="form-control"
+                      id="descripcionprod2"
+                      placeholder="Descripcion"
+                      required="required"
+                    ></textarea>
                     <div id="errordescripcion2" style="color: red"></div>
                     <div class="invalid-feedback">
                       Por favor ingrese la descripción.
@@ -230,35 +317,51 @@ content %}
                   </div>
                   <div class="form-group">
                     <label for="menuproveedor">Proveedores*</label>
-                    <select class="form-select" id="menuproveedor2" required="required">
+                    <select
+                      class="form-select"
+                      id="menuproveedor2"
+                      required="required"
+                    >
                       <option selected disabled value="">Seleccione</option>
                       <option value="1">Proveedor 1</option>
                       <option value="2">Proveedor 2</option>
                       <option value="3">Proveedor 3</option>
                     </select>
                     <div id="errorproveedor2" style="color: red"></div>
-                    <div class="invalid-feedback">
-                      Seleccione un proveedor.
-                    </div>
+                    <div class="invalid-feedback">Seleccione un proveedor.</div>
                     <div class="invalid-feedback">
                       Por favor ingrese la descripción.
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Cant. Minima*</label>
-                    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Cant. Minima"
-                      min="1" />
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="exampleInputPassword1"
+                      placeholder="Cant. Minima"
+                      min="1"
+                    />
                     <div id="errorcantmin"></div>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Existencia*</label>
-                    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Existencia"
-                      min="1" />
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="exampleInputPassword1"
+                      placeholder="Existencia"
+                      min="1"
+                    />
                     <div id="errorexistencia"></div>
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
                     Cancelar
                   </button>
                   <button type="submit" class="btn btn-primary">
@@ -271,20 +374,35 @@ content %}
         </div>
 
         <!-- Modal Eliminar -->
-        <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div
+          class="modal fade"
+          id="modalDelete"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">
                   Eliminar producto
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
               </div>
               <div class="modal-body">
                 Esta seguro de eliminar este producto?
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
                   Cancelar
                 </button>
                 <button type="button" class="btn btn-primary">
@@ -298,11 +416,11 @@ content %}
     </div>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
+  crossorigin="anonymous"
+></script>
 <script src="{{url_for('static', filename= 'js/productsValidate.js')}}"></script>
-
-
-
 
 {% endblock %}
