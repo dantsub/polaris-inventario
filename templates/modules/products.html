@@ -152,6 +152,8 @@ content %} {% if error %}
                 id="formulariocrearprod"
                 method="post"
                 action="{{url_for('crearproductos')}}"
+                class="needs-validation"
+                novalidate
               >
                 <div class="modal-body">
                   <div class="form-group">
@@ -161,6 +163,7 @@ content %} {% if error %}
                       class="form-control"
                       id="nombreproducto"
                       placeholder="Nombre"
+                      required
                       name="nombreproducto"
                     />
 
@@ -177,6 +180,7 @@ content %} {% if error %}
                       class="form-control"
                       id="descripcionprod"
                       placeholder="Descripcion"
+                      required
                       name="descripcionprod"
                     ></textarea>
                     <div id="errordescripcion" style="color: red">
@@ -188,6 +192,7 @@ content %} {% if error %}
                     <select
                       class="custom-select"
                       id="menuproveedor"
+                      required
                       name="menuproveedor"
                     >
                       <option selected disabled value="">Seleccione</option>
