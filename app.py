@@ -72,7 +72,7 @@ def providers():
     return render_template('modules/providers.html')
 
 
-@app.route('/users')
+@app.route('/users', methods=["GET", "POST"])
 def users():
     return render_template('modules/users.html')
 
