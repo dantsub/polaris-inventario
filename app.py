@@ -12,7 +12,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/productos')
+@app.route('/productos', methods=['GET', 'POST'])
 def productos():
     return render_template('modules/products.html')
 
