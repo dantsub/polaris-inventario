@@ -115,52 +115,55 @@ Proveedores
       <div class="modal-body">
         <form id="form_crear" method= "POST" class="row g-3 needs-validation" novalidate >
           <div class="">
+
             <div class="col-12 my-1">
               <label for="">ID Proveedor*</label>
               <input type="text" class="form-control" id="id" placeholder="ID Proveedor" required>
               <div class="invalid-feedback">
-                Este campo es requerido.
+                Por favor digite el ID del proveedor
               </div>
             </div>
-
+  
             <div class="col-12  mb-1">
               <label for="">Nombre*</label>
               <input type="text" class="form-control" id="nombre" placeholder="Nombre" required>
               <div class="invalid-feedback">
-                Este campo es requerido.
+                Por favor digite un Nombre
               </div>
             </div>
-
+  
             <div class="col-12 mb-1">
               <label for="">Correo*</label>
-              <input type="email" class="form-control" id="correo" placeholder="Email" required>
+              <input type="email" class="form-control" id="correo" placeholder="Email" required email>
               <div class="invalid-feedback">
-                Por favor digite bien el correo.
+                Por favor digite un correo válido
               </div>
             </div> 
-
+  
             <div class="col-12 mb-1">
               <label for="">Teléfono*</label>
-              <input type="text" class="form-control" id="telefono" placeholder="Teléfono" required>
+              <input type="text" class="form-control" id="telefono" placeholder="Teléfono" required number>
               <div class="invalid-feedback">
-                Este campo es requerido.
+                Por favor digite un teléfono 
               </div>
             </div>
-
+  
             <div class="col-12 mb-1">
               <label for="">Dirección*</label>
               <input type="text" class="form-control" id="direccion" placeholder="Dirección" required>
               <div class="invalid-feedback">
-                Este campo es requerido.
+                Por favor digite la dirección 
               </div>
             </div>
-
+  
             <div class="col-12 mb-1">
               <label for="">Pais*</label>
               <input type="text" class="form-control" id="pais" placeholder="Pais" required>
               <div class="invalid-feedback">
-                Este campo es requerido.
+                Por favor digite el país
               </div>
+            </div>
+
             </div>
 
             <div class="modal-footer">
@@ -188,26 +191,65 @@ Proveedores
       </div>
       <div class="modal-body">
         <form id="form_editar" method= "POST" class="row g-3 needs-validation" novalidate >
-        <div class="d-flex flex-column">
-          <label class="form-label" for="id">ID Proveedor*</label>
-          <input class="form-control" type="text" id="id" placeholder="ID Proveedor">
-          <label class="form-label mt-1" for="nombre">Nombre*</label>
-          <input class="form-control" type="text" id="nombre" placeholder="Nombre">
-          <label class="form-label mt-1" for="correo">Correo*</label>
-          <input class="form-control" type="email" id="correo" placeholder="Correo">
-          <label class="form-label mt-1" for="direccion">Dirección*</label>
-          <input class="form-control" type="text" id="direccion" placeholder="Dirección">
-          <label class="form-label mt-1" for="pais">País*</label>
-          <input class="form-control" type="text" id="pais" placeholder="País">
-        </div>
+          <div class="form-group">
+            <div class="col-12 my-1">
+              <label for="">ID Proveedor*</label>
+              <input type="text" class="form-control" id="id" placeholder="ID Proveedor" required>
+              <div class="invalid-feedback">
+                Por favor digite el ID del proveedor
+              </div>
+            </div>
+
+            <div class="col-12  mb-1">
+              <label for="">Nombre*</label>
+              <input type="text" class="form-control" id="nombre" placeholder="Nombre" required>
+              <div class="invalid-feedback">
+                Por favor digite un Nombre
+              </div>
+            </div>
+
+            <div class="col-12 mb-1">
+              <label for="">Correo*</label>
+              <input type="email" class="form-control" id="correo" placeholder="Email" required email>
+              <div class="invalid-feedback">
+                Por favor digite un correo válido
+              </div>
+            </div> 
+
+            <div class="col-12 mb-1">
+              <label for="">Teléfono*</label>
+              <input type="text" class="form-control" id="telefono" placeholder="Teléfono" required number>
+              <div class="invalid-feedback">
+                Por favor digite un teléfono 
+              </div>
+            </div>
+
+            <div class="col-12 mb-1">
+              <label for="">Dirección*</label>
+              <input type="text" class="form-control" id="direccion" placeholder="Dirección" required>
+              <div class="invalid-feedback">
+                Por favor digite la dirección 
+              </div>
+            </div>
+
+            <div class="col-12 mb-1">
+              <label for="">Pais*</label>
+              <input type="text" class="form-control" id="pais" placeholder="Pais" required>
+              <div class="invalid-feedback">
+                Por favor digite el país
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button class="btn btn-primary" type="submit">
+                Editar
+              </button>
+            </div>
+          </div>
+       </form>
       </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary" type="button">
-          Editar
-        </button>
-      </div>
-      </form>
-    </div>
+     </div>
+    
   </div>
 </div>
 
