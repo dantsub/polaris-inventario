@@ -113,7 +113,7 @@ Proveedores
         <button class="btn-close" data-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
-        <form id="form_crear" class="row g-3 needs-validation" novalidate>
+        <form id="form_crear" method= "POST" class="row g-3 needs-validation" novalidate >
           <div class="">
             <div class="col-12 my-1">
               <label for="">ID Proveedor*</label>
@@ -137,7 +137,7 @@ Proveedores
               <div class="invalid-feedback">
                 Por favor digite bien el correo.
               </div>
-            </div>
+            </div> 
 
             <div class="col-12 mb-1">
               <label for="">Teléfono*</label>
@@ -176,6 +176,7 @@ Proveedores
     </div>
   </div>
 </div>
+<!-- / Inicio Modal Editar -->
 
 <div class="modal fade" id="modal_editar" tabindex="-1" role="dialog" aria-labelledby="titulo_editar"
   aria-hidden="true">
@@ -186,6 +187,7 @@ Proveedores
         <button class="btn-close" data-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
+        <form id="form_editar" method= "POST" class="row g-3 needs-validation" novalidate >
         <div class="d-flex flex-column">
           <label class="form-label" for="id">ID Proveedor*</label>
           <input class="form-control" type="text" id="id" placeholder="ID Proveedor">
@@ -204,6 +206,7 @@ Proveedores
           Editar
         </button>
       </div>
+      </form>
     </div>
   </div>
 </div>
