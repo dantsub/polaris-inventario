@@ -1,6 +1,18 @@
 {% extends 'base.html' %} {% block title %} Products {% endblock %} {% block
 content %}
 
+{% if error %}
+<script>
+      (function abrirmodal () {
+    $(function () {
+            // abrir modal
+          $('#modalNew').modal('show');
+    });
+})();
+</script>
+{% endif %}
+
+
 <div class="card">
     <div class="card-body border-bottom">
       <h2>Products</h2>
@@ -31,7 +43,7 @@ content %}
           <button type="button" class="btn btn-primary align-self-end">Buscar</button>
         </div>
         <div class="col-md-3 d-flex align-items-end">
-          <button type="button" class="btn btn-primary align-self-end btn-crear" data-bs-toggle="modal" data-bs-target="#modalNew" title="Crear Nuevo Producto">
+          <button type="button" id="abrirmodalnuevo" class="btn btn-primary align-self-end btn-crear" data-bs-toggle="modal" data-bs-target="#modalNew" title="Crear Nuevo Producto">
             <i class="fas fa-plus"></i>
           </button>
         </div>
@@ -128,11 +140,11 @@ content %}
                     ></button>
                   </div>
                   <form
+                    id="formulariocrearprod"
                     method="post"
                     action="{{url_for('crearproductos')}}"
                     class="needs-validation"
                     novalidate
-                    id="formulariocrearprod"
                   >
                     <div class="modal-body">
                       <div class="form-group">
@@ -142,13 +154,16 @@ content %}
                           class="form-control"
                           id="nombreproducto"
                           placeholder="Nombre"
-                          required="required"
+                          required
                           name="nombreproducto"
                         />
 
                         <div id="errornomprod" style="color: red">
                           {% if data1 %} {{data1}} {% endif %}
                         </div>
+                        <div class="invalid-feedback">
+                                    Por favor ingrese el nombre del producto.
+                                </div>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputPassword1">Descripcion</label>
@@ -156,7 +171,7 @@ content %}
                           class="form-control"
                           id="descripcionprod"
                           placeholder="Descripcion"
-                          required="required"
+                          required
                           name="descripcionprod"
                         ></textarea>
                         <div id="errordescripcion" style="color: red">
@@ -165,8 +180,8 @@ content %}
                       </div>
                       <div class="form-group">
                         <label for="menuproveedor">Proveedores</label>
-                        <select class="form-select" id="menuproveedor" required="required" name="menuproveedor">
-                          <option selected disabled value="0">Seleccione</option>
+                        <select class="custom-select" id="menuproveedor" required name="menuproveedor">
+                          <option selected disabled value="">Seleccione</option>
                           <option value="1">Proveedor 1</option>
                           <option value="2">Proveedor 2</option>
                           <option value="3">Proveedor 3</option>
@@ -174,7 +189,9 @@ content %}
                         <div id="errorproveedor" style="color: red">
                           {% if data3 %} {{data3}} {% endif %}
                         </div>
-                        
+                        <div class="invalid-feedback">
+                                    Por favor seleccione un proveedor.
+                                </div>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputPassword1">Cant. Minima</label>
@@ -216,6 +233,11 @@ content %}
                       </button>
                     </div>
                   </form>
+                  {% if error %}
+                  <script>
+                    document.formulariocrearprod.nombreproducto.value = 34;
+                  </script>
+                  {% endif %}
                 </div>
               </div>
             </div>
@@ -238,7 +260,7 @@ content %}
             <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Crear Producto</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">Editar Producto</h5>
                       <button
                         type="button"
                         class="btn-close"
@@ -249,9 +271,9 @@ content %}
                   <form
                       method="post"
                       action="{{url_for('productos')}}"
+                      id="fromularioeditarprod"
                       class="needs-validation"
                       novalidate
-                      id="fromularioeditarprod"
                       >
                       <div class="modal-body">
                         <div class="form-group">
@@ -261,12 +283,15 @@ content %}
                               class="form-control"
                               id="nombreproducto2"
                               placeholder="Nombre"
-                              required="required"
+                              required
                               name="nombreproducto2"
                               />
                             <div id="errornomprod2" style="color: red">
                               {% if data %} {{data}} {% endif %}
                             </div>
+                            <div class="invalid-feedback">
+                                    Por favor ingrese el nombre del producto.
+                                </div>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Descripcion</label>
@@ -277,16 +302,25 @@ content %}
                               required="required"
                               ></textarea>
                             <div id="errordescripcion2" style="color: red"></div>
+                            <div class="invalid-feedback">
+                                    Por favor ingrese la descripción.
+                                </div>
                         </div>
                         <div class="form-group">
                             <label for="menuproveedor">Proveedores</label>
                             <select class="form-select" id="menuproveedor2" required="required">
-                              <option selected disabled value="0">Seleccione</option>
+                              <option selected disabled value="">Seleccione</option>
                               <option value="1">Proveedor 1</option>
                               <option value="2">Proveedor 2</option>
                               <option value="3">Proveedor 3</option>
                             </select>
                             <div id="errorproveedor2" style="color: red"></div>
+                            <div class="invalid-feedback">
+                                    Seleccione un proveedor.
+                                </div>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese la descripción.
+                                </div>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Cant. Minima</label>
@@ -322,7 +356,6 @@ content %}
                         <button
                             type="submit"
                             class="btn btn-primary"
-                            onclick="Javascript:fnt_create_product_validate2()"
                             >
                         Guardar Cambios
                         </button>
@@ -383,4 +416,8 @@ content %}
   </div>
 </div>
     <script src="{{url_for('static', filename= 'js/productsValidate.js')}}"></script>
+
+    
+
+
 {% endblock %}

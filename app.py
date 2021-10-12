@@ -22,14 +22,22 @@ def crearproductos():
     data1 = ""
     data2 = ""
     data3 = ""
+    error = False
+    nombre = ""
     if request.method == 'POST':
-        if request.form.get('nombreproducto') == "":
+        nombre = request.form.get('nombreproducto')
+        descripcion = request.form.get('descripcionprod')
+        select = request.form.get('menuproveedor')
+        if nombre == "":
             data1 = "El campo nombre no puede estar vacio"
-        if request.form.get('descripcionprod') == "":
+            error = True
+        if descripcion == "":
             data2 = "El campo descripcion no puede estar vacio"
-        if request.form.get('menuproveedor') == None:
+            error = True
+        if select == None:
             data3 = "Seleccione un proveedor"
-    return render_template('modules/products.html', data1=data1, data2=data2, data3=data3)
+            error = True
+    return render_template('modules/products.html', data1=data1, data2=data2, data3=data3, error=error, nombre=nombre)
 
 
 @app.route('/crearproductos')
