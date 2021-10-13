@@ -151,7 +151,7 @@ content %} {% if error %}
               <form
                 id="formulariocrearprod"
                 method="post"
-                action="{{url_for('crearproductos')}}"
+                action="{{url_for('productos')}}"
                 class="needs-validation"
                 novalidate
               >
@@ -166,6 +166,7 @@ content %} {% if error %}
                       required
                       name="nombreproducto"
                     />
+                    <input type="hidden" name="oculto" value="crear" />
 
                     <div id="errornomprod" style="color: red">
                       {% if data1 %} {{data1}} {% endif %}
@@ -185,6 +186,9 @@ content %} {% if error %}
                     ></textarea>
                     <div id="errordescripcion" style="color: red">
                       {% if data2 %} {{data2}} {% endif %}
+                    </div>
+                    <div class="invalid-feedback">
+                      Por favor ingrese la descripción.
                     </div>
                   </div>
                   <div class="form-group">
@@ -329,9 +333,6 @@ content %} {% if error %}
                     </select>
                     <div id="errorproveedor2" style="color: red"></div>
                     <div class="invalid-feedback">Seleccione un proveedor.</div>
-                    <div class="invalid-feedback">
-                      Por favor ingrese la descripción.
-                    </div>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Cant. Minima*</label>

@@ -74,6 +74,9 @@
                       <input class="form-control" id="login-email" type="text" name="login-email"
                         placeholder="usuario" aria-describedby="login-email" autofocus="" tabindex="1" />
                     </div>
+                    <div id="errorusuario" style="color: red">
+                      {% if errorusuario %} {{errorusuario}} {% endif %}
+                    </div>
                     <div class="mb-1">
                       <div class="d-flex justify-content-between">
                         <label class="form-label" for="login-password">Contraseña</label>
@@ -93,12 +96,20 @@
                           </svg>
                         </span>
                       </div>
+                      <div id="errorclave" style="color: red">
+                        {% if errorclave %} {{errorclave}} {% endif %}
+                      </div>
                     </div>
                     <a href="{{url_for('productos')}}">
                     <button class="btn btn-primary w-100" tabindex="4" >Iniciar Sesión</button>
                     </a>
                   </form>
-
+                  {% if error %}
+                  <script type="text/javascript">
+                    $("#login-password").val("{{clave}}");
+                    $("#login-email").val("{{usuario}}");
+                  </script>
+                  {% endif %}
                 </div>
                 <!-- /Login-->
               </div>
@@ -127,7 +138,7 @@
   <!-- END: Theme JS-->
 
   <!-- BEGIN: Page JS-->
-  <script src="{{ url_for('static', filename='js/page-auth-login.js') }}"></script>
+   <script src="{{ url_for('static', filename='js/page-auth-login.js') }}"></script> 
   <!-- END: Page JS-->
 
   <script>
