@@ -50,17 +50,19 @@ def login():
     if request.method == "POST":
         usuario = request.form["login-email"]
         clave = request.form["login-password"]
-        error = " "
-
+        error = False
+        errorusuario = ""
+        errorclave=""
+        
         if not utils.isUsernameValid(usuario):
-            error = "El usuario debe ser alfanumérico y/o contener -_."
-            # Aquí poner la vista de error que va contener el formulario
-            return render_template("modules/login.html")
+            errorusuario = "El usuario debe ser alfanumérico y/o contener -_."
+            error= True
+            return render_template("modules/login.html",error=error, errorusuario=errorusuario, errorclave=errorclave, usuario=usuario)
 
         if not utils.isPasswordValid(clave):
-            error = "La clave debe tener debe tener mínimo 8 caracteres, una mayúscula, una minuscula, un número y un caracter:@$!%*?&."
-            # Aquí poner la vista de error que va contener el formulario
-            return render_template("modules/login.html")
+            errorclave = "La clave debe tener debe tener mínimo 8 caracteres, una mayúscula, una minuscula, un número y un caracter:@$!%*?&."
+            error= True
+            return render_template("modules/login.html", error=error, errorusuario=errorusuario, errorclave=errorclave, usuario=usuario)
 
         return render_template("index.html")
 
