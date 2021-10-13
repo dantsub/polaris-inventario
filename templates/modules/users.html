@@ -5,6 +5,18 @@
 {% endblock title %}
 
 {% block content %}
+
+{% if error %}
+<script>
+  (function abrirmodal() {
+    $(function () {
+      // abrir modal
+      $("#modal_crear").modal("show");
+    });
+  })();
+</script>
+{% endif %}
+
 <main class="container card">
   <div class="table-responsive">
     <h2 class="my-2">Usuarios</h2>
@@ -153,8 +165,7 @@
   </div>
 
   <!-- / Inicio Modal Crear -->
-  <div class="modal fade" id="modal_crear" tabindex="-1" role="dialog" aria-labelledby="titulo_crear"
-    aria-hidden="true">
+  <div class="modal fade" id="modal_crear" nombre="modal_crear" tabindex="-1" role="dialog" aria-labelledby="titulo_crear" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -162,42 +173,62 @@
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
-          <form id="form_crear" class="row g-3 needs-validation" method="POST" novalidate>
+          <form id="form_crear" action="{{url_for('crearusuario')}}" class="row g-3 needs-validation" method="POST" novalidate>
             <div class="form-group">
               <label class="form-label" for="id">Nombre de usuario*</label>
-              <input type="text" class="form-control" id="id" placeholder="Nombre de usuario" required>
+              <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Nombre de usuario" required>
               <div class="invalid-feedback">
                 Por favor ingrese el nombre de usuario.
               </div>
 
+              <div id="errorusuario" style="color: red">
+                {% if data1 %} {{data1}} {% endif %}
+              </div>
+
               <label for="nombres">Nombres*</label>
-              <input type="text" class="form-control" id="nombres" placeholder="ingrese los nombres" required>
+              <input type="text" class="form-control" id="nombres" name="nombres" placeholder="ingrese los nombres" required>
               <div class="invalid-feedback">
                 Por favor ingrese los nombres.
               </div>
 
+              <div id="errornombre" style="color: red">
+                {% if data2 %} {{data2}} {% endif %}
+              </div>
+
               <label for="apellidos">Apellidos*</label>
-              <input type="text" class="form-control" id="apellidos" placeholder="ingrese los apellidos" required>
+              <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="ingrese los apellidos" required>
               <div class="invalid-feedback">
                 Por favor ingrese los apellidos.
               </div>
 
+              <div id="errorapellido" style="color: red">
+                {% if data3 %} {{data3}} {% endif %}
+              </div>
+
               <label for="cedula">Documento*</label>
-              <input type="number" class="form-control" id="cedula" placeholder="ingrese el número del documento"
+              <input type="number" class="form-control" id="cedula" name="cedula" placeholder="ingrese el número del documento"
                 required number>
               <div class="invalid-feedback">
                 Por favor ingrese el número de documento.
               </div>
 
+              <div id="errordocumento" style="color: red">
+                {% if data4 %} {{data4}} {% endif %}
+              </div>
+
               <label for="correo">Correo*</label>
-              <input type="email" class="form-control" id="correo" placeholder="ingrese el correo electrónico" required
+              <input type="email" class="form-control" id="correo" name="correo" placeholder="ingrese el correo electrónico" required
                 email>
               <div class="invalid-feedback">
                 Por favor ingrese un correo electrónico valido.
               </div>
 
+              <div id="errorcorreo" style="color: red">
+                {% if data5 %} {{data5}} {% endif %}
+              </div>
+
               <label for="rol_crear" class="form-label">Rol*</label>
-              <select class="form-select" id="rol_crear" required>
+              <select class="form-select" id="rol_crear" name="rol_crear" required>
                 <option value="Usufin">Usuario final</option>
                 <option class="select-crear-admin" value="Admin">Administrador</option>
                 <option class="select-crear-super" value="Super">Super Administrador</option>
@@ -205,12 +236,19 @@
               <div class="invalid-feedback">
                 Por favor ingrese el rol.
               </div>
+              <div id="errorrol" style="color: red">
+                {% if data6 %} {{data6}} {% endif %}
+              </div>
 
               <label for="correo">Contraseña*</label>
-              <input type="password" class="form-control" id="passw" placeholder="ingrese el correo electrónico"
+              <input type="password" class="form-control" id="passw" name="passw" placeholder="ingrese el correo electrónico"
                 required minlength="6">
               <div class="invalid-feedback">
                 Por favor ingrese una contraseña valida de mínimo 6 caracteres.
+              </div>
+
+              <div id="errorclave" style="color: red">
+                {% if data7 %} {{data7}} {% endif %}
               </div>
 
             </div>
@@ -221,6 +259,13 @@
               </button>
             </div>
           </form>
+
+          {% if error %}
+          <script type="text/javascript">
+            $("#usuario").val("{{select}}");
+          </script>
+          {% endif %}
+
         </div>
       </div>
     </div>
