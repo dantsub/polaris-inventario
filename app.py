@@ -25,6 +25,8 @@ def crearproductos():
     data3 = ""
     error = False
     nombre = ""
+    descripcion= ""
+    select = None
     if request.method == 'POST':
         nombre = request.form.get('nombreproducto')
         descripcion = request.form.get('descripcionprod')
@@ -84,6 +86,11 @@ def crearproveedor():
     data6 = "" # error pais #pais
     error = False
     id = ""
+    nombre=""
+    correo= ""
+    telefono= ""
+    direccion= ""
+    pais= ""
     if request.method == 'POST':
         id= request.form.get('id')
         nombre= request.form.get('nombre')
@@ -134,6 +141,12 @@ def crearusuario():
     data7 = "" # error clave #passw
     error = False
     usuario = ""
+    nombre= ""
+    apellido= ""
+    documento= ""
+    correo= ""
+    rol= ""
+    clave= ""
     if request.method == 'POST':
         usuario= request.form.get('usuario')
         nombre= request.form.get('nombres')
