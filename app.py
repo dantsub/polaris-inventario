@@ -108,14 +108,14 @@ def crearproveedor():
             data5 = "El campo Dirección no puede estar vacio"
             error = True
         if pais == "":
-            data6 = "El campo clave no puede estar vacio"
+            data6 = "El campo país no puede estar vacio"
             error = True
-    return render_template('modules/users.html', data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, error=error, id=id, nombre=nombre, correo=correo, telefono=telefono, direccion=direccion,  pais=pais)
+    return render_template('modules/providers.html', data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, error=error, id=id, nombre=nombre, correo=correo, telefono=telefono, direccion=direccion,  pais=pais)
 
 
-@app.route('/crearuser', methods=["GET", "POST"])
-def crearproveedorin():
-    return render_template('modules/users.html')
+@app.route('/crearprovider', methods=["GET", "POST"])
+def crearproveedorsin():
+    return render_template('modules/providers.html')
 
 
 @app.route('/users', methods=["GET", "POST"])

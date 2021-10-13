@@ -3,6 +3,20 @@
 Proveedores
 {% endblock title %}
 {% block content %}
+
+
+{% if error %}
+<script>
+  (function abrirmodal() {
+    $(function () {
+      // abrir modal
+      $("#modal_crear").modal("show");
+    });
+  })();
+</script>
+{% endif %}
+
+
 <div class="card">
   <div class="card-body border-bottom">
     <h2 class="mb-2">Proveedores</h2>
@@ -24,7 +38,7 @@ Proveedores
           </div>
           <div class="col-5 d-flex justify-content-end">
             <div>
-              <span>Crear Proveedores</span>
+              <label for="">Crear Proveedores</label>
               <button class="btn btn-primary" id="crear" data-toggle="modal" data-target="#modal_crear">
                 <span class="fa fa-plus"></span>
               </button>
@@ -105,7 +119,7 @@ Proveedores
   </div>
 </div>
 <!-- / Inicio Modal Crear -->
-<div class="modal fade" id="modal_crear" tabindex="-1" role="dialog" aria-labelledby="titulo_crear" aria-hidden="true">
+<div class="modal fade" id="modal_crear" nombre="modal_crear" tabindex="-1" role="dialog" aria-labelledby="titulo_crear" aria-hidden="true">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -113,55 +127,79 @@ Proveedores
         <button class="btn-close" data-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
-        <form id="form_crear" method= "POST" class="row g-3 needs-validation" novalidate >
+        <form id="form_crear" method= "POST" action="{{url_for('crearproveedor')}}"  novalidate >
           <div class="">
 
             <div class="col-12 my-1">
               <label for="">ID Proveedor*</label>
-              <input type="text" class="form-control" id="id" placeholder="ID Proveedor" required>
+              <input type="text" class="form-control" id="id" name="id" placeholder="ID Proveedor" required>
               <div class="invalid-feedback">
                 Por favor digite el ID del proveedor
               </div>
             </div>
-  
+
+            <div id="errorIdproveedor" style="color: red">
+              {% if data1 %} {{data1}} {% endif %}
+            </div>
+
             <div class="col-12  mb-1">
               <label for="">Nombre*</label>
-              <input type="text" class="form-control" id="nombre" placeholder="Nombre" required>
+              <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
               <div class="invalid-feedback">
                 Por favor digite un Nombre
               </div>
             </div>
-  
+            
+            <div id="errorNombres" style="color: red">
+              {% if data2 %} {{data2}} {% endif %}
+            </div>
+
             <div class="col-12 mb-1">
               <label for="">Correo*</label>
-              <input type="email" class="form-control" id="correo" placeholder="Email" required email>
+              <input type="email" class="form-control" id="correo" name="correo" placeholder="Email" required email>
               <div class="invalid-feedback">
                 Por favor digite un correo válido
               </div>
             </div> 
   
+            <div id="errorcorreo" style="color: red">
+              {% if data3 %} {{data3}} {% endif %}
+            </div>
+
             <div class="col-12 mb-1">
               <label for="">Teléfono*</label>
-              <input type="text" class="form-control" id="telefono" placeholder="Teléfono" required number>
+              <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" required number>
               <div class="invalid-feedback">
                 Por favor digite un teléfono 
               </div>
             </div>
-  
+
+            <div id="errortelefono" style="color: red">
+              {% if data4 %} {{data4}} {% endif %}
+            </div>
+
             <div class="col-12 mb-1">
               <label for="">Dirección*</label>
-              <input type="text" class="form-control" id="direccion" placeholder="Dirección" required>
+              <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección" required>
               <div class="invalid-feedback">
                 Por favor digite la dirección 
               </div>
             </div>
-  
+
+            <div id="errordireccion" style="color: red">
+              {% if data5 %} {{data5}} {% endif %}
+            </div>
+
             <div class="col-12 mb-1">
               <label for="">Pais*</label>
-              <input type="text" class="form-control" id="pais" placeholder="Pais" required>
+              <input type="text" class="form-control" id="pais" name="pais" placeholder="Pais" required>
               <div class="invalid-feedback">
                 Por favor digite el país
               </div>
+            </div>
+
+            <div id="errorpais" style="color: red">
+              {% if data6 %} {{data6}} {% endif %}
             </div>
 
             </div>
@@ -173,7 +211,12 @@ Proveedores
             </div>
           </div>
         </form>
-
+        
+        {% if error %}
+        <script type="text/javascript">
+          $("#id").val("{{select}}");
+        </script>
+        {% endif %}
 
       </div>
     </div>
