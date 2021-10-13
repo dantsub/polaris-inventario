@@ -186,6 +186,9 @@ content %} {% if error %}
                     <div id="errordescripcion" style="color: red">
                       {% if data2 %} {{data2}} {% endif %}
                     </div>
+                    <div class="invalid-feedback">
+                      Por favor ingrese la descripción.
+                    </div>
                   </div>
                   <div class="form-group">
                     <label for="menuproveedor">Proveedores*</label>
@@ -329,9 +332,7 @@ content %} {% if error %}
                     </select>
                     <div id="errorproveedor2" style="color: red"></div>
                     <div class="invalid-feedback">Seleccione un proveedor.</div>
-                    <div class="invalid-feedback">
-                      Por favor ingrese la descripción.
-                    </div>
+
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Cant. Minima*</label>
