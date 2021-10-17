@@ -1,8 +1,10 @@
 import re
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 import utils
+from markupsafe import escape
 import os
-
+from werkzeug.security import generate_password_hash, check_password_hash
+import sqlite3
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -66,9 +68,19 @@ def login():
             error= True
             return render_template("modules/login.html", error=error, errorusuario=errorusuario, errorclave=errorclave, usuario=usuario)
 
-        return render_template("index.html")
+        with sqlite3.connect('Estudiantes') as conn:
+            cur =conn.cursor()
+            clave = cur.execute("Select clave From usuarios where usuario=? ", [usuario]).fetchone()
+            if clave is not None:
+                clave2 = clave[0]
+                session.clear()
+                if check_password_hash(clave2, password):
+                    session['usuario'] = usuario
+                    form = formularioEstudiante()
+                    return render_template('formularioEstudiante.html', form=form)
+    return "Usuario No Permitido"
+        
 
-    return render_template("modules/login.html")
 
 
 @app.route('/providers', methods=["GET", "POST"])
