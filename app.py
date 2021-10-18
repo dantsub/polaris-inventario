@@ -107,7 +107,7 @@ def login():
         if error == True:
             return render_template("modules/login.html", error=error, errorusuario=errorusuario, errorclave=errorclave, usuario=usuario)
 
-        with sqlite3.connect('../Polaris') as conn:
+        with sqlite3.connect('Polaris') as conn:
             cur = conn.cursor()
             user = cur.execute("SELECT user_name FROM usuarios WHERE user_name=? ", [
                                usuario]).fetchone()
