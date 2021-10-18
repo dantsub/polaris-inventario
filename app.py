@@ -113,14 +113,20 @@ def login():
                                usuario]).fetchone()
             if user is not None:
                 password = cur.execute(
-                    "SELECT password, salt FROM usuarios WHERE user_name=? ", [usuario]).fetchone()
+                    "SELECT password, salt, descripcion, nombres, apellidos FROM usuarios LEFT JOIN roles ON usuarios.idRol = roles.idRol WHERE user_name=? ", [usuario]).fetchone()
                 if password is not None:
                     password2 = password[0]
                     salt = password[1]
+                    rol= password[2]
+                    nombre= password[3]
+                    apellido=password[4]
                     session.clear()
                     if check_password_hash(password2, salt+clave):
                         # if password2 == clave:
                         session['usuario'] = usuario
+                        session['nombre'] = nombre
+                        session['apellido'] = apellido
+                        session['rol'] = rol
                         return redirect(url_for('index'))
                     else:
                         errorclave = "Password no encontrado"
@@ -138,6 +144,9 @@ def login():
 def logout():
     if 'usuario' in session:
         session.pop('usuario', None)
+        session.pop('nombre', None)
+        session.pop('apellido', None)
+        session.pop('rol', None)
         return redirect(url_for('login'))
     else:
         return redirect(url_for('login'))
