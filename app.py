@@ -9,16 +9,15 @@ from datetime import date
 import secrets
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24) 
+app.secret_key = os.urandom(24)
 
 
 @app.route('/index')
 def index():
     if 'usuario' in session:
-         return render_template('index.html')
+        return render_template('index.html')
     else:
         return redirect(url_for('login'))
-   
 
 
 @app.route('/productos', methods=["GET", "POST"])
@@ -27,19 +26,22 @@ def productos():
         data1 = ""
         data2 = ""
         data3 = ""
+        data4 = ""
         error = False
-        nombre = ""
-        descripcion = ""
-        select = None
-
+        # >Consulta para traer los proveedores existentes
+        proveedores = utils.consultarproveedores()
+        productos = utils.consultartodoslosproductos()
         if request.method == 'POST':
             formulario = request.form.get("oculto")
             if(formulario == "crear"):
-
+                print("pasar por crear")
                 nombre = request.form.get('nombreproducto')
                 descripcion = request.form.get('descripcionprod')
                 select = request.form.get('menuproveedor')
-                if nombre == "":
+                codigo = request.form.get('codigoproducto')
+                cantmin = request.form.get('cantminima')
+                cantexist = request.form.get('cantexistencia')
+                if nombre == "11":
                     data1 = "El campo nombre no puede estar vacio"
                     error = True
                 if descripcion == "":
@@ -48,11 +50,44 @@ def productos():
                 if select == None:
                     data3 = "Seleccione un proveedor"
                     error = True
-            return render_template('modules/products.html', data1=data1, data2=data2, data3=data3, error=error, nombre=nombre, select=select, descripcion=descripcion)
-        return render_template('modules/products.html')       
+                if codigo == "":
+                    data4 = "El campo codigo no puede estar vacio"
+                    error = True
+                if error:
+                    return render_template('modules/products.html', data1=data1, data2=data2, data3=data3, data4=data4, error=error, nombre=nombre, select=select, descripcion=descripcion, proveedores=proveedores, productos=productos)
+                else:
+                    if(utils.validarexistenciadeproducto(codigo) == True):
+                        error = True
+                        data4 = "Ya existe un producto registrado con este codigo"
+                        return render_template('modules/products.html', data4=data4, error=error, nombre=nombre, select=select, descripcion=descripcion, codigo=codigo, proveedores=proveedores, productos=productos)
+                    else:
+                        if (utils.registrarproducto(codigo, nombre, descripcion, cantmin, cantexist, select) == True):
+                            proveedores = utils.consultarproveedores()
+                            productos = utils.consultartodoslosproductos()
+                            return render_template('modules/products.html', proveedores=proveedores, productos=productos)
+            if(formulario == "eliminar"):
+                codigo = request.form.get('ocultoborrar')
+                print(codigo)
+                if (utils.eliminarproducto(codigo) == True):
+                    proveedores = utils.consultarproveedores()
+                    productos = utils.consultartodoslosproductos()
+                    print("pasa por borrar")
+                    return render_template('modules/products.html', proveedores=proveedores, productos=productos)
+            if(formulario == "editar"):
+                codigo = request.form.get('ocultoeditar')
+                nombre = request.form.get('nombreproducto2')
+                descripcion = request.form.get('descripcionprod2')
+                select = request.form.get('menuproveedor2')
+                cantmin = request.form.get('cantminima2')
+                cantexist = request.form.get('cantexistencia2')
+                if (utils.actualizarproducto(codigo, nombre, descripcion, cantmin, cantexist, select) == True):
+                    proveedores = utils.consultarproveedores()
+                    productos = utils.consultartodoslosproductos()
+                    print("pasa por editar")
+                    return render_template('modules/products.html', proveedores=proveedores, productos=productos)
+        return render_template('modules/products.html', proveedores=proveedores, productos=productos)
     else:
         return redirect(url_for('login'))
-    
 
 
 @app.route('/', methods=["GET", "POST"])
@@ -62,40 +97,42 @@ def login():
         clave = request.form["login-password"]
         error = False
         errorusuario = ""
-        errorclave=""
+        errorclave = ""
         if not utils.isUsernameValid(usuario):
             errorusuario = "El usuario debe ser alfanumérico y/o contener -_."
-            error= True
+            error = True
         if not utils.isPasswordValid(clave):
             errorclave = "La clave debe tener debe tener mínimo 8 caracteres, una mayúscula, una minuscula, un número y un caracter:@$!%*?&."
-            error= True 
-        if error==True:
+            error = True
+        if error == True:
             return render_template("modules/login.html", error=error, errorusuario=errorusuario, errorclave=errorclave, usuario=usuario)
-        
+
         with sqlite3.connect('Polaris') as conn:
-            cur =conn.cursor()
-            user=cur.execute("SELECT user_name FROM usuarios WHERE user_name=? ", [usuario]).fetchone()
+            cur = conn.cursor()
+            user = cur.execute("SELECT user_name FROM usuarios WHERE user_name=? ", [
+                               usuario]).fetchone()
             if user is not None:
-                password = cur.execute("SELECT password, salt FROM usuarios WHERE user_name=? ", [usuario]).fetchone()
+                password = cur.execute(
+                    "SELECT password, salt FROM usuarios WHERE user_name=? ", [usuario]).fetchone()
                 if password is not None:
                     password2 = password[0]
-                    salt=password[1]
+                    salt = password[1]
                     session.clear()
                     if check_password_hash(password2, salt+clave):
-                    #if password2 == clave:
+                        # if password2 == clave:
                         session['usuario'] = usuario
                         return redirect(url_for('index'))
-                    else: 
+                    else:
                         errorclave = "Password no encontrado"
                         error = True
                         return render_template("modules/login.html", error=error, errorclave=errorclave)
-            else: 
+            else:
                 errorusuario = "Usuario no encontrado"
-                error = True  
-                return render_template("modules/login.html", error=error, errorusuario=errorusuario)    
+                error = True
+                return render_template("modules/login.html", error=error, errorusuario=errorusuario)
 
     return render_template("modules/login.html")
-     
+
 
 @app.route('/logout', methods=['POST', 'GET'])
 def logout():
@@ -156,7 +193,6 @@ def providers():
         return redirect(url_for('login'))
 
 
-
 @app.route('/users', methods=["GET", "POST"])
 def users():
     if 'usuario' in session:
@@ -207,24 +243,25 @@ def users():
                 if clave == "":
                     data7 = "El campo clave no puede estar vacio"
                     error = True
-                if error==True: 
+                if error == True:
                     return render_template('modules/users.html', data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, data7=data7, error=error, nombre=nombre, usuario=usuario, apellido=apellido, clave=clave, documento=documento, correo=correo, rol=rol)
-                else: 
+                else:
                     salt = secrets.token_hex(8)
                     clave_encrypt = generate_password_hash(salt+clave)
-                    today=date.today()
+                    today = date.today()
                     with sqlite3.connect('Polaris') as conn:
-                        cur =conn.cursor()
-                        user_validate=cur.execute("SELECT user_name FROM usuarios WHERE user_name=? ", [usuario]).fetchone()
+                        cur = conn.cursor()
+                        user_validate = cur.execute(
+                            "SELECT user_name FROM usuarios WHERE user_name=? ", [usuario]).fetchone()
                         if user_validate is None:
                             cur.execute('INSERT INTO usuarios (user_name, documento, nombres, apellidos, correo, password, fecha_creacion, idRol, salt) VALUES(?,?,?,?,?,?,?,?,?)',
-                            (usuario, documento, nombre, apellido, correo, clave_encrypt, today, rol, salt))
+                                        (usuario, documento, nombre, apellido, correo, clave_encrypt, today, rol, salt))
                             conn.commit()
                             return redirect(url_for('users'))
                         else:
-                            error=True
+                            error = True
                             data1 = "Este nombre de usuario ya existe"
-                            return render_template('modules/users.html', data1=data1,error=error)
+                            return render_template('modules/users.html', data1=data1, error=error)
         return render_template('modules/users.html')
     else:
         return redirect(url_for('login'))
