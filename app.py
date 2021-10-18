@@ -6,6 +6,7 @@ import os
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 from datetime import date
+import secrets
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24) 
@@ -75,11 +76,12 @@ def login():
             cur =conn.cursor()
             user=cur.execute("SELECT user_name FROM usuarios WHERE user_name=? ", [usuario]).fetchone()
             if user is not None:
-                password = cur.execute("SELECT password FROM usuarios WHERE user_name=? ", [usuario]).fetchone()
+                password = cur.execute("SELECT password, salt FROM usuarios WHERE user_name=? ", [usuario]).fetchone()
                 if password is not None:
                     password2 = password[0]
+                    salt=password[1]
                     session.clear()
-                    if check_password_hash(password2, clave):
+                    if check_password_hash(password2, salt+clave):
                     #if password2 == clave:
                         session['usuario'] = usuario
                         return redirect(url_for('index'))
@@ -208,14 +210,21 @@ def users():
                 if error==True: 
                     return render_template('modules/users.html', data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, data7=data7, error=error, nombre=nombre, usuario=usuario, apellido=apellido, clave=clave, documento=documento, correo=correo, rol=rol)
                 else: 
-                    clave_encrypt = generate_password_hash(clave)
+                    salt = secrets.token_hex(8)
+                    clave_encrypt = generate_password_hash(salt+clave)
                     today=date.today()
                     with sqlite3.connect('Polaris') as conn:
                         cur =conn.cursor()
-                        cur.execute('INSERT INTO usuarios (user_name, documento, nombres, apellidos, password, fecha_creacion, idRol) VALUES(?,?,?,?,?,?,?)',
-                        (usuario, documento, nombre, apellido, clave_encrypt, today, rol))
-                        conn.commit()
-                        return redirect(url_for('users'))
+                        user_validate=cur.execute("SELECT user_name FROM usuarios WHERE user_name=? ", [usuario]).fetchone()
+                        if user_validate is None:
+                            cur.execute('INSERT INTO usuarios (user_name, documento, nombres, apellidos, correo, password, fecha_creacion, idRol, salt) VALUES(?,?,?,?,?,?,?,?,?)',
+                            (usuario, documento, nombre, apellido, correo, clave_encrypt, today, rol, salt))
+                            conn.commit()
+                            return redirect(url_for('users'))
+                        else:
+                            error=True
+                            data1 = "Este nombre de usuario ya existe"
+                            return render_template('modules/users.html', data1=data1,error=error)
         return render_template('modules/users.html')
     else:
         return redirect(url_for('login'))
