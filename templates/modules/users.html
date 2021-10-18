@@ -173,10 +173,13 @@
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
-          <form id="form_crear" action="{{url_for('crearusuario')}}" class="row g-3 needs-validation" method="POST" novalidate>
+          <form id="form_crear" action="{{url_for('users')}}" method="POST" novalidate>
             <div class="form-group">
               <label class="form-label" for="id">Nombre de usuario*</label>
               <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Nombre de usuario" required>
+              
+              <input type="hidden" name="oculto" value="crear" />
+              
               <div class="invalid-feedback">
                 Por favor ingrese el nombre de usuario.
               </div>
@@ -229,9 +232,9 @@
 
               <label for="rol_crear" class="form-label">Rol*</label>
               <select class="form-select" id="rol_crear" name="rol_crear" required>
-                <option value="Usufin">Usuario final</option>
-                <option class="select-crear-admin" value="Admin">Administrador</option>
-                <option class="select-crear-super" value="Super">Super Administrador</option>
+                <option value="3">Usuario final</option>
+                <option class="select-crear-admin" value="2">Administrador</option>
+                <option class="select-crear-super" value="1">Super Administrador</option>
               </select>
               <div class="invalid-feedback">
                 Por favor ingrese el rol.
@@ -318,9 +321,9 @@
 
               <label for="rol_crear" class="form-label">Rol*</label>
               <select class="form-select" id="rol_crear" required>
-                <option value="Usufin">Usuario final</option>
-                <option class="select-editar-admin" value="Admin">Administrador</option>
-                <option class="select-editar-super" value="Super">Super Administrador</option>
+                <option value="3">Usuario final</option>
+                <option class="select-editar-admin" value="2">Administrador</option>
+                <option class="select-editar-super" value="1">Super Administrador</option>
               </select>
               <div class="invalid-feedback">
                 Por favor ingrese el rol.

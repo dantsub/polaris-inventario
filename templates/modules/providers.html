@@ -127,12 +127,13 @@ Proveedores
         <button class="btn-close" data-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
-        <form id="form_crear" method= "POST" action="{{url_for('crearproveedor')}}" class="row g-3 needs-validation" novalidate >
-          <div class="">
+        <form id="form_crear" method= "POST" action="{{url_for('providers')}}" class="row g-3 needs-validation" novalidate >
+          <div class=""> 
 
             <div class="col-12 my-1">
               <label for="">ID Proveedor*</label>
               <input type="text" class="form-control" id="id" name="id" placeholder="ID Proveedor" required>
+              <input type="hidden" name="oculto" value="crear" />
               <div class="invalid-feedback">
                 Por favor digite el ID del proveedor
               </div>
