@@ -233,11 +233,10 @@ content %} {% if error %}
             </div>
           </div>
         </div>
-                <!-- <a data-bs-toggle="modal" data-bs-target="#modalEdit">
-                    <span style="color: #0d6efd"
-                      ><i class="fa fa-edit"></i
-                    ></span>
-                  </a> -->
+
+                        <!-- Fin Modal Editar -->
+
+          
                 &nbsp;
                 <a
                   href="{{producto.0}}"
@@ -248,7 +247,6 @@ content %} {% if error %}
                   <span><i class="fa fa-trash"></i></span>
                 </a>
 
-                <!-- Fin Modal Editar -->
 
                 
                 <!-- Modal Eliminar -->
@@ -296,11 +294,23 @@ content %} {% if error %}
                         >
                           Eliminar Producto
                         </button>
+
+                        
                       </div>
                       </form>
                     </div>
                   </div>
                 </div>
+                <!-- Fin Modal Eliminar -->
+                &nbsp;
+                <a
+                  href="{{producto.0}}"
+                  class="btn btn-info table-buttons"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalDelete-{{producto.0}}"
+                >
+                  <span><i class="fas fa-award"></i></i></span>
+                </a>
               </td>
             </tr>
             {% endfor %}
