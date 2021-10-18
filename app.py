@@ -107,7 +107,7 @@ def login():
         if error == True:
             return render_template("modules/login.html", error=error, errorusuario=errorusuario, errorclave=errorclave, usuario=usuario)
 
-        with sqlite3.connect('Polaris') as conn:
+        with sqlite3.connect('../Polaris') as conn:
             cur = conn.cursor()
             user = cur.execute("SELECT user_name FROM usuarios WHERE user_name=? ", [
                                usuario]).fetchone()
@@ -121,7 +121,9 @@ def login():
                     if check_password_hash(password2, salt+clave):
                         # if password2 == clave:
                         session['usuario'] = usuario
-                        return redirect(url_for('index'))
+                        proveedores = utils.consultarproveedores()
+                        productos = utils.consultartodoslosproductos()
+                        return render_template('modules/products.html', proveedores=proveedores, productos=productos)
                     else:
                         errorclave = "Password no encontrado"
                         error = True
@@ -249,7 +251,7 @@ def users():
                     salt = secrets.token_hex(8)
                     clave_encrypt = generate_password_hash(salt+clave)
                     today = date.today()
-                    with sqlite3.connect('Polaris') as conn:
+                    with sqlite3.connect('../Polaris') as conn:
                         cur = conn.cursor()
                         user_validate = cur.execute(
                             "SELECT user_name FROM usuarios WHERE user_name=? ", [usuario]).fetchone()

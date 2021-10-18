@@ -42,7 +42,7 @@ def isPasswordValid(password):
 
 
 def consultarproveedores():
-    conexion = sqlite3.connect("Polaris - copia")
+    conexion = sqlite3.connect('Polaris')
 
     cursor = conexion.cursor()
     cursor.execute("SELECT * FROM proveedores")
@@ -52,7 +52,7 @@ def consultarproveedores():
 
 
 def consultartodoslosproductos():
-    conexion = sqlite3.connect("Polaris - copia")
+    conexion = sqlite3.connect('Polaris')
 
     cursor = conexion.cursor()
     cursor.execute(
@@ -63,7 +63,7 @@ def consultartodoslosproductos():
 
 
 def validarexistenciadeproducto(codigo):
-    conexion = sqlite3.connect("Polaris - copia")
+    conexion = sqlite3.connect("Polaris")
 
     cursor = conexion.cursor()
     cursor.execute(
@@ -77,7 +77,7 @@ def validarexistenciadeproducto(codigo):
 
 
 def registrarproducto(codigo, nombre, descripcion, cantmin, cantdisp, proveedor):
-    conexion = sqlite3.connect("Polaris - copia")
+    conexion = sqlite3.connect("Polaris")
 
     cursor = conexion.cursor()
     cursor.execute("INSERT INTO PRODUCTO VALUES (?,?,?,?,?,?)",
@@ -87,7 +87,7 @@ def registrarproducto(codigo, nombre, descripcion, cantmin, cantdisp, proveedor)
 
 
 def eliminarproducto(codigo):
-    conexion = sqlite3.connect("Polaris - copia")
+    conexion = sqlite3.connect("Polaris")
 
     cursor = conexion.cursor()
     cursor.execute("DELETE FROM PRODUCTO WHERE idProducto = ?", (codigo,))
@@ -97,7 +97,7 @@ def eliminarproducto(codigo):
 
 
 def actualizarproducto(codigo, nombre, descripcion, cantmin, cantdisp, proveedor):
-    conexion = sqlite3.connect("Polaris - copia")
+    conexion = sqlite3.connect("Polaris")
 
     cursor = conexion.cursor()
     print(codigo, nombre, descripcion, cantmin, cantdisp, proveedor)
