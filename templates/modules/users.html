@@ -233,8 +233,10 @@
               <label for="rol_crear" class="form-label">Rol*</label>
               <select class="form-select" id="rol_crear" name="rol_crear" required>
                 <option value="3">Usuario final</option>
+                {% if session.rol == "SuperAdministrador"  %}
                 <option class="select-crear-admin" value="2">Administrador</option>
                 <option class="select-crear-super" value="1">Super Administrador</option>
+                {% endif %}
               </select>
               <div class="invalid-feedback">
                 Por favor ingrese el rol.
@@ -322,8 +324,10 @@
               <label for="rol_crear" class="form-label">Rol*</label>
               <select class="form-select" id="rol_crear" required>
                 <option value="3">Usuario final</option>
+                {% if session.rol == "SuperAdministrador"  %}
                 <option class="select-editar-admin" value="2">Administrador</option>
                 <option class="select-editar-super" value="1">Super Administrador</option>
+                {% endif %}
               </select>
               <div class="invalid-feedback">
                 Por favor ingrese el rol.
