@@ -258,7 +258,7 @@ def users():
                     salt = secrets.token_hex(8)
                     clave_encrypt = generate_password_hash(salt+clave)
                     today = date.today()
-                    with sqlite3.connect('Polaris') as conn:
+                    with sqlite3.connect('../Polaris') as conn:
                         cur = conn.cursor()
                         user_validate = cur.execute(
                             "SELECT user_name FROM usuarios WHERE user_name=? ", [usuario]).fetchone()

@@ -42,7 +42,7 @@ def isPasswordValid(password):
 
 
 def consultarproveedores():
-    conexion = sqlite3.connect("Polaris")
+    conexion = sqlite3.connect('Polaris')
 
     cursor = conexion.cursor()
     cursor.execute("SELECT * FROM proveedores")
@@ -52,7 +52,7 @@ def consultarproveedores():
 
 
 def consultartodoslosproductos():
-    conexion = sqlite3.connect("Polaris")
+    conexion = sqlite3.connect('Polaris')
 
     cursor = conexion.cursor()
     cursor.execute(
