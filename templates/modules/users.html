@@ -98,40 +98,45 @@ Usuarios
                         <input type="text" class="form-control" id="id" placeholder="Nombre de usuario" required
                           value="{{usuario.0}}" Disabled disabled />
                         <input type="hidden" name="oculto" value="editar" />
+                        <input type="hidden" name="ocultoeditar" value="{{usuario.0}}" />
+
                         <div class="invalid-feedback">
                           Por favor ingrese el nombre de usuario.
                         </div>
 
                         <label for="nombres">Nombres*</label>
-                        <input type="text" class="form-control" id="nombres" placeholder="Ingrese los nombres" required
-                          value="{{usuario.1}}" />
+                        <input type="text" class="form-control" id="nombres2" placeholder="Ingrese los nombres" required
+                          name="nombres2" value="{{usuario.1}}" />
+
                         <div class="invalid-feedback">
                           Por favor ingrese los nombres.
                         </div>
 
                         <label for="apellidos">Apellidos*</label>
-                        <input type="text" class="form-control" id="apellidos" placeholder="Ingrese los apellidos"
-                          required value="{{usuario.2}}" />
+                        <input type="text" class="form-control" id="apellidos2" placeholder="Ingrese los apellidos"
+                          required name="apellidos2" value="{{usuario.2}}" />
                         <div class="invalid-feedback">
                           Por favor ingrese los apellidos.
                         </div>
 
                         <label for="cedula">Documento*</label>
-                        <input type="number" class="form-control" id="cedula"
-                          placeholder="Ingrese el número del documento" required number value="{{usuario.3}}" />
+                        <input type="number" class="form-control" id="cedula2"
+                          placeholder="Ingrese el número del documento" required number name="cedula2"
+                          value="{{usuario.3}}" />
                         <div class="invalid-feedback">
                           Por favor ingrese un número de documento solo de números.
                         </div>
 
                         <label for="correo">Correo*</label>
-                        <input type="email" class="form-control" id="correo" placeholder="Ingrese el correo electrónico"
-                          required email value="{{usuario.4}}" />
+                        <input type="email" class="form-control" id="correo2"
+                          placeholder="Ingrese el correo electrónico" required email name="correo2"
+                          value="{{usuario.4}}" />
                         <div class="invalid-feedback">
                           Por favor ingrese un correo electrónico valido.
                         </div>
 
                         <label for="rol_crear" class="form-label">Rol*</label>
-                        <select class="form-select" id="rol_crear" required value="{{usuario.8}}">
+                        <select class="form-select" id="rol_crear2" required name="rol_crear2" value="{{usuario.8}}">
                           <option value="3">Usuario final</option>
                           <option class="select-editar-admin" value="2">Administrador</option>
                           <option class="select-editar-super" value="1">Super Administrador</option>
