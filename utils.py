@@ -113,10 +113,20 @@ def consultartodoslosusuarios():
 
     cursor = conexion.cursor()
     cursor.execute(
-        "SELECT U.user_name,  U.nombres, U.apellidos, U.documento, U.correo,  U.fecha_creacion, U.fecha_vencimiento, R.Descripcion, U.idrol FROM Usuarios U Join Roles R Where U.idrol = R.idrol")
+        "SELECT U.user_name,  U.nombres, U.apellidos, U.documento, U.correo,  U.fecha_creacion, U.fecha_vencimiento, R.Descripcion, U.idrol FROM Usuarios U Join Roles R WHERE U.idrol = R.idrol ORDER BY U.fecha_vencimiento ASC, R.idRol DESC")
     filas = cursor.fetchall()
     conexion.close()
     return filas
+
+def consultartodoslosusuariosadmin():
+    conexion = sqlite3.connect("Polaris")
+
+    cursor = conexion.cursor()
+    cursor.execute(
+        "SELECT U.user_name,  U.nombres, U.apellidos, U.documento, U.correo,  U.fecha_creacion, U.fecha_vencimiento, R.Descripcion, U.idrol FROM Usuarios U Left Join Roles R ON U.idrol = R.idrol WHERE R.idrol=3 ORDER BY U.fecha_vencimiento ASC ")
+    filas = cursor.fetchall()
+    conexion.close()
+    return filas    
 
 def actualizarusuario(user_name, documento, nombres, apellidos, correo,  idRol):            
     conexion = sqlite3.connect("Polaris")

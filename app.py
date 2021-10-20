@@ -109,9 +109,9 @@ def login():
 
         with sqlite3.connect('Polaris') as conn:
             cur = conn.cursor()
-            user = cur.execute("SELECT user_name FROM usuarios WHERE user_name=? ", [
+            user = cur.execute("SELECT user_name,  fecha_vencimiento FROM usuarios WHERE user_name=? ", [
                                usuario]).fetchone()
-            if user is not None:
+            if user is not None and user[1] is None:
                 password = cur.execute(
                     "SELECT password, salt, descripcion, nombres, apellidos FROM usuarios LEFT JOIN roles ON usuarios.idRol = roles.idRol WHERE user_name=? ", [usuario]).fetchone()
                 if password is not None:
@@ -129,11 +129,11 @@ def login():
                         session['rol'] = rol
                         return redirect(url_for('index'))
                     else:
-                        errorclave = "Password no encontrado"
+                        errorusuario = "Usuario y/o contraseña no encontrado"
                         error = True
-                        return render_template("modules/login.html", error=error, errorclave=errorclave)
+                        return render_template("modules/login.html", error=error, errorusuario=errorusuario)
             else:
-                errorusuario = "Usuario no encontrado"
+                errorusuario = "Usuario y/o contraseña no encontrado"
                 error = True
                 return render_template("modules/login.html", error=error, errorusuario=errorusuario)
 
@@ -221,7 +221,10 @@ def users():
         rol = ""
         clave = ""
         # Consulta para traer los usuarios existentes
-        usuarios = utils.consultartodoslosusuarios()
+        if session.get('rol') == "SuperAdministrador":
+            usuarios = utils.consultartodoslosusuarios()
+        if session.get('rol') == "Administrador":
+            usuarios= utils.consultartodoslosusuariosadmin()
         if request.method == 'POST':
             formulario = request.form.get("oculto")
             if(formulario == "crear"):
@@ -278,7 +281,10 @@ def users():
                 usuario = request.form.get('ocultoborrar')
                 print(usuario)
                 if (utils.eliminarusuario(usuario) == True):
-                    productos = utils.consultartodoslosusuarios()
+                    if session.get('rol') == "SuperAdministrador":
+                        usuarios = utils.consultartodoslosusuarios()
+                    if session.get('rol') == "Administrador":
+                        usuarios= utils.consultartodoslosusuariosadmin()
                     print("pasa por ELIMINAR USUARIO")
                     return render_template('modules/users.html', usuarios=usuarios)            
 
@@ -290,7 +296,10 @@ def users():
                 correo = request.form.get('correo')
                 rol = request.form.get('rol_editar')
                 if (utils.actualizarusuario(usuario, documento, nombre, apellido,  correo, rol) == True):
-                    usuarios = utils.consultartodoslosusuarios()
+                    if session.get('rol') == "SuperAdministrador":
+                        usuarios = utils.consultartodoslosusuarios()
+                    if session.get('rol') == "Administrador":
+                        usuarios= utils.consultartodoslosusuariosadmin()
                     print("pasa por editar usuarios")
                     return render_template('modules/users.html', usuarios=usuarios) 
         return render_template('modules/users.html', usuarios=usuarios)
