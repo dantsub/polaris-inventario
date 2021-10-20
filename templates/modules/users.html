@@ -76,10 +76,12 @@ Usuarios
           <td>{{usuario.5}}</td>
           <td>{{usuario.6}}</td>
           <td class="py-1 px-2" text-align="center">
+            {% if usuario.6 == None %}
             <button class="btn btn-primary table-buttons" id="editar" data-bs-toggle="modal"
               data-bs-target="#modal_editar-{{usuario.0}}">
               <span class="fas fa-edit"></span>
             </button>
+            
 
             <!-- Inicio Modal Editar -->
             <div class="modal fade" id="modal_editar-{{usuario.0}}" tabindex="-1" role="dialog"
@@ -138,8 +140,10 @@ Usuarios
                         <label for="rol_crear" class="form-label">Rol*</label>
                         <select class="form-select" id="rol_crear2" required name="rol_crear2" value="{{usuario.8}}">
                           <option value="3">Usuario final</option>
+                          {% if session.rol == "SuperAdministrador" %}
                           <option class="select-editar-admin" value="2">Administrador</option>
                           <option class="select-editar-super" value="1">Super Administrador</option>
+                          {% endif %}
                         </select>
                         <div class="invalid-feedback">
                           Por favor ingrese el rol.
@@ -210,7 +214,8 @@ Usuarios
               data-bs-target="#modalDelete-{{usuario.0}}">
               <span><i class="fas fa-award"></i></i></span>
             </a> -->
-
+            {% endif %}
+          </td>
         </tr>
         {% endfor %}
       </tbody>

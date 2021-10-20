@@ -108,17 +108,40 @@ def actualizarproducto(codigo, nombre, descripcion, cantmin, cantdisp, proveedor
     conexion.close()
     return True
 
+
+def registrarcalifiacion(codigo, valor, comentario):
+    conexion = sqlite3.connect("Polaris")
+
+    cursor = conexion.cursor()
+    cursor.execute("INSERT INTO calificacion (valor, comentario, idProducto) VALUES (?,?,?)",
+                   (valor, comentario, codigo))
+    conexion.commit()
+    return True
+
+
 def consultartodoslosusuarios():
     conexion = sqlite3.connect("Polaris")
 
     cursor = conexion.cursor()
     cursor.execute(
-        "SELECT U.user_name,  U.nombres, U.apellidos, U.documento, U.correo,  U.fecha_creacion, U.fecha_vencimiento, R.Descripcion, U.idrol FROM Usuarios U Join Roles R Where U.idrol = R.idrol")
+        "SELECT U.user_name,  U.nombres, U.apellidos, U.documento, U.correo,  U.fecha_creacion, U.fecha_vencimiento, R.Descripcion, U.idrol FROM Usuarios U Join Roles R WHERE U.idrol = R.idrol ORDER BY U.fecha_vencimiento ASC, R.idRol DESC")
     filas = cursor.fetchall()
     conexion.close()
     return filas
 
-def actualizarusuario(user_name, documento, nombres, apellidos, correo,  idRol):            
+
+def consultartodoslosusuariosadmin():
+    conexion = sqlite3.connect("Polaris")
+
+    cursor = conexion.cursor()
+    cursor.execute(
+        "SELECT U.user_name,  U.nombres, U.apellidos, U.documento, U.correo,  U.fecha_creacion, U.fecha_vencimiento, R.Descripcion, U.idrol FROM Usuarios U Left Join Roles R ON U.idrol = R.idrol WHERE R.idrol=3 ORDER BY U.fecha_vencimiento ASC ")
+    filas = cursor.fetchall()
+    conexion.close()
+    return filas
+
+
+def actualizarusuario(user_name, documento, nombres, apellidos, correo,  idRol):
     conexion = sqlite3.connect("Polaris")
 
     cursor = conexion.cursor()
@@ -129,18 +152,20 @@ def actualizarusuario(user_name, documento, nombres, apellidos, correo,  idRol):
     conexion.close()
     return True
 
-def eliminarusuario(user_name):            
+
+def eliminarusuario(user_name):
     conexion = sqlite3.connect("Polaris")
 
     cursor = conexion.cursor()
     print(user_name)
-    Fecha=date.today()
+    Fecha = date.today()
     cursor.execute(
         "UPDATE USUARIOS SET fecha_vencimiento = ? WHERE user_name = ?", (Fecha, user_name))
     conexion.commit()
     conexion.close()
     return True
 
+
 def fecha():
-    Fecha=date.today()
+    Fecha = date.today()
     return Fecha
