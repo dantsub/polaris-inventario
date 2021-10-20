@@ -364,8 +364,16 @@ content %} {% if error %}
                       <div class="modal-body">
                       </br>
                         <div class="form-group text-center">
-                            <div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label> </div>
-
+                              <input type="radio" name="rating" value="5" id="5-{{producto.0}}">
+                              <label for="5-{{producto.0}}">☆</label>
+                              <input type="radio" name="rating" value="4" id="4-{{producto.0}}">
+                              <label for="4-{{producto.0}}">☆</label>
+                              <input type="radio" name="rating" value="3" id="3-{{producto.0}}">
+                              <label for="3-{{producto.0}}">☆</label>
+                              <input type="radio" name="rating" value="2" id="2-{{producto.0}}">
+                              <label for="2-{{producto.0}}">☆</label>
+                              <input type="radio" name="rating" value="1" id="1-{{producto.0}}">
+                              <label for="1-{{producto.0}}">☆</label> </div>
                           <div id="errorcalificacion"></div>
                         </div>
                         <div class="form-group">
