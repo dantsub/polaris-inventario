@@ -276,22 +276,29 @@ def users():
             if(formulario == "eliminar"):
                 ##codigo = request.form.get('ocultoborrar')
                 usuario = request.form.get('ocultoborrar')
-                print(usuario)
+                ##print(usuario)
                 if (utils.eliminarusuario(usuario) == True):
                     productos = utils.consultartodoslosusuarios()
-                    print("pasa por ELIMINAR USUARIO")
+                    ##print("pasa por ELIMINAR USUARIO")
                     return render_template('modules/users.html', usuarios=usuarios)            
 
             if (formulario == "editar"): 
-                usuario = request.form.get('usuario')
-                nombre = request.form.get('nombres')
-                apellido = request.form.get('apellidos')
-                documento = request.form.get('cedula')
-                correo = request.form.get('correo')
-                rol = request.form.get('rol_editar')
+                ##usuario = request.form.get('usuario')
+                usuario = request.form.get('ocultoeditar')
+                nombre = request.form.get('nombres2')
+                apellido = request.form.get('apellidos2')
+                documento = request.form.get('cedula2')
+                correo = request.form.get('correo2')
+                rol = request.form.get('rol_crear2')
                 if (utils.actualizarusuario(usuario, documento, nombre, apellido,  correo, rol) == True):
                     usuarios = utils.consultartodoslosusuarios()
-                    print("pasa por editar usuarios")
+                    print(usuario)
+                    print(nombre)
+                    print(apellido)
+                    print(documento)
+                    print(correo)
+                    print(rol)
+                    print("pasa por editar usuariosXXXX")
                     return render_template('modules/users.html', usuarios=usuarios) 
         return render_template('modules/users.html', usuarios=usuarios)
     else:
