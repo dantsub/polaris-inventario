@@ -71,7 +71,6 @@ def productos():
                 if (utils.eliminarproducto(codigo) == True):
                     proveedores = utils.consultarproveedores()
                     productos = utils.consultartodoslosproductos()
-                    print("pasa por borrar")
                     return render_template('modules/products.html', proveedores=proveedores, productos=productos)
             if(formulario == "editar"):
                 codigo = request.form.get('ocultoeditar')
@@ -83,8 +82,16 @@ def productos():
                 if (utils.actualizarproducto(codigo, nombre, descripcion, cantmin, cantexist, select) == True):
                     proveedores = utils.consultarproveedores()
                     productos = utils.consultartodoslosproductos()
-                    print("pasa por editar")
                     return render_template('modules/products.html', proveedores=proveedores, productos=productos)
+            if(formulario == "calificar"):
+                codigo = request.form.get('ocultocalificar')
+                valor = request.form['rating']
+                comentario = request.form.get('comentario')
+                if (utils.registrarcalifiacion(codigo, valor, comentario) == True):
+                    proveedores = utils.consultarproveedores()
+                    productos = utils.consultartodoslosproductos()
+                    return render_template('modules/products.html', proveedores=proveedores, productos=productos)
+
         return render_template('modules/products.html', proveedores=proveedores, productos=productos)
     else:
         return redirect(url_for('login'))
@@ -117,9 +124,9 @@ def login():
                 if password is not None:
                     password2 = password[0]
                     salt = password[1]
-                    rol= password[2]
-                    nombre= password[3]
-                    apellido=password[4]
+                    rol = password[2]
+                    nombre = password[3]
+                    apellido = password[4]
                     session.clear()
                     if check_password_hash(password2, salt+clave):
                         # if password2 == clave:
@@ -224,7 +231,7 @@ def users():
         if session.get('rol') == "SuperAdministrador":
             usuarios = utils.consultartodoslosusuarios()
         if session.get('rol') == "Administrador":
-            usuarios= utils.consultartodoslosusuariosadmin()
+            usuarios = utils.consultartodoslosusuariosadmin()
         if request.method == 'POST':
             formulario = request.form.get("oculto")
             if(formulario == "crear"):
@@ -265,7 +272,8 @@ def users():
                     today = date.today()
                     with sqlite3.connect('Polaris') as conn:
                         cur = conn.cursor()
-                        user_validate = cur.execute("SELECT user_name FROM usuarios WHERE user_name=? ", [usuario]).fetchone()
+                        user_validate = cur.execute(
+                            "SELECT user_name FROM usuarios WHERE user_name=? ", [usuario]).fetchone()
                         if user_validate is None:
                             cur.execute('INSERT INTO usuarios (user_name, documento, nombres, apellidos, correo, password, fecha_creacion, idRol, salt) VALUES(?,?,?,?,?,?,?,?,?)',
                                         (usuario, documento, nombre, apellido, correo, clave_encrypt, today, rol, salt))
@@ -275,7 +283,7 @@ def users():
                             error = True
                             data1 = "Este nombre de usuario ya existe"
                             return render_template('modules/users.html', data1=data1, error=error)
-            
+
             if(formulario == "eliminar"):
                 ##codigo = request.form.get('ocultoborrar')
                 usuario = request.form.get('ocultoborrar')
@@ -284,11 +292,11 @@ def users():
                     if session.get('rol') == "SuperAdministrador":
                         usuarios = utils.consultartodoslosusuarios()
                     if session.get('rol') == "Administrador":
-                        usuarios= utils.consultartodoslosusuariosadmin()
+                        usuarios = utils.consultartodoslosusuariosadmin()
                     print("pasa por ELIMINAR USUARIO")
-                    return render_template('modules/users.html', usuarios=usuarios)            
+                    return render_template('modules/users.html', usuarios=usuarios)
 
-            if (formulario == "editar"): 
+            if (formulario == "editar"):
                 usuario = request.form.get('usuario')
                 nombre = request.form.get('nombres')
                 apellido = request.form.get('apellidos')
@@ -299,9 +307,9 @@ def users():
                     if session.get('rol') == "SuperAdministrador":
                         usuarios = utils.consultartodoslosusuarios()
                     if session.get('rol') == "Administrador":
-                        usuarios= utils.consultartodoslosusuariosadmin()
+                        usuarios = utils.consultartodoslosusuariosadmin()
                     print("pasa por editar usuarios")
-                    return render_template('modules/users.html', usuarios=usuarios) 
+                    return render_template('modules/users.html', usuarios=usuarios)
         return render_template('modules/users.html', usuarios=usuarios)
     else:
         return redirect(url_for('login'))

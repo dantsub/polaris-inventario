@@ -10,6 +10,27 @@ content %} {% if error %}
 </script>
 {% endif %}
 
+<!-- Filtros de la tabla -->
+<!-- <script type="text/javascript">
+  $(document).ready(function () {
+    $('#tablaprod').DataTable({
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+      },
+      "order": [
+        [0, "desc"]
+      ],
+      "lengthMenu": [
+        [5, 10, 15, 20, -1],
+        [5, 10, 15, 20, "Todos"]
+      ],
+      "pageLength": 5
+    });
+  });
+
+
+</script> -->
+
 <div class="card">
   <div class="card-body border-bottom">
     <h2>Productos</h2>
@@ -81,7 +102,7 @@ content %} {% if error %}
       style="padding: 5px !important"
     >
       <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="tablaprod">
           <thead>
             <tr>
               <th>Codigo</th>
@@ -236,7 +257,7 @@ content %} {% if error %}
 
                         <!-- Fin Modal Editar -->
 
-          
+
                 &nbsp;
                 <a
                   href="{{producto.0}}"
@@ -248,7 +269,7 @@ content %} {% if error %}
                 </a>
 
 
-                
+
                 <!-- Modal Eliminar -->
                 <div
                   class="modal fade"
@@ -270,7 +291,7 @@ content %} {% if error %}
                           aria-label="Close"
                         ></button>
                       </div>
-                      <form 
+                      <form
                       id="borrarproducto"
                       action="{{url_for('productos')}}"
                       method="POST"
@@ -295,7 +316,7 @@ content %} {% if error %}
                           Eliminar Producto
                         </button>
 
-                        
+
                       </div>
                       </form>
                     </div>
@@ -307,10 +328,79 @@ content %} {% if error %}
                   href="{{producto.0}}"
                   class="btn btn-info table-buttons"
                   data-bs-toggle="modal"
-                  data-bs-target="#modalDelete-{{producto.0}}"
+                  data-bs-target="#modalGrade-{{producto.0}}"
                 >
                   <span><i class="fas fa-award"></i></i></span>
                 </a>
+                <!-- Inicio Modal Calificacion -->
+                 <div
+                  class="modal fade"
+                  id="modalGrade-{{producto.0}}"
+                  tabindex="-1"
+                  aria-labelledby="Mo"
+                  aria-hidden="true"
+                >
+                <!-- Inicio Contenido del Modal Califiacion -->
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="Mo">
+                          Calificar producto
+                        </h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <form
+                      id="calificarproducto"
+                      action="{{url_for('productos')}}"
+                      method="POST"
+                      >
+                      <input type="hidden" name="oculto" value="calificar">
+                      <input type="hidden" name="ocultocalificar" value="{{producto.0}}">
+                      <div class="modal-body">
+                      </br>
+                        <div class="form-group text-center">
+                            <div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label> </div>
+
+                          <div id="errorcalificacion"></div>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Comentario*</label>
+                          <textarea
+                            class="form-control"
+                            id="comentario"
+                            placeholder="Comentario"
+                            name="comentario"
+                            rows="3"
+                            value="{{producto.6}}"
+                          ></textarea>
+                          <div id="errorcomentario"></div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                          Calificar Producto
+                        </button>
+                      </div>
+                      </form>
+                    </div>
+                  </div>
+
+                <!-- Fin Contenido del Modal Califiacion -->
+                 </div>
+
+                <!-- Fin Modal Calificacion -->
               </td>
             </tr>
             {% endfor %}
@@ -481,7 +571,7 @@ content %} {% if error %}
 
         <!-- Fin Sección Modal -->
 
-        
+
       </div>
     </div>
   </div>
