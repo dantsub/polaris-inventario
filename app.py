@@ -290,12 +290,13 @@ def users():
                 return render_template('modules/users.html', usuarios=usuarios)
 
         if (formulario == "editar"):
-            usuario = request.form.get('usuario')
-            nombre = request.form.get('nombres')
-            apellido = request.form.get('apellidos')
-            documento = request.form.get('cedula')
-            correo = request.form.get('correo')
-            rol = request.form.get('rol_editar')
+            ##usuario = request.form.get('usuario')
+            usuario = request.form.get('ocultoeditar')
+            nombre = request.form.get('nombres2')
+            apellido = request.form.get('apellidos2')
+            documento = request.form.get('cedula2')
+            correo = request.form.get('correo2')
+            rol = request.form.get('rol_crear2')
             if (utils.actualizarusuario(usuario, documento, nombre, apellido,  correo, rol) == True):
                 if session.get('rol') == "SuperAdministrador":
                     usuarios = utils.consultartodoslosusuarios()
