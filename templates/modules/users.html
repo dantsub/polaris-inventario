@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  Usuarios
+Usuarios
 {% endblock title %}
 
 {% block content %}
@@ -27,11 +27,17 @@
         <button class="btn btn-primary" id="buscar">Buscar</button>
         <div class="w-100 mt-1">
           <input aria-label="usuario" type="radio" name="tipo_b" value="1" checked>
+          <!-- Todos
+          {% for usuario in usuarios %}
+          <option value="{{ usuario.0 }}">{{usuario.1}}</option>
+          {% endfor %} 
+          <input class="ml-1" aria-label="nombre" type="radio" name="tipo_b" value="2">-->
           Usuario
-          <input class="ml-1" aria-label="nombre" type="radio" name="tipo_b" value="2">
+          <input class="ml-1" aria-label="nombre" type="radio" name="tipo_b" value="3">
           Nombre
         </div>
       </div>
+
       <div class="col-5 d-flex justify-content-end">
         <div>
           <label for="">Crear Usuario</label>
@@ -59,113 +65,156 @@
       </thead>
 
       <tbody>
+        {% for usuario in usuarios %}
         <tr>
-          <td>MGARCIA</td>
-          <td>Manuel</td>
-          <td>Garcia</td>
-          <td>123456789</td>
-          <td>mgarcia@uninorte.edu.co</td>
-          <td>Superadministrador</td>
-          <td>01-01-2021</td>
-          <td> </td>
-
-          <td class="py-1 px-2">
-            <button class="btn btn-primary table-buttons" id="editar" data-toggle="modal" data-target="#modal_editar">
-              <span class="fas fa-edit p-0"></span>
-            </button>
-            <button class="btn btn-danger table-buttons" id="eliminar" data-toggle="modal"
-              data-target="#modal_eliminar">
-              <span class="fa fa-user-times p-0"></span>
-            </button>
-          </td>
-        </tr>
-
-        <tr>
-          <td>LCAMPOS</td>
-          <td>Lesly</td>
-          <td>Campos</td>
-          <td>123456789</td>
-          <td>lcampos@uninorte.edu.co</td>
-          <td>Administrador</td>
-          <td>01-01-2021</td>
-          <td> </td>
-          <td class="py-1 px-2">
-            <button class="btn btn-primary table-buttons" id="editar" data-toggle="modal" data-target="#modal_editar">
+          <td>{{usuario.0}}</td>
+          <td>{{usuario.1}}</td>
+          <td>{{usuario.2}}</td>
+          <td>{{usuario.3}}</td>
+          <td>{{usuario.4}}</td>
+          <td>{{usuario.7}}</td>
+          <td>{{usuario.5}}</td>
+          <td>{{usuario.6}}</td>
+          <td class="py-1 px-2" text-align="center">
+            <button class="btn btn-primary table-buttons" id="editar" data-bs-toggle="modal"
+              data-bs-target="#modal_editar-{{usuario.0}}">
               <span class="fas fa-edit"></span>
             </button>
-            <button class="btn btn-danger table-buttons" id="eliminar" data-toggle="modal"
-              data-target="#modal_eliminar">
-              <span class="fa fa-user-times p-0"></span>
-            </button>
-          </td>
-        </tr>
 
-        <tr>
-          <td>LGOMEZ</td>
-          <td>Luis</td>
-          <td>Gomez</td>
-          <td>123456789</td>
-          <td>lgomez@uninorte.edu.co</td>
-          <td>Administrador</td>
-          <td>01-01-2021</td>
-          <td> </td>
-          <td class="py-1 px-2">
-            <button class="btn btn-primary table-buttons" id="editar" data-toggle="modal" data-target="#modal_editar">
-              <span class="fas fa-edit"></span>
-            </button>
-            <button class="btn btn-danger table-buttons" id="eliminar" data-toggle="modal"
-              data-target="#modal_eliminar">
-              <span class="fa fa-user-times p-0"></span>
-            </button>
-          </td>
-        </tr>
+            <!-- Inicio Modal Editar -->
+            <div class="modal fade" id="modal_editar-{{usuario.0}}" tabindex="-1" role="dialog"
+              aria-labelledby="titulo_crear" aria-hidden="true">
+              <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="titulo_crear">Editar Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="form_crear" action="{{url_for('users')}}" class="row g-3 needs-validation" method="POST"
+                      novalidate>
+                      <div class="form-group">
+                        <label for="id">Nombre de usuario*</label>
+                        <input type="text" class="form-control" id="id" placeholder="Nombre de usuario" required
+                          value="{{usuario.0}}" Disabled disabled />
+                        <input type="hidden" name="oculto" value="editar" />
+                        <div class="invalid-feedback">
+                          Por favor ingrese el nombre de usuario.
+                        </div>
 
-        <tr>
-          <td>JMARTINEZ</td>
-          <td>Joshua </td>
-          <td>Martinez</td>
-          <td>123456789</td>
-          <td>jmartinez@uninorte.edu.co</td>
-          <td>Administrador</td>
-          <td>01-01-2021</td>
-          <td> </td>
-          <td class="py-1 px-2">
-            <button class="btn btn-primary table-buttons" id="editar" data-toggle="modal" data-target="#modal_editar">
-              <span class="fas fa-edit"></span>
-            </button>
-            <button class="btn btn-danger table-buttons" id="eliminar" data-toggle="modal"
-              data-target="#modal_eliminar">
-              <span class="fa fa-user-times p-0"></span>
-            </button>
-          </td>
-        </tr>
+                        <label for="nombres">Nombres*</label>
+                        <input type="text" class="form-control" id="nombres" placeholder="Ingrese los nombres" required
+                          value="{{usuario.1}}" />
+                        <div class="invalid-feedback">
+                          Por favor ingrese los nombres.
+                        </div>
 
-        <tr>
-          <td>NDAMS</td>
-          <td>Nora </td>
-          <td>Dams</td>
-          <td>123456789</td>
-          <td>ndams@uninorte.edu.co</td>
-          <td>Usuario final</td>
-          <td>01-01-2021</td>
-          <td>07-10-2021</td>
-          <td class="py-1 px-2">
-            <button class="btn btn-primary table-buttons" id="editar" data-toggle="modal" data-target="#modal_editar">
-              <span class="fas fa-edit p-0"></span>
-            </button>
-            <button class="btn btn-danger table-buttons" id="eliminar" data-toggle="modal"
-              data-target="#modal_eliminar">
-              <span class="fa fa-user-times p-0"></span>
-            </button>
-          </td>
+                        <label for="apellidos">Apellidos*</label>
+                        <input type="text" class="form-control" id="apellidos" placeholder="Ingrese los apellidos"
+                          required value="{{usuario.2}}" />
+                        <div class="invalid-feedback">
+                          Por favor ingrese los apellidos.
+                        </div>
+
+                        <label for="cedula">Documento*</label>
+                        <input type="number" class="form-control" id="cedula"
+                          placeholder="Ingrese el número del documento" required number value="{{usuario.3}}" />
+                        <div class="invalid-feedback">
+                          Por favor ingrese un número de documento solo de números.
+                        </div>
+
+                        <label for="correo">Correo*</label>
+                        <input type="email" class="form-control" id="correo" placeholder="Ingrese el correo electrónico"
+                          required email value="{{usuario.4}}" />
+                        <div class="invalid-feedback">
+                          Por favor ingrese un correo electrónico valido.
+                        </div>
+
+                        <label for="rol_crear" class="form-label">Rol*</label>
+                        <select class="form-select" id="rol_crear" required value="{{usuario.8}}">
+                          <option value="3">Usuario final</option>
+                          <option class="select-editar-admin" value="2">Administrador</option>
+                          <option class="select-editar-super" value="1">Super Administrador</option>
+                        </select>
+                        <div class="invalid-feedback">
+                          Por favor ingrese el rol.
+                        </div>
+                      </div>
+
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                          <!-- <button class="btn btn-secondary" type="button" id="no"> -->
+                          Cancelar
+                        </button>
+                        <button class="btn btn-primary" type="submit">
+                          Editar usuario
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /Fin Modal Editar -->
+
+            &nbsp;
+            <a href="{{usuario.0}}" class="btn btn-danger table-buttons" data-bs-toggle="modal"
+              data-bs-target="#modal_eliminar-{{usuario.0}}">
+              <span><i class="fa fa-trash"></i></span>
+            </a>
+
+            <!-- /Inicio Modal Eliminar -->
+            <div class=" modal fade" id="modal_eliminar-{{usuario.0}}" tabindex="-1" role="dialog"
+              aria-labelledby="titulo_eliminar" aria-hidden="true">
+              <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 id="titulo_eliminar">Eliminar Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                  </div>
+                  <div class="modal-body">
+                    <form id="form_crear" action="{{url_for('users')}}" class="row g-3 needs-validation" method="POST"
+                      novalidate>
+                      <input type="hidden" name="oculto" value="eliminar" />
+                      <input type="hidden" name="ocultoborrar" value="{{usuario.0}}">
+                      <div>
+                        <div>
+                          <label for="">¿Está seguro que desea eliminar el usuario?</label>
+                        </div>
+
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <!-- <button class="btn btn-secondary" type="button" id="no"> -->
+                            Cancelar
+                          </button>
+                          <button class="btn btn-primary" type="submit" id="si">
+                            Eliminar usuario
+                          </button>
+                        </div>
+                      </div>
+                  </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- /Fin Modal Eliminar -->
+
+            <!-- &nbsp;
+            <a href=" {{usuario.0}}" class="btn btn-info table-buttons" data-bs-toggle="modal"
+              data-bs-target="#modalDelete-{{usuario.0}}">
+              <span><i class="fas fa-award"></i></i></span>
+            </a> -->
+
         </tr>
+        {% endfor %}
       </tbody>
-
     </table>
   </div>
 
   <!-- / Inicio Modal Crear -->
-  <div class="modal fade" id="modal_crear" nombre="modal_crear" tabindex="-1" role="dialog" aria-labelledby="titulo_crear" aria-hidden="true">
+  <div class="modal fade" id="modal_crear" nombre="modal_crear" tabindex="-1" role="dialog"
+    aria-labelledby="titulo_crear" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -176,10 +225,11 @@
           <form id="form_crear" action="{{url_for('users')}}" method="POST" novalidate>
             <div class="form-group">
               <label class="form-label" for="id">Nombre de usuario*</label>
-              <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Nombre de usuario" required>
-              
+              <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Nombre de usuario"
+                required>
+
               <input type="hidden" name="oculto" value="crear" />
-              
+
               <div class="invalid-feedback">
                 Por favor ingrese el nombre de usuario.
               </div>
@@ -189,7 +239,8 @@
               </div>
 
               <label for="nombres">Nombres*</label>
-              <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Ingrese los nombres" required>
+              <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Ingrese los nombres"
+                required>
               <div class="invalid-feedback">
                 Por favor ingrese los nombres.
               </div>
@@ -199,7 +250,8 @@
               </div>
 
               <label for="apellidos">Apellidos*</label>
-              <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Ingrese los apellidos" required>
+              <input type="text" class="form-control" id="apellidos" name="apellidos"
+                placeholder="Ingrese los apellidos" required>
               <div class="invalid-feedback">
                 Por favor ingrese los apellidos.
               </div>
@@ -209,8 +261,8 @@
               </div>
 
               <label for="cedula">Documento*</label>
-              <input type="number" class="form-control" id="cedula" name="cedula" placeholder="Ingrese el número del documento"
-                required number>
+              <input type="number" class="form-control" id="cedula" name="cedula"
+                placeholder="Ingrese el número del documento" required number>
               <div class="invalid-feedback">
                 Por favor ingrese el número de documento.
               </div>
@@ -220,8 +272,8 @@
               </div>
 
               <label for="correo">Correo*</label>
-              <input type="email" class="form-control" id="correo" name="correo" placeholder="Ingrese el correo electrónico" required
-                email>
+              <input type="email" class="form-control" id="correo" name="correo"
+                placeholder="Ingrese el correo electrónico" required email>
               <div class="invalid-feedback">
                 Por favor ingrese un correo electrónico valido.
               </div>
@@ -275,99 +327,9 @@
   </div>
   <!-- / Fin Modal Crear -->
 
-  <!-- Inicio Modal Editar -->
-  <div class="modal fade" id="modal_editar" tabindex="-1" role="dialog" aria-labelledby="titulo_crear"
-    aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="titulo_crear">Editar Usuario</h5>
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body">
-          <form id="form_crear" class="row g-3 needs-validation" method="POST" novalidate>
-            <div class="form-group">
-              <label for="id">Nombre de usuario*</label>
-              <input type="text" class="form-control" id="id" placeholder="Nombre de usuario" required>
-              <div class="invalid-feedback">
-                Por favor ingrese el nombre de usuario.
-              </div>
 
-              <label for="nombres">Nombres*</label>
-              <input type="text" class="form-control" id="nombres" placeholder="Ingrese los nombres" required>
-              <div class="invalid-feedback">
-                Por favor ingrese los nombres.
-              </div>
 
-              <label for="apellidos">Apellidos*</label>
-              <input type="text" class="form-control" id="apellidos" placeholder="Ingrese los apellidos" required>
-              <div class="invalid-feedback">
-                Por favor ingrese los apellidos.
-              </div>
 
-              <label for="cedula">Documento*</label>
-              <input type="number" class="form-control" id="cedula" placeholder="Ingrese el número del documento"
-                required number>
-              <div class="invalid-feedback">
-                Por favor ingrese un número de documento solo de números.
-              </div>
-
-              <label for="correo">Correo*</label>
-              <input type="email" class="form-control" id="correo" placeholder="Ingrese el correo electrónico"
-                required email>
-              <div class="invalid-feedback">
-                Por favor ingrese un correo electrónico valido.
-              </div>
-
-              <label for="rol_crear" class="form-label">Rol*</label>
-              <select class="form-select" id="rol_crear" required>
-                <option value="3">Usuario final</option>
-                <option class="select-editar-admin" value="2">Administrador</option>
-                <option class="select-editar-super" value="1">Super Administrador</option>
-              </select>
-              <div class="invalid-feedback">
-                Por favor ingrese el rol.
-              </div>
-            </div>
-
-            <div class="modal-footer">
-              <button class="btn btn-primary" type="submit">
-                Editar
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- /Fin Modal Editar -->
-  <div class="modal fade" id="modal_eliminar" tabindex="-1" role="dialog" aria-labelledby="titulo_eliminar"
-    aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 id="titulo_eliminar">Eliminar Usuario</h5>
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body">
-          <div>
-            <div>
-              <label for="">¿Está seguro que desea eliminar el usuario?</label>
-            </div>
-
-            <div class="modal-footer">
-              <button class="btn btn-primary" type="button" id="si">
-                SI
-              </button>
-              <button class="btn btn-secondary" type="button" id="no">
-                NO
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 </main>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -377,7 +339,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
   integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
-integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+  integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
 <script src="{{ url_for('static', filename='js/validacionCrearUsuario.js') }}"></script>
 <script>
   $('#modal_crear').on('show.bs.modal', function (event) {

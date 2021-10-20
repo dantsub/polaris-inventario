@@ -1,6 +1,7 @@
 import re
 import sqlite3
 from validate_email import validate_email
+from datetime import datetime, date
 
 
 #pass_regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,}$"
@@ -106,3 +107,40 @@ def actualizarproducto(codigo, nombre, descripcion, cantmin, cantdisp, proveedor
     conexion.commit()
     conexion.close()
     return True
+
+def consultartodoslosusuarios():
+    conexion = sqlite3.connect("Polaris")
+
+    cursor = conexion.cursor()
+    cursor.execute(
+        "SELECT U.user_name,  U.nombres, U.apellidos, U.documento, U.correo,  U.fecha_creacion, U.fecha_vencimiento, R.Descripcion, U.idrol FROM Usuarios U Join Roles R Where U.idrol = R.idrol")
+    filas = cursor.fetchall()
+    conexion.close()
+    return filas
+
+def actualizarusuario(user_name, documento, nombres, apellidos, correo,  idRol):            
+    conexion = sqlite3.connect("Polaris")
+
+    cursor = conexion.cursor()
+    print(user_name, documento, nombres, apellidos, correo, idRol)
+    cursor.execute(
+        "UPDATE USUARIOS SET documento = ?, nombres = ?, apellidos = ?, correo = ?, idRol = ? WHERE user_name = ?", (documento, nombres, apellidos, correo, idRol, user_name))
+    conexion.commit()
+    conexion.close()
+    return True
+
+def eliminarusuario(user_name):            
+    conexion = sqlite3.connect("Polaris")
+
+    cursor = conexion.cursor()
+    print(user_name)
+    Fecha=date.today()
+    cursor.execute(
+        "UPDATE USUARIOS SET fecha_vencimiento = ? WHERE user_name = ?", (Fecha, user_name))
+    conexion.commit()
+    conexion.close()
+    return True
+
+def fecha():
+    Fecha=date.today()
+    return Fecha

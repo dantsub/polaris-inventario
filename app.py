@@ -220,6 +220,8 @@ def users():
         correo = ""
         rol = ""
         clave = ""
+        # Consulta para traer los usuarios existentes
+        usuarios = utils.consultartodoslosusuarios()
         if request.method == 'POST':
             formulario = request.form.get("oculto")
             if(formulario == "crear"):
@@ -258,10 +260,9 @@ def users():
                     salt = secrets.token_hex(8)
                     clave_encrypt = generate_password_hash(salt+clave)
                     today = date.today()
-                    with sqlite3.connect('../Polaris') as conn:
+                    with sqlite3.connect('Polaris') as conn:
                         cur = conn.cursor()
-                        user_validate = cur.execute(
-                            "SELECT user_name FROM usuarios WHERE user_name=? ", [usuario]).fetchone()
+                        user_validate = cur.execute("SELECT user_name FROM usuarios WHERE user_name=? ", [usuario]).fetchone()
                         if user_validate is None:
                             cur.execute('INSERT INTO usuarios (user_name, documento, nombres, apellidos, correo, password, fecha_creacion, idRol, salt) VALUES(?,?,?,?,?,?,?,?,?)',
                                         (usuario, documento, nombre, apellido, correo, clave_encrypt, today, rol, salt))
@@ -271,7 +272,28 @@ def users():
                             error = True
                             data1 = "Este nombre de usuario ya existe"
                             return render_template('modules/users.html', data1=data1, error=error)
-        return render_template('modules/users.html')
+            
+            if(formulario == "eliminar"):
+                ##codigo = request.form.get('ocultoborrar')
+                usuario = request.form.get('ocultoborrar')
+                print(usuario)
+                if (utils.eliminarusuario(usuario) == True):
+                    productos = utils.consultartodoslosusuarios()
+                    print("pasa por ELIMINAR USUARIO")
+                    return render_template('modules/users.html', usuarios=usuarios)            
+
+            if (formulario == "editar"): 
+                usuario = request.form.get('usuario')
+                nombre = request.form.get('nombres')
+                apellido = request.form.get('apellidos')
+                documento = request.form.get('cedula')
+                correo = request.form.get('correo')
+                rol = request.form.get('rol_editar')
+                if (utils.actualizarusuario(usuario, documento, nombre, apellido,  correo, rol) == True):
+                    usuarios = utils.consultartodoslosusuarios()
+                    print("pasa por editar usuarios")
+                    return render_template('modules/users.html', usuarios=usuarios) 
+        return render_template('modules/users.html', usuarios=usuarios)
     else:
         return redirect(url_for('login'))
 
