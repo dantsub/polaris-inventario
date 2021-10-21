@@ -10,8 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.addEventListener('click', (e) => {
     const { target } = e;
-    if (!target.classList.contains('table-buttons')) {
-      const cols = document.querySelectorAll('.js-sticky');
+    const shows = document.querySelectorAll('.show');
+    const cols = document.querySelectorAll('.js-sticky');
+
+    if (!target.classList.contains('table-buttons') && shows.length !== 3) {
       cols.forEach((col) => {
         if (!col.classList.contains('col-sticky')) {
           col.classList.add('col-sticky');

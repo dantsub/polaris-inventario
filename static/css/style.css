@@ -61,3 +61,7 @@ td.col-sticky {
 .rating:hover > input:checked ~ label:before {
   opacity: 0.4;
 }
+
+.table-bordered>:not(caption)>* {
+  border-width: 0;
+}
