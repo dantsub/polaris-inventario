@@ -63,20 +63,9 @@
     ></script>
     <!-- END: Font Awesome -->
   </head>
-  <body
-    class="vertical-layout vertical-menu-modern navbar-floating footer-static"
-    data-menu="vertical-menu-modern"
-  >
+  <body class="vertical-layout vertical-menu-modern navbar-floating footer-static " data-open="click" data-menu="vertical-menu-modern" data-col="">
     <!-- BEGIN: Navbar -->
-    <nav
-      class="
-        header-navbar
-        navbar navbar-expand-lg
-        align-items-center
-        floating-nav
-        navbar-light navbar-shadow
-      "
-    >
+    <nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow">
       <ul
         class="
           nav
@@ -87,10 +76,10 @@
           pl-1
         "
       >
-        <ul class="nav navbar-nav align-items-center">
+        <ul class="nav navbar-nav align-items-center gap-2">
           <li class="nav-item d-xl-none">
             <a class="nav-link menu-toggle" href="#">
-              <i class="fa fa-bars"></i>
+              <i class="fa fa-bars feather feather-menu ficon"></i>
             </a>
           </li>
           <li class="nav-item">
@@ -144,7 +133,7 @@
 
     <!-- BEGIN: Main Menu -->
     <div
-      class="main-menu menu-fixed menu-light menu-accordion menu-shadow"
+      class="main-menu menu-fixed menu-light menu-accordion menu-shadow expanded"
       data-scroll-to-active="true"
     >
       <!-- LOGO -->
@@ -159,6 +148,17 @@
                 height="24"
               />
               <h2 class="sr-only">Polaris</h2>
+            </a>
+          </li>
+          <li class="nav-item nav-toggle">
+            <a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x d-block d-xl-none text-primary toggle-icon font-medium-4">
+                <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+              <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-disc d-none d-xl-block collapse-toggle-icon primary font-medium-4">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg> -->
             </a>
           </li>
         </ul>
@@ -194,10 +194,37 @@
     <div class="app-content content">
       <!-- Content-wrapper -->
       <div class="content-wrapper">
+        {% if request.endpoint == "index" %}
+        <article class="card text-center">
+          <header class="card-header">
+            <h2 class="card-title mx-auto"> Bienvenido al inventario Polaris </h2>
+          </header>
+          <section class="card-body">
+            {% if 'usuario' in session %}
+            <p>Nos agrada tenerte de vuelva {{ session.nombre }} {{ session.apellido }}</p>
+            {% endif %}
+          </section>
+        </article>
+        {% endif %}
         {% block content %} {% endblock content %}
       </div>
     </div>
     <!-- END: Content -->
+    <script src="{{url_for('static', filename= 'js/vendors.min.js')}}"></script>
+    <script src="{{url_for('static', filename= 'js/bootstrap.min.js')}}"></script>
+
+    <script src="{{url_for('static', filename= 'js/app-menu.min.js')}}"></script>
+    <script src="{{url_for('static', filename= 'js/app.min.js')}}"></script>
+    <script src="{{url_for('static', filename= 'js/customizer.min.js')}}"></script>
+
     <script src="{{url_for('static', filename= 'js/productsValidate.js')}}"></script>
+    <script src="{{url_for('static', filename= 'js/table.js')}}"></script>
+    <script>
+      $(window).on('load',  function(){
+        if (feather) {
+          feather.replace({ width: 14, height: 14 });
+        }
+      })
+    </script>
   </body>
 </html>

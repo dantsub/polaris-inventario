@@ -112,10 +112,10 @@ content %} {% if error %}
               <th>Cant. Minima</th>
               <th>Existencia</th>
               <th>valoración</th>
-              <th>Acciones</th>
+              <th class="col-sticky">Acciones</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="js-table-body">
             {% for producto in productos %}
             <tr>
               <td>{{producto.0}}</td>
@@ -168,7 +168,7 @@ content %} {% if error %}
               {% endif %}
 
 
-              <td class="py-1 px-2" text-align="center">
+              <td class="py-1 px-2 col-sticky d-flex" text-align="center">
                 <button
                   class="btn btn-primary table-buttons"
                   id="editar"
@@ -304,14 +304,14 @@ content %} {% if error %}
 
 
                 &nbsp;
-                <a
+                <button
                   href="{{producto.0}}"
                   class="btn btn-danger table-buttons"
                   data-bs-toggle="modal"
                   data-bs-target="#modalDelete-{{producto.0}}"
                 >
-                  <span><i class="fa fa-trash"></i></span>
-                </a>
+                <i class="fa fa-trash"></i>
+                </button>
 
 
 

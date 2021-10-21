@@ -17,7 +17,7 @@
     const buscador = document.getElementById('buscar');
     buscador.addEventListener('click', function(e) {
         e.preventDefault();
-        const valor = document.getElementById('buscador').value;
+        const valor = document.getElementById('buscador').value.toLowerCase();
         const rows = document.querySelectorAll('.js-row');
         const checkCodigo = document.getElementById('check-codigo');
         rows.forEach((row) => {
@@ -27,7 +27,7 @@
             } else {
                 child = row.childNodes[3];
             }
-            const coincidencia = child.dataset.codigo;
+            const coincidencia = child.dataset.valor.toLowerCase();
             if (valor === undefined || valor === null || valor === "") {
                 child.parentElement.classList.remove('none');
             }

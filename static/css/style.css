@@ -12,6 +12,19 @@
   display: none;
 }
 
+.col-sticky {
+  position: sticky;
+  right: 0;
+  top: 0;
+}
+td.col-sticky {
+  background-color: white;
+}
+.col-sticky .fas,
+.col-sticky .fa {
+  pointer-events: none;
+}
+
 .rating {
   display: inline-flex;
   margin-top: -10px;
