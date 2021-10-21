@@ -7,6 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 from datetime import date
 import secrets
+from productos import *
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -25,8 +26,8 @@ def productos():
     data4 = ""
     error = False
     # >Consulta para traer los proveedores existentes
-    proveedores = utils.consultarproveedores()
-    productos = utils.consultartodoslosproductos()
+    proveedores = consultarproveedores()
+    productos = consultartodoslosproductos()
     if request.method == 'POST':
         formulario = request.form.get("oculto")
         if(formulario == "crear"):
@@ -52,21 +53,21 @@ def productos():
             if error:
                 return render_template('modules/products.html', data1=data1, data2=data2, data3=data3, data4=data4, error=error, nombre=nombre, select=select, descripcion=descripcion, proveedores=proveedores, productos=productos)
             else:
-                if(utils.validarexistenciadeproducto(codigo) == True):
+                if(validarexistenciadeproducto(codigo) == True):
                     error = True
                     data4 = "Ya existe un producto registrado con este codigo"
                     return render_template('modules/products.html', data4=data4, error=error, nombre=nombre, select=select, descripcion=descripcion, codigo=codigo, proveedores=proveedores, productos=productos)
                 else:
-                    if (utils.registrarproducto(codigo, nombre, descripcion, cantmin, cantexist, select) == True):
-                        proveedores = utils.consultarproveedores()
-                        productos = utils.consultartodoslosproductos()
+                    if (registrarproducto(codigo, nombre, descripcion, cantmin, cantexist, select) == True):
+                        proveedores = consultarproveedores()
+                        productos = consultartodoslosproductos()
                         return render_template('modules/products.html', proveedores=proveedores, productos=productos)
         if(formulario == "eliminar"):
             codigo = request.form.get('ocultoborrar')
             print(codigo)
-            if (utils.eliminarproducto(codigo) == True):
-                proveedores = utils.consultarproveedores()
-                productos = utils.consultartodoslosproductos()
+            if (eliminarproducto(codigo) == True):
+                proveedores = consultarproveedores()
+                productos = consultartodoslosproductos()
                 return render_template('modules/products.html', proveedores=proveedores, productos=productos)
         if(formulario == "editar"):
             codigo = request.form.get('ocultoeditar')
@@ -75,18 +76,18 @@ def productos():
             select = request.form.get('menuproveedor2')
             cantmin = request.form.get('cantminima2')
             cantexist = request.form.get('cantexistencia2')
-            if (utils.actualizarproducto(codigo, nombre, descripcion, cantmin, cantexist, select) == True):
-                proveedores = utils.consultarproveedores()
-                productos = utils.consultartodoslosproductos()
+            if (actualizarproducto(codigo, nombre, descripcion, cantmin, cantexist, select) == True):
+                proveedores = consultarproveedores()
+                productos = consultartodoslosproductos()
                 return render_template('modules/products.html', proveedores=proveedores, productos=productos)
         if(formulario == "calificar"):
             codigo = request.form.get('ocultocalificar')
             valor = request.form['rating']
             # comentario = request.form.get('comentario')
             # if (utils.registrarcalifiacion(codigo, valor, comentario) == True):
-            if (utils.registrarcalifiacion(codigo, valor) == True):
-                proveedores = utils.consultarproveedores()
-                productos = utils.consultartodoslosproductos()
+            if (registrarcalifiacion(codigo, valor) == True):
+                proveedores = consultarproveedores()
+                productos = consultartodoslosproductos()
                 return render_template('modules/products.html', proveedores=proveedores, productos=productos)
 
     return render_template('modules/products.html', proveedores=proveedores, productos=productos)
@@ -286,9 +287,9 @@ def users():
                     usuarios = utils.consultartodoslosusuariosadmin()
                 print("pasa por ELIMINAR USUARIO")
                 return render_template('modules/users.html', usuarios=usuarios)
-       
+
         if (formulario == "editar"):
-            ##usuario = request.form.get('usuario') esta linea no va
+            # usuario = request.form.get('usuario') esta linea no va
             usuario = request.form.get('ocultoeditar')
             nombre = request.form.get('nombres2')
             apellido = request.form.get('apellidos2')
