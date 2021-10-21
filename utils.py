@@ -109,12 +109,12 @@ def actualizarproducto(codigo, nombre, descripcion, cantmin, cantdisp, proveedor
     return True
 
 
-def registrarcalifiacion(codigo, valor, comentario):
+def registrarcalifiacion(codigo, valor):
     conexion = sqlite3.connect("Polaris")
 
     cursor = conexion.cursor()
-    cursor.execute("INSERT INTO calificacion (valor, comentario, idProducto) VALUES (?,?,?)",
-                   (valor, comentario, codigo))
+    cursor.execute("INSERT INTO calificacion (valor, idProducto) VALUES (?,?)",
+                   (valor, codigo))
     conexion.commit()
     return True
 
@@ -169,5 +169,3 @@ def eliminarusuario(user_name):
 def fecha():
     Fecha = date.today()
     return Fecha
-
-
