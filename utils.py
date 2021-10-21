@@ -57,7 +57,7 @@ def consultartodoslosproductos():
 
     cursor = conexion.cursor()
     cursor.execute(
-        "SELECT p.idProducto, p.nombre, p.descripcion, p.cantminima, p.cantdisponible, c.nombre, (SELECT ROUND(AVG(valor),1) as avg_amount FROM calificacion where p.idProducto = idProducto) as promedio from producto p join proveedores c where p.idProveedor = P.idProveedor")
+        "SELECT p.idProducto, p.nombre, p.descripcion, p.cantminima, p.cantdisponible, c.nombre, (SELECT ROUND(AVG(valor),1) as avg_amount FROM calificacion WHERE p.idProducto = idProducto GROUP BY idProducto) AS promedio FROM producto p join proveedores c WHERE p.idProveedor = c.idProveedor")
     filas = cursor.fetchall()
     conexion.close()
     return filas
@@ -68,7 +68,7 @@ def validarexistenciadeproducto(codigo):
 
     cursor = conexion.cursor()
     cursor.execute(
-        "SELECT * FROM producto  where idProducto = ?", (codigo,))
+        "SELECT * FROM producto  WHERE idProducto = ?", (codigo,))
     filas = cursor.fetchone()
     conexion.close()
     if filas is None:
@@ -81,7 +81,7 @@ def registrarproducto(codigo, nombre, descripcion, cantmin, cantdisp, proveedor)
     conexion = sqlite3.connect("Polaris")
 
     cursor = conexion.cursor()
-    cursor.execute("INSERT INTO PRODUCTO VALUES (?,?,?,?,?,?)",
+    cursor.execute("INSERT INTO producto VALUES (?,?,?,?,?,?)",
                    (codigo, nombre, descripcion, cantmin, cantdisp, proveedor))
     conexion.commit()
     return True
@@ -91,7 +91,7 @@ def eliminarproducto(codigo):
     conexion = sqlite3.connect("Polaris")
 
     cursor = conexion.cursor()
-    cursor.execute("DELETE FROM PRODUCTO WHERE idProducto = ?", (codigo,))
+    cursor.execute("DELETE FROM producto WHERE idProducto = ?", (codigo,))
     conexion.commit()
     conexion.close()
     return True
@@ -103,7 +103,7 @@ def actualizarproducto(codigo, nombre, descripcion, cantmin, cantdisp, proveedor
     cursor = conexion.cursor()
     print(codigo, nombre, descripcion, cantmin, cantdisp, proveedor)
     cursor.execute(
-        "UPDATE PRODUCTO SET nombre = ?, descripcion = ?, cantminima = ?, cantdisponible = ?, idProveedor = ? WHERE idProducto = ?", (nombre, descripcion, cantmin, cantdisp, proveedor, codigo))
+        "UPDATE producto SET nombre = ?, descripcion = ?, cantminima = ?, cantdisponible = ?, idProveedor = ? WHERE idProducto = ?", (nombre, descripcion, cantmin, cantdisp, proveedor, codigo))
     conexion.commit()
     conexion.close()
     return True
@@ -135,7 +135,7 @@ def consultartodoslosusuariosadmin():
 
     cursor = conexion.cursor()
     cursor.execute(
-        "SELECT U.user_name,  U.nombres, U.apellidos, U.documento, U.correo,  U.fecha_creacion, U.fecha_vencimiento, R.Descripcion, U.idrol FROM Usuarios U Left Join Roles R ON U.idrol = R.idrol WHERE R.idrol=3 ORDER BY U.fecha_vencimiento ASC ")
+        "SELECT U.user_name,  U.nombres, U.apellidos, U.documento, U.correo,  U.fecha_creacion, U.fecha_vencimiento, R.Descripcion, U.idrol FROM Usuarios U LEFT JOIN Roles R ON U.idrol = R.idrol WHERE R.idrol=3 ORDER BY U.fecha_vencimiento ASC ")
     filas = cursor.fetchall()
     conexion.close()
     return filas
@@ -147,7 +147,7 @@ def actualizarusuario(user_name, documento, nombres, apellidos, correo,  idRol):
     cursor = conexion.cursor()
     print(user_name, documento, nombres, apellidos, correo, idRol)
     cursor.execute(
-        "UPDATE USUARIOS SET documento = ?, nombres = ?, apellidos = ?, correo = ?, idRol = ? WHERE user_name = ?", (documento, nombres, apellidos, correo, idRol, user_name))
+        "UPDATE usuarios SET documento = ?, nombres = ?, apellidos = ?, correo = ?, idRol = ? WHERE user_name = ?", (documento, nombres, apellidos, correo, idRol, user_name))
     conexion.commit()
     conexion.close()
     return True
@@ -160,7 +160,7 @@ def eliminarusuario(user_name):
     print(user_name)
     Fecha = date.today()
     cursor.execute(
-        "UPDATE USUARIOS SET fecha_vencimiento = ? WHERE user_name = ?", (Fecha, user_name))
+        "UPDATE usuarios SET fecha_vencimiento = ? WHERE user_name = ?", (Fecha, user_name))
     conexion.commit()
     conexion.close()
     return True
