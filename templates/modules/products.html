@@ -124,7 +124,50 @@ content %} {% if error %}
               <td>{{producto.5}}</td>
               <td>{{producto.3}}</td>
               <td>{{producto.4}}</td>
-              <td>{{producto.6}} Puntos</td>
+              {% if producto.6 is none %}
+              <td>
+                <i class="far fa-star"></i>
+              </td>
+              {% endif %}
+              {% if producto.6 is not none %}
+              {% if producto.6 < 2 %}
+              <td>
+                <i class="fa fa-star"></i>
+              </td>
+              {% endif %}
+              {% if producto.6 >= 2 and producto.6 < 3 %}
+              <td>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </td>
+              {% endif %}
+              {% if producto.6 >= 3 and producto.6 < 4 %}
+              <td>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </td>
+              {% endif %}
+              {% if producto.6 >= 4 and producto.6 < 5 %}
+              <td>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </td>
+              {% endif %}
+              {% if producto.6 == 5 %}
+              <td>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </td>
+              {% endif %}
+              {% endif %}
+
+
               <td class="py-1 px-2" text-align="center">
                 <button
                   class="btn btn-primary table-buttons"
