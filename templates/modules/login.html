@@ -55,12 +55,12 @@
           <div class="auth-inner row m-0">
             <!-- Brand logo-->
             <a class="brand-logo" href="">
-              <img src="{{ url_for('static', filename='img/Logo_Polaris.png') }}" width="250" height="50">
+              <img class="mx-auto" src="{{ url_for('static', filename='img/Logo_Polaris.png') }}" width="250" height="50">
             </a>
             <!-- /Brand logo-->
             <!-- Left Text-->
-            <div class="d-none d-lg-flex row align-items-center p-5">
-              <div class="w-150 col-8 d-lg-flex align-items-center justify-content-center px-5">
+            <div class="d-lg-flex row align-items-center p-5">
+              <div class="w-150 col-md-8 d-lg-flex align-items-center justify-content-center px-5">
                 <img class="img-fluid" src="{{ url_for('static', filename='img/Carro.png') }}" alt="Login V2" />
               </div>
               <!-- Login-->
@@ -72,7 +72,7 @@
                     <div class="mb-1">
                       <label class="form-label" for="login-email">Usuario</label>
                       <input class="form-control" id="login-email" type="text" name="login-email"
-                        placeholder="usuario" aria-describedby="login-email" autofocus="" tabindex="1" />
+                        placeholder="usuario" aria-describedby="login-email" autofocus="" tabindex="0" />
                     </div>
                     <div id="errorusuario" style="color: red">
                       {% if errorusuario %} {{errorusuario}} {% endif %}
@@ -84,7 +84,7 @@
                       <div class="input-group input-group-merge form-password-toggle">
                         <input class="form-control form-control-merge" id="login-password" type="password"
                           name="login-password" placeholder="············" aria-describedby="login-password"
-                          tabindex="2" />
+                          tabindex="0" />
                         <span class="input-group-text cursor-pointer">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
