@@ -17,7 +17,6 @@ def index():
     return render_template('index.html')
 
 
-
 @app.route('/productos', methods=["GET", "POST"])
 def productos():
     data1 = ""
@@ -83,14 +82,14 @@ def productos():
         if(formulario == "calificar"):
             codigo = request.form.get('ocultocalificar')
             valor = request.form['rating']
-            comentario = request.form.get('comentario')
-            if (utils.registrarcalifiacion(codigo, valor, comentario) == True):
+            # comentario = request.form.get('comentario')
+            # if (utils.registrarcalifiacion(codigo, valor, comentario) == True):
+            if (utils.registrarcalifiacion(codigo, valor) == True):
                 proveedores = utils.consultarproveedores()
                 productos = utils.consultartodoslosproductos()
                 return render_template('modules/products.html', proveedores=proveedores, productos=productos)
 
     return render_template('modules/products.html', proveedores=proveedores, productos=productos)
-
 
 
 @app.route('/', methods=["GET", "POST"])
@@ -202,7 +201,6 @@ def providers():
     return render_template('modules/providers.html')
 
 
-
 @app.route('/users', methods=["GET", "POST"])
 def users():
     data1 = ""  # error usuario #usuario
@@ -305,10 +303,12 @@ def users():
                 return render_template('modules/users.html', usuarios=usuarios)
     return render_template('modules/users.html', usuarios=usuarios)
 
+
 @app.before_request
 def before_request():
-	if 'usuario' not in session and request.endpoint in ['index', 'productos','providers', 'users']:
-		return redirect(url_for('login'))
+    if 'usuario' not in session and request.endpoint in ['index', 'productos', 'providers', 'users']:
+        return redirect(url_for('login'))
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5504)

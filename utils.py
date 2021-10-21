@@ -57,7 +57,7 @@ def consultartodoslosproductos():
 
     cursor = conexion.cursor()
     cursor.execute(
-        "SELECT E.idProducto, E.nombre, E.descripcion, E.cantminima, E.cantdisponible, P.nombre FROM producto E join proveedores P where E.idProveedor = P.idProveedor")
+        "SELECT p.idProducto, p.nombre, p.descripcion, p.cantminima, p.cantdisponible, c.nombre, (SELECT ROUND(AVG(valor),1) as avg_amount FROM calificacion where p.idProducto = idProducto) as promedio from producto p join proveedores c where p.idProveedor = P.idProveedor")
     filas = cursor.fetchall()
     conexion.close()
     return filas
