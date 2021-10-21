@@ -286,9 +286,9 @@ def users():
                     usuarios = utils.consultartodoslosusuariosadmin()
                 print("pasa por ELIMINAR USUARIO")
                 return render_template('modules/users.html', usuarios=usuarios)
-
+       
         if (formulario == "editar"):
-            ##usuario = request.form.get('usuario')
+            ##usuario = request.form.get('usuario') esta linea no va
             usuario = request.form.get('ocultoeditar')
             nombre = request.form.get('nombres2')
             apellido = request.form.get('apellidos2')
