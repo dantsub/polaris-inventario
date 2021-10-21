@@ -22,18 +22,18 @@ Usuarios
     <h2 class="my-2">Usuarios</h2>
     <div class="row">
       <div class="col-7 d-flex flex-wrap align-items-center mb-1">
-        <input aria-label="Busqueda de usuarios" class="form-control col-4 mr-1" type="text" placeholder="Busqueda"
+        <input id="buscador" aria-label="Busqueda de usuarios" class="form-control col-4 mr-1" type="text" placeholder="Busqueda"
           aria-controls="Buscar">
         <button class="btn btn-primary" id="buscar">Buscar</button>
         <div class="w-100 mt-1">
-          <input aria-label="usuario" type="radio" name="tipo_b" value="1" checked>
+          <input aria-label="usuario" type="radio" name="tipo_b" value="1" id="check-codigo" data-value="codigo" checked>
           <!-- Todos
           {% for usuario in usuarios %}
           <option value="{{ usuario.0 }}">{{usuario.1}}</option>
           {% endfor %} 
           <input class="ml-1" aria-label="nombre" type="radio" name="tipo_b" value="2">-->
           Usuario
-          <input class="ml-1" aria-label="nombre" type="radio" name="tipo_b" value="3">
+          <input class="ml-1" aria-label="nombre" type="radio" name="tipo_b" id="check-nombre" data-value="nombre" value="3">
           Nombre
         </div>
       </div>
@@ -66,9 +66,9 @@ Usuarios
 
       <tbody>
         {% for usuario in usuarios %}
-        <tr>
-          <td>{{usuario.0}}</td>
-          <td>{{usuario.1}}</td>
+        <tr class="js-row">
+          <td class="js-codigo" data-codigo="{{usuario.0}}">{{usuario.0}}</td>
+          <td class="js-nombre" data-nombre="{{usuario.1}}">{{usuario.1}}</td>
           <td>{{usuario.2}}</td>
           <td>{{usuario.3}}</td>
           <td>{{usuario.4}}</td>

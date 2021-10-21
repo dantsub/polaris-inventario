@@ -8,6 +8,10 @@
   padding: 0.5rem 0.7rem !important;
 }
 
+.none {
+  display: none;
+}
+
 .rating {
   display: inline-flex;
   margin-top: -10px;

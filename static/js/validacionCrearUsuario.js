@@ -14,4 +14,28 @@
     }, false);
     });
     }, false);
-    })();
+    const buscador = document.getElementById('buscar');
+    buscador.addEventListener('click', function(e) {
+        e.preventDefault();
+        const valor = document.getElementById('buscador').value;
+        const rows = document.querySelectorAll('.js-row');
+        const checkCodigo = document.getElementById('check-codigo');
+        rows.forEach((row) => {
+            let child;
+            if (checkCodigo.checked) {
+                child = row.childNodes[1];
+            } else {
+                child = row.childNodes[3];
+            }
+            const coincidencia = child.dataset.codigo;
+            if (valor === undefined || valor === null || valor === "") {
+                child.parentElement.classList.remove('none');
+            }
+            else if (valor !== coincidencia) {
+                child.parentElement.classList.add('none');
+            } else {
+                child.parentElement.classList.remove('none');
+            }
+        });
+    });
+})();
