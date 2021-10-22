@@ -192,3 +192,16 @@ def pruebaborrar(sql)->int:
             print ("hay registros")
         else:
             print("No hay registros")
+
+def borrarproveedor(codigo):
+    conexion = sqlite3.connect("Polaris")
+    cursor = conexion.cursor()
+    cursor.execute("DELETE FROM proveedores WHERE idProveedor= ? AND idProveedor NOT IN (SELECT idProveedor FROM producto)", (codigo,))
+    resultado = cursor.rowcount
+    if resultado != 0:
+        conexion.commit()
+        conexion.close()
+        return True
+    else:
+        conexion.close()
+        return False

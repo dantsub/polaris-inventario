@@ -57,7 +57,7 @@ Proveedores
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="js-table-body">
             {% for proveedor in proveedores %}
             <tr>
               <td>{{proveedor.0}}</td>
@@ -160,9 +160,48 @@ Proveedores
 
 
                 <button class="btn btn-danger table-buttons" id="eliminar" data-toggle="modal"
-                  data-target="#modal_eliminar">
+                  data-target="#modal_eliminar-{{proveedor.0}}">
                   <span class="fas fa-trash-alt"></span>
                 </button>
+                  <!-- / Inicio Modal Eliminar -->
+                  <div class="modal fade" id="modal_eliminar-{{proveedor.0}}" tabindex="-1" role="dialog" aria-labelledby="titulo_eliminar"
+                  aria-hidden="true">
+                  <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 id="titulo_eliminar">Eliminar Proveedor</h5>
+                        <button class="btn-close" data-dismiss="modal" aria-label="Cerrar"></button>
+                      </div>
+                          <form
+                          id="borrarproveedor"
+                          action="{{url_for('providers')}}"
+                          method="POST"
+                          >
+                            <input type="hidden" name="oculto" value= "eliminar">
+                            <input type="hidden" name="ocultoborrar" value="{{proveedor.0}}">
+                            <div class="modal-body">
+                              <div>
+                                <div>
+                                  <label for="">¿Está seguro que desea eliminar el proveedor?</label>
+                                  <label for="">{{proveedor.0}}</label>
+                                </div>
+
+                                <div class="modal-footer">
+                                  <button class="btn btn-primary" type="submit" id="si">
+                                    SI
+                                  </button>
+                                  <button class="btn btn-secondary" type="button" id="no" class="close" data-dismiss="modal"
+                                    aria-label="Cerrar">
+                                    NO
+                                  </button>
+                                </div>
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  <!-- / FIN Modal Eliminar -->
               </td>
             </tr>
             {% endfor %}
@@ -290,34 +329,6 @@ Proveedores
 </div>
 
 
-<div class="modal fade" id="modal_eliminar" tabindex="-1" role="dialog" aria-labelledby="titulo_eliminar"
-  aria-hidden="true">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 id="titulo_eliminar">Eliminar Proveedor</h5>
-        <button class="btn-close" data-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body">
-        <div>
-          <div>
-            <label for="">¿Está seguro que desea eliminar el proveedor?</label>
-          </div>
-
-          <div class="modal-footer">
-            <button class="btn btn-primary" type="button" id="si">
-              SI
-            </button>
-            <button class="btn btn-secondary" type="button" id="no" class="close" data-dismiss="modal"
-              aria-label="Cerrar">
-              NO
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
   integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

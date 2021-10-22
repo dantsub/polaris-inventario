@@ -156,77 +156,84 @@ def logout():
 
 @app.route('/providers', methods=["GET", "POST"])
 def providers():
-    if 'usuario' in session:
-        data1 = ""  
-        data2 = ""  
-        data3 = ""  
-        data4 = ""  
-        data5 = ""  
-        data6 = ""  
-        error = False
-        # >Consulta para traer los paises
-        pais = utils.consultarpais()
-        proveedores = utils.consultarproveedorpais()
-        if request.method == 'POST':
-            formulario = request.form.get("oculto")
-            if(formulario == "crear"):
-                id = request.form.get('id')
-                nombre = request.form.get('nombre')
-                correo = request.form.get('correo')
-                telefono = request.form.get('telefono')
-                direccion = request.form.get('direccion')
-                pais = request.form.get('menupais')
-                print("Este es el id: del pais: "+pais)
+    data1 = ""  
+    data2 = ""  
+    data3 = ""  
+    data4 = ""  
+    data5 = ""  
+    data6 = ""  
+    error = False
+    # >Consulta para traer los paises
+    pais = utils.consultarpais()
+    proveedores = utils.consultarproveedorpais()
+    if request.method == 'POST':
+        formulario = request.form.get("oculto")
+        if(formulario == "crear"):
+            id = request.form.get('id')
+            nombre = request.form.get('nombre')
+            correo = request.form.get('correo')
+            telefono = request.form.get('telefono')
+            direccion = request.form.get('direccion')
+            pais = request.form.get('menupais')
+            print("Este es el id: del pais: "+pais)
 
-                if id == "":
-                    data1 = "El campo Id del Proveedor no puede estar vacio"
-                    error = True
-                if nombre == "":
-                    data2 = "El campo Nombre no puede estar vacio"
-                    error = True
-                if correo == "":
-                    data3 = "El campo Correo no puede estar vacio"
-                    error = True
-                if telefono == "":
-                    data4 = "El campo Telefono no puede estar vacio"
-                    error = True
-                if direccion == "":
-                    data5 = "El campo Dirección no puede estar vacio"
-                    error = True
-                if pais == "":
-                    data6 = "El campo país no puede estar vacio"
-                    error = True
-                if error == True:
-                     return render_template('modules/providers.html', data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, error=error, proveedores = proveedores)
-                else:
-                    if (utils.registrarprovedor(id, nombre, correo, direccion, telefono, pais) == True):
-                        print("Se registro el producto")
-                        proveedores = utils.consultarproveedorpais()
-                        pais = utils.consultarpais()    
-                        return render_template('modules/providers.html', proveedores = proveedores, pais=pais)
-                    else:
-                        return render_template('modules/providers.html', pais=pais, proveedores = proveedores)
-            
-            if(formulario == "editar"):
-                
-                id = request.form.get('oculto2')
-                nombre = request.form.get('nombre')
-                correo = request.form.get('correo')
-                telefono = request.form.get('telefono')
-                direccion = request.form.get('direccion')
-                pais = request.form.get('menupais')
-                print (id, nombre, correo, direccion, telefono, pais)
-                if(utils.actualizarproveedor(id, nombre, correo, direccion, telefono, pais)):
+            if id == "":
+                data1 = "El campo Id del Proveedor no puede estar vacio"
+                error = True
+            if nombre == "":
+                data2 = "El campo Nombre no puede estar vacio"
+                error = True
+            if correo == "":
+                data3 = "El campo Correo no puede estar vacio"
+                error = True
+            if telefono == "":
+                data4 = "El campo Telefono no puede estar vacio"
+                error = True
+            if direccion == "":
+                data5 = "El campo Dirección no puede estar vacio"
+                error = True
+            if pais == "":
+                data6 = "El campo país no puede estar vacio"
+                error = True
+            if error == True:
+                return render_template('modules/providers.html', data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, error=error, proveedores = proveedores)
+            else:
+                if (utils.registrarprovedor(id, nombre, correo, direccion, telefono, pais) == True):
+                    print("Se registro el producto")
                     proveedores = utils.consultarproveedorpais()
                     pais = utils.consultarpais()    
                     return render_template('modules/providers.html', proveedores = proveedores, pais=pais)
                 else:
                     return render_template('modules/providers.html', pais=pais, proveedores = proveedores)
+        
+        if(formulario == "editar"):
+            
+            id = request.form.get('oculto2')
+            nombre = request.form.get('nombre')
+            correo = request.form.get('correo')
+            telefono = request.form.get('telefono')
+            direccion = request.form.get('direccion')
+            pais = request.form.get('menupais')
+            print (id, nombre, correo, direccion, telefono, pais)
+            if(utils.actualizarproveedor(id, nombre, correo, direccion, telefono, pais)):
+                proveedores = utils.consultarproveedorpais()
+                pais = utils.consultarpais()    
+                return render_template('modules/providers.html', proveedores = proveedores, pais=pais)
+            else:
+                return render_template('modules/providers.html', pais=pais, proveedores = proveedores)
 
+        if(formulario == "eliminar"):
+            codigo = request.form.get('ocultoborrar')
+            if (utils.borrarproveedor(codigo) == True):
+                print("Se elimino el proveedor")
+                proveedores = utils.consultarproveedorpais()
+                pais = utils.consultarpais()    
+                return render_template('modules/providers.html', proveedores = proveedores, pais=pais)
+            else:
+                print("No se eliminó el proveedor por constrain por producto")
+                return render_template('modules/providers.html', pais=pais, proveedores = proveedores) 
+    return render_template('modules/providers.html', pais=pais, proveedores = proveedores)
 
-        return render_template('modules/providers.html', pais=pais, proveedores = proveedores)
-    else:
-        return redirect(url_for('login'))
 
 @app.route('/users', methods=["GET", "POST"])
 def users():
