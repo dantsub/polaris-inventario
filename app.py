@@ -96,8 +96,8 @@ def productos():
 @app.route('/', methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        usuario = request.form["login-email"]
-        clave = request.form["login-password"]
+        usuario = escape(request.form["login-email"])
+        clave = escape(request.form["login-password"])
         error = False
         errorusuario = ""
         errorclave = ""
