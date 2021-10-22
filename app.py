@@ -64,7 +64,6 @@ def productos():
                         return render_template('modules/products.html', proveedores=proveedores, productos=productos)
         if(formulario == "eliminar"):
             codigo = request.form.get('ocultoborrar')
-            print(codigo)
             if (eliminarproducto(codigo) == True):
                 proveedores = consultarproveedores()
                 productos = consultartodoslosproductos()
@@ -157,50 +156,77 @@ def logout():
 
 @app.route('/providers', methods=["GET", "POST"])
 def providers():
-    data1 = ""  # error Idproveedor #id
-    data2 = ""  # error nombre #nombre
-    data3 = ""  # error correo #correo
-    data4 = ""  # error teléfono #telefono
-    data5 = ""  # error direccion #direccion
-    data6 = ""  # error pais #pais
-    error = False
-    id = ""
-    nombre = ""
-    correo = ""
-    telefono = ""
-    direccion = ""
-    pais = ""
-    if request.method == 'POST':
-        formulario = request.form.get("oculto")
-        if(formulario == "crear"):
-            id = request.form.get('id')
-            nombre = request.form.get('nombre')
-            correo = request.form.get('correo')
-            telefono = request.form.get('telefono')
-            direccion = request.form.get('direccion')
-            pais = request.form.get('pais')
+    if 'usuario' in session:
+        data1 = ""  
+        data2 = ""  
+        data3 = ""  
+        data4 = ""  
+        data5 = ""  
+        data6 = ""  
+        error = False
+        # >Consulta para traer los paises
+        pais = utils.consultarpais()
+        proveedores = utils.consultarproveedorpais()
+        if request.method == 'POST':
+            formulario = request.form.get("oculto")
+            if(formulario == "crear"):
+                id = request.form.get('id')
+                nombre = request.form.get('nombre')
+                correo = request.form.get('correo')
+                telefono = request.form.get('telefono')
+                direccion = request.form.get('direccion')
+                pais = request.form.get('menupais')
+                print("Este es el id: del pais: "+pais)
 
-            if id == "":
-                data1 = "El campo Id del Proveedor no puede estar vacio"
-                error = True
-            if nombre == "":
-                data2 = "El campo Nombre no puede estar vacio"
-                error = True
-            if correo == "":
-                data3 = "El campo Correo no puede estar vacio"
-                error = True
-            if telefono == "":
-                data4 = "El campo Telefono no puede estar vacio"
-                error = True
-            if direccion == "":
-                data5 = "El campo Dirección no puede estar vacio"
-                error = True
-            if pais == "":
-                data6 = "El campo país no puede estar vacio"
-                error = True
-        return render_template('modules/providers.html', data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, error=error, id=id, nombre=nombre, correo=correo, telefono=telefono, direccion=direccion,  pais=pais)
-    return render_template('modules/providers.html')
+                if id == "":
+                    data1 = "El campo Id del Proveedor no puede estar vacio"
+                    error = True
+                if nombre == "":
+                    data2 = "El campo Nombre no puede estar vacio"
+                    error = True
+                if correo == "":
+                    data3 = "El campo Correo no puede estar vacio"
+                    error = True
+                if telefono == "":
+                    data4 = "El campo Telefono no puede estar vacio"
+                    error = True
+                if direccion == "":
+                    data5 = "El campo Dirección no puede estar vacio"
+                    error = True
+                if pais == "":
+                    data6 = "El campo país no puede estar vacio"
+                    error = True
+                if error == True:
+                     return render_template('modules/providers.html', data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, error=error, proveedores = proveedores)
+                else:
+                    if (utils.registrarprovedor(id, nombre, correo, direccion, telefono, pais) == True):
+                        print("Se registro el producto")
+                        proveedores = utils.consultarproveedorpais()
+                        pais = utils.consultarpais()    
+                        return render_template('modules/providers.html', proveedores = proveedores, pais=pais)
+                    else:
+                        return render_template('modules/providers.html', pais=pais, proveedores = proveedores)
+            
+            if(formulario == "editar"):
+                
+                id = request.form.get('oculto2')
+                nombre = request.form.get('nombre')
+                correo = request.form.get('correo')
+                telefono = request.form.get('telefono')
+                direccion = request.form.get('direccion')
+                pais = request.form.get('menupais')
+                print (id, nombre, correo, direccion, telefono, pais)
+                if(utils.actualizarproveedor(id, nombre, correo, direccion, telefono, pais)):
+                    proveedores = utils.consultarproveedorpais()
+                    pais = utils.consultarpais()    
+                    return render_template('modules/providers.html', proveedores = proveedores, pais=pais)
+                else:
+                    return render_template('modules/providers.html', pais=pais, proveedores = proveedores)
 
+
+        return render_template('modules/providers.html', pais=pais, proveedores = proveedores)
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/users', methods=["GET", "POST"])
 def users():
@@ -279,13 +305,11 @@ def users():
         if(formulario == "eliminar"):
             ##codigo = request.form.get('ocultoborrar')
             usuario = request.form.get('ocultoborrar')
-            print(usuario)
             if (utils.eliminarusuario(usuario) == True):
                 if session.get('rol') == "SuperAdministrador":
                     usuarios = utils.consultartodoslosusuarios()
                 if session.get('rol') == "Administrador":
                     usuarios = utils.consultartodoslosusuariosadmin()
-                print("pasa por ELIMINAR USUARIO")
                 return render_template('modules/users.html', usuarios=usuarios)
 
         if (formulario == "editar"):
@@ -301,7 +325,6 @@ def users():
                     usuarios = utils.consultartodoslosusuarios()
                 if session.get('rol') == "Administrador":
                     usuarios = utils.consultartodoslosusuariosadmin()
-                print("pasa por editar usuarios")
                 return render_template('modules/users.html', usuarios=usuarios)
     return render_template('modules/users.html', usuarios=usuarios)
 

@@ -102,3 +102,93 @@ def eliminarusuario(user_name):
 def fecha():
     Fecha = date.today()
     return Fecha
+
+def registrarprovedor(id, nombre, correo, direccion, telefono, pais):
+    conexion = sqlite3.connect("Polaris")
+    print("Esto ingresa desde la funcion: "+pais)
+    cursor = conexion.cursor()
+    try:
+        cursor.execute("INSERT INTO proveedores VALUES (?,?,?,?,?,?)",
+        (id, nombre,  correo, direccion, telefono, pais))
+        conexion.commit()
+        return True
+
+
+    except:
+        return False 
+    
+
+# Consultar Pais
+def consultarpais():
+    conexion = sqlite3.connect('Polaris')
+
+    cursor = conexion.cursor()
+    cursor.execute("SELECT * FROM pais")
+    filas = cursor.fetchall()
+    conexion.close()
+    return filas
+
+def consultarproveedorpais():
+    conexion = sqlite3.connect('Polaris')
+
+    cursor = conexion.cursor()
+    cursor.execute("SELECT P.idProveedor, P.nombre, P.correo, P.direccion, P.telefono, C.nombrePais FROM proveedores P JOIN pais C WHERE P.idPais = C.idPais")
+    filas = cursor.fetchall()
+    conexion.close()
+    return filas
+
+def actualizarproveedor(id, nombre, correo, direccion, telefono, pais):
+    conexion = sqlite3.connect("Polaris")
+
+    cursor = conexion.cursor()
+    print(id, nombre, correo, direccion, telefono, pais)
+    try:
+        cursor.execute(
+            "UPDATE proveedores SET nombre = ?, correo = ?, direccion = ?, telefono = ?, idPais = ? WHERE idProveedor = ?", (nombre, correo, direccion, telefono, pais, id))
+        conexion.commit()
+        conexion.close()
+        return True
+    except:
+        return False
+
+def eliminarproveedor(id):
+    conexion = sqlite3.connect("Polaris")
+
+    cursor = conexion.cursor()
+    try:
+        cursor.execute("DELETE FROM proveedores WHERE idProveedor = ?", (id,))
+        conexion.commit()
+        conexion.close()
+        return True
+    except:
+        return False
+
+def validarproveedorproductos(codigo):
+    with sqlite3.connect("Polaris") as conn:
+        sql = "select * from producto where idProveedor = ?",(codigo)
+        cur = conn.cursor()
+        proceso=cur.execute(sql)
+        if proceso !=0:
+           return True
+        else:
+            return False
+
+
+def accion(sql)->int:
+    with sqlite3.connect(DBvar) as conn:
+        cur = conn.cursor()
+        var2 = cur.execute(sql).rowcount()
+        if var2 != 0:
+            conn.commit()
+        return var2
+
+def pruebaborrar(sql)->int:
+    
+    with sqlite3.connect("Polaris") as conn:
+
+        cur = conn.cursor()
+        proceso=cur.execute(sql)
+        if proceso !=0:
+            print ("hay registros")
+        else:
+            print("No hay registros")
