@@ -39,11 +39,11 @@ content %} {% if error %}
     <h4 class="card-title">Busqueda y filtros</h4>
     <div class="row">
       <div class="col-md-3">
-        <label class="form-label" for="Search">Busqueda</label>
+        <label class="form-label" for="Searchproducto">Busqueda producto</label>
         <input
           type="search"
           class="form-control"
-          id="Search"
+          id="Searchproducto"
           placeholder="Busqueda"
           aria-controls="Buscar"
         />
@@ -59,7 +59,7 @@ content %} {% if error %}
       </div>
       <div class="col-md-3 d-flex align-items-end">
         <button type="button" class="btn btn-primary align-self-end">
-          Buscar
+          Buscar 
         </button>
       </div>
       <div class="col-md-3 d-flex align-items-end">
@@ -78,14 +78,14 @@ content %} {% if error %}
     </div>
     <div class="row" style="padding-top: 10px; padding-left: 14px">
       <div class="col-md-3 form-check-inline">
-        <label class="form-check-label" for="Search">
-          <input type="checkbox" class="form-check-input" id="Search" />
+        <label class="form-check-label" for="listar-disponibles">
+          <input type="checkbox" class="form-check-input" id="listar-disponibles" />
           Listar productos disponibles
         </label>
       </div>
       <div class="col-md-4 form-check-inline">
-        <label class="form-check-label" for="Search">
-          <input type="checkbox" class="form-check-input" id="Search" />
+        <label class="form-check-label" for="listar-requeridos">
+          <input type="checkbox" class="form-check-input"  id="listar-requeridos" value="1" />
           Listar productos por debajo del minimo
         </label>
       </div>
@@ -101,7 +101,7 @@ content %} {% if error %}
       class="card-dataTable table-responsive pt-0"
       style="padding: 5px !important"
     >
-      <div class="table-responsive">
+      <div class="table-responsive" id = "Div-tablaProducto">
         <table class="table table-bordered" id="tablaprod">
           <thead>
             <tr>
@@ -115,7 +115,7 @@ content %} {% if error %}
               <th class="col-sticky">Acciones</th>
             </tr>
           </thead>
-          <tbody class="js-table-body">
+          <tbody class="js-table-body" id= "tablaproducto">
             {% for producto in productos %}
             <tr>
               <td>{{producto.0}}</td>
@@ -575,7 +575,7 @@ content %} {% if error %}
                       type="number"
                       class="form-control"
                       id="cantminima"
-                      placeholder="Cant. Minima"
+                      placeholder="Cant. Minima" 
                       min="1"
                       name="cantminima"
                     />

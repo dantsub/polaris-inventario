@@ -78,6 +78,18 @@
     }, false);
     });
     }, false);
+
+
+    $(document).ready(function(){
+        $("#Searchproducto").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#tablaproducto tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+
+
     })();
 
 // (function abrirmodal () {

@@ -233,7 +233,7 @@ Usuarios
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
-          <form id="form_crear" action="{{url_for('users')}}" method="POST" novalidate>
+          <form id="form_crear" action="{{url_for('users')}}" class="row g-3 needs-validation" method="POST" novalidate>
             <div class="form-group">
               <label class="form-label" for="id">Nombre de usuario*</label>
               <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Nombre de usuario"

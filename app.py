@@ -104,18 +104,18 @@ def login():
             errorusuario = "El usuario debe ser alfanumérico y/o contener -_."
             error = True
         if not utils.isPasswordValid(clave):
-            errorclave = "La clave debe tener debe tener mínimo 8 caracteres, una mayúscula, una minuscula, un número y un caracter:@$!%*?&."
+            errorclave = "La clave debe tener debe tener mínimo 6 caracteres y ser alfanumérica caracter:@$!%*?&."
             error = True
         if error == True:
             return render_template("modules/login.html", error=error, errorusuario=errorusuario, errorclave=errorclave, usuario=usuario)
 
         with sqlite3.connect('Polaris') as conn:
             cur = conn.cursor()
-            user = cur.execute("SELECT user_name,  fecha_vencimiento FROM usuarios WHERE user_name=? ", [
+            user = cur.execute("SELECT user_name,  fecha_vencimiento FROM usuarios WHERE user_name= LOWER(?) ", [
                                usuario]).fetchone()
             if user is not None and user[1] is None:
                 password = cur.execute(
-                    "SELECT password, salt, descripcion, nombres, apellidos FROM usuarios LEFT JOIN roles ON usuarios.idRol = roles.idRol WHERE user_name=? ", [usuario]).fetchone()
+                    "SELECT password, salt, descripcion, nombres, apellidos FROM usuarios LEFT JOIN roles ON usuarios.idRol = roles.idRol WHERE user_name=LOWER(?) ", [usuario]).fetchone()
                 if password is not None:
                     password2 = password[0]
                     salt = password[1]
@@ -183,7 +183,7 @@ def providers():
             if nombre == "":
                 data2 = "El campo Nombre no puede estar vacio"
                 error = True
-            if correo == "":
+            if not utils.isEmailValid(correo):
                 data3 = "El campo Correo no puede estar vacio"
                 error = True
             if telefono == "":
@@ -278,19 +278,19 @@ def users():
                 data3 = "El campo Apellidos no puede estar vacio"
                 error = True
             if documento == "":
-                data4 = "El campo Documentos no puede estar vacio"
+                data4 = "El campo Documentos no puede estar vacio y debe ser númerico"
                 error = True
-            if correo == "":
-                data5 = "El campo Correo no puede estar vacio"
+            if not utils.isEmailValid(correo):
+                data5 = "Por favor coloque un email válido"
                 error = True
             if rol == None:
                 data6 = "Seleccione un rol"
                 error = True
-            if clave == "":
-                data7 = "El campo clave no puede estar vacio"
+            if not utils.isPasswordValid(clave):
+                data7 = "La clave debe tener debe tener mínimo 6 caracteres y ser alfanumérica o con caracteres:@$!%*?&."
                 error = True
             if error == True:
-                return render_template('modules/users.html', data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, data7=data7, error=error, nombre=nombre, usuario=usuario, apellido=apellido, clave=clave, documento=documento, correo=correo, rol=rol)
+                return render_template('modules/users.html', data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, data7=data7, error=error, nombre=nombre, usuario=usuario, apellido=apellido, clave=clave, documento=documento, correo=correo, rol=rol, usuarios=usuarios)
             else:
                 salt = secrets.token_hex(8)
                 clave_encrypt = generate_password_hash(salt+clave)
@@ -298,16 +298,16 @@ def users():
                 with sqlite3.connect('Polaris') as conn:
                     cur = conn.cursor()
                     user_validate = cur.execute(
-                        "SELECT user_name FROM usuarios WHERE user_name=? ", [usuario]).fetchone()
+                        "SELECT user_name FROM usuarios WHERE user_name=LOWER(?) ", [usuario]).fetchone()
                     if user_validate is None:
-                        cur.execute('INSERT INTO usuarios (user_name, documento, nombres, apellidos, correo, password, fecha_creacion, idRol, salt) VALUES(?,?,?,?,?,?,?,?,?)',
+                        cur.execute('INSERT INTO usuarios (user_name, documento, nombres, apellidos, correo, password, fecha_creacion, idRol, salt) VALUES(LOWER(?),?,?,?,?,?,?,?,?)',
                                     (usuario, documento, nombre, apellido, correo, clave_encrypt, today, rol, salt))
                         conn.commit()
                         return redirect(url_for('users'))
                     else:
                         error = True
                         data1 = "Este nombre de usuario ya existe"
-                        return render_template('modules/users.html', data1=data1, error=error)
+                        return render_template('modules/users.html', data1=data1, error=error, usuarios=usuarios)
 
         if(formulario == "eliminar"):
             ##codigo = request.form.get('ocultoborrar')

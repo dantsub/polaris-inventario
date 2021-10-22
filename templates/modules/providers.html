@@ -27,7 +27,7 @@ Proveedores
         <div class="row">
           <div class="col-7 d-flex flex-wrap align-items-center mb-1">
             <input aria-label="Busqueda de usuarios" class="form-control col-4 mr-1" type="text" placeholder="Busqueda"
-              aria-controls="Buscar">
+              aria-controls="Buscar" id="buscar_proveedor">
             <button class="btn btn-primary" id="buscar">Buscar</button>
             <div class="w-100 mt-1">
               <input type="radio" name="tipo_b" value="1" checked>
@@ -57,7 +57,7 @@ Proveedores
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody class="js-table-body">
+          <tbody class="js-table-body" id="tablaproveedor">
             {% for proveedor in proveedores %}
             <tr>
               <td>{{proveedor.0}}</td>
@@ -111,7 +111,7 @@ Proveedores
 
                           <div class="col-12 mb-1">
                             <label for="">Teléfono*</label>
-                            <input type="text" class="form-control" id="telefono" placeholder="Teléfono" value="{{proveedor.3}}" name="telefono" required number>
+                            <input type="number" class="form-control" id="telefono" placeholder="Teléfono" value="{{proveedor.3}}" name="telefono" required number>
                             <div class="invalid-feedback">
                               Por favor digite un teléfono 
                             </div>
@@ -226,7 +226,7 @@ Proveedores
 
             <div class="col-12 my-1">
               <label for="">ID Proveedor*</label>
-              <input type="text" class="form-control" id="id" name="id" placeholder="ID Proveedor" required>
+              <input type="number" class="form-control" id="id" name="id" placeholder="ID Proveedor" required number>
               <input type="hidden" name="oculto" value="crear" />
               <div class="invalid-feedback">
                 Por favor digite el ID del proveedor
@@ -263,7 +263,7 @@ Proveedores
 
             <div class="col-12 mb-1">
               <label for="">Teléfono*</label>
-              <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" required number>
+              <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" required number>
               <div class="invalid-feedback">
                 Por favor digite un teléfono 
               </div>

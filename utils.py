@@ -80,7 +80,7 @@ def actualizarusuario(user_name, documento, nombres, apellidos, correo,  idRol):
     cursor = conexion.cursor()
     print(user_name, documento, nombres, apellidos, correo, idRol)
     cursor.execute(
-        "UPDATE usuarios SET documento = ?, nombres = ?, apellidos = ?, correo = ?, idRol = ? WHERE user_name = ?", (documento, nombres, apellidos, correo, idRol, user_name))
+        "UPDATE usuarios SET documento = ?, nombres = ?, apellidos = ?, correo = ?, idRol = ? WHERE user_name = LOWER(?)", (documento, nombres, apellidos, correo, idRol, user_name))
     conexion.commit()
     conexion.close()
     return True
@@ -93,7 +93,7 @@ def eliminarusuario(user_name):
     print(user_name)
     Fecha = date.today()
     cursor.execute(
-        "UPDATE usuarios SET fecha_vencimiento = ? WHERE user_name = ?", (Fecha, user_name))
+        "UPDATE usuarios SET fecha_vencimiento = ? WHERE user_name = LOWER(?)", (Fecha, user_name))
     conexion.commit()
     conexion.close()
     return True
@@ -173,14 +173,6 @@ def validarproveedorproductos(codigo):
         else:
             return False
 
-
-def accion(sql)->int:
-    with sqlite3.connect(DBvar) as conn:
-        cur = conn.cursor()
-        var2 = cur.execute(sql).rowcount()
-        if var2 != 0:
-            conn.commit()
-        return var2
 
 def pruebaborrar(sql)->int:
     
