@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const { target } = e;
     const shows = document.querySelectorAll('.show');
     const cols = document.querySelectorAll('.js-sticky');
-
-    if (!target.classList.contains('table-buttons') && shows.length !== 3) {
+    const cond = window.location.href.includes('providers') ? 2 : 3
+    if (target.classList.contains('table-buttons') === false && shows.length < cond) {
       cols.forEach((col) => {
         if (!col.classList.contains('col-sticky')) {
           col.classList.add('col-sticky');

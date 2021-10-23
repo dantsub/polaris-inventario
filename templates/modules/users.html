@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
-
 {% block title %}
 Usuarios
 {% endblock title %}
-
 {% block content %}
 
 {% if error %}
@@ -16,220 +14,183 @@ Usuarios
   })();
 </script>
 {% endif %}
-
-<main class="container card">
-  <div class="">
-    <h2 class="my-2">Usuarios</h2>
-    <div class="row border-bottom">
-      <div class="col-sm-12 col-md-7 d-flex flex-wrap gap-2 align-items-center mb-1">
-        <input id="buscar_usuario" aria-label="Busqueda de usuarios" class="form-control col-sm-3 col-md-4 mr-1" type="text" placeholder="Busqueda"
-          aria-controls="Buscar">
-        <button class="btn btn-primary col-sm-6 col-md-auto" id="buscar">Buscar</button>
-        <div class="w-100 mt-1 col-sm-12">
-          <input aria-label="usuario" type="radio" name="tipo_b" value="1" id="check-codigo" data-value="codigo" checked>
-          <!-- Todos
-          {% for usuario in usuarios %}
-          <option value="{{ usuario.0 }}">{{usuario.1}}</option>
-          {% endfor %} 
-          <input class="ml-1" aria-label="nombre" type="radio" name="tipo_b" value="2">-->
-          Usuario
-          <input class="ml-1" aria-label="nombre" type="radio" name="tipo_b" id="check-nombre" data-value="nombre" value="3">
-          Nombre
-        </div>
+<main class="card">
+  <div class="card-body border-bottom">
+    <h2>Usuarios</h2>
+    <!-- Filtros -->
+    <div class="row gap-row-5">
+      <div class="col-sm-12 col-md-6">
+        <label class="form-label" for="searchUsuario"></label>
+        <input type="search" class="form-control w-50" placeholder="Buscar" id="searchUsuario">
       </div>
-
-      <div class="col-sm-12 col-md-5 d-flex justify-content-end">
-        <div>
-          <label for="">Crear Usuario</label>
-          <button class="btn btn-primary" id="crear" data-toggle="modal" data-target="#modal_crear">
-            <span class="fa fa-user-plus"></span>
-          </button>
-        </div>
+      <div class="col-sm-12 col-md-6 d-flex align-items-center justify-content-end">
+        <label class="form-label mr-1" for="">Crear usuario</label>
+        <button class="btn btn-primary" id="crear" data-toggle="modal" data-target="#modal_crear">
+          <span class="fa fa-user-plus"></span>
+        </button>
       </div>
     </div>
-
-    <div class="table-responsive mt-1 table-bordered">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Nombre usuario</th>
-            <th>Nombres</th>
-            <th>Apellidos</th>
-            <th>Cedula</th>
-            <th>Correo</th>
-            <th>Rol</th>
-            <th>Fecha creación</th>
-            <th>Fecha de vencimiento</th>
-            <th class="col-sticky">Acciones</th>
-          </tr>
-        </thead>
-  
-        <tbody id= "tablausuario" class="js-table-body">
-          {% for usuario in usuarios %} 
+  </div>
+  <!-- Lista de usuarios -->
+  <div class="card-dataTable table-responsive" style="padding: 5px;">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Nombre usuario</th>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Cedula</th>
+          <th>Correo</th>
+          <th>Rol</th>
+          <th>Fecha creación</th>
+          <th>Fecha de vencimiento</th>
+          <th class="col-sticky">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablausuario" class="js-table-body">
+        {% for usuario in usuarios %}
+        {% if usuario.6 %}
+        <tr class="table-danger">
+        {% else %}
+        <tr>
+        {% endif %}
+          <td>{{usuario.0}}</td>
+          <td>{{usuario.1}}</td>
+          <td>{{usuario.2}}</td>
+          <td>{{usuario.3}}</td>
+          <td>{{usuario.4}}</td>
+          <td>{{usuario.7}}</td>
+          <td>{{usuario.5}}</td>
+          <td>{{usuario.6}}</td>
           {% if usuario.6 %}
-          <tr class="js-row desactivado" >
-            {% else %}
-          <tr class="js-row">
-            {% endif %}
-            <td >{{usuario.0}}</td>
-            <td >{{usuario.1}}</td>
-            <td>{{usuario.2}}</td>
-            <td>{{usuario.3}}</td>
-            <td>{{usuario.4}}</td>
-            <td>{{usuario.7}}</td>
-            <td>{{usuario.5}}</td>
-            <td>{{usuario.6}}</td>
-            <td class="py-1 px-2 col-sticky js-sticky" text-align="center">
-              {% if usuario.6 == None %}
-              <button class="btn btn-primary table-buttons" id="editar" data-bs-toggle="modal"
-                data-bs-target="#modal_editar-{{usuario.0}}">
-                <span class="fas fa-edit"></span>
-              </button>
-              
-  
-              <!-- Inicio Modal Editar -->
-              <div class="modal fade" id="modal_editar-{{usuario.0}}" tabindex="-1" role="dialog"
-                aria-labelledby="titulo_crear" aria-hidden="true">
-                <div class="modal-dialog modal-sm" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="titulo_crear">Editar Usuario</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <form id="form_crear" action="{{url_for('users')}}" class="row g-3 needs-validation" method="POST"
-                        novalidate>
-                        <div class="form-group">
-                          <label for="id">Nombre de usuario*</label>
-                          <input type="text" class="form-control" id="id" placeholder="Nombre de usuario" required
-                            value="{{usuario.0}}" Disabled disabled />
-                          <input type="hidden" name="oculto" value="editar" />
-                          <input type="hidden" name="ocultoeditar" value="{{usuario.0}}" />
-  
-                          <div class="invalid-feedback">
-                            Por favor ingrese el nombre de usuario.
-                          </div>
-  
-                          <label for="nombres">Nombres*</label>
-                          <input type="text" class="form-control" id="nombres2" placeholder="Ingrese los nombres" required
-                            name="nombres2" value="{{usuario.1}}" />
-  
-                          <div class="invalid-feedback">
-                            Por favor ingrese los nombres.
-                          </div>
-  
-                          <label for="apellidos">Apellidos*</label>
-                          <input type="text" class="form-control" id="apellidos2" placeholder="Ingrese los apellidos"
-                            required name="apellidos2" value="{{usuario.2}}" />
-                          <div class="invalid-feedback">
-                            Por favor ingrese los apellidos.
-                          </div>
-  
-                          <label for="cedula">Documento*</label>
-                          <input type="number" class="form-control" id="cedula2"
-                            placeholder="Ingrese el número del documento" required number name="cedula2"
-                            value="{{usuario.3}}" />
-                          <div class="invalid-feedback">
-                            Por favor ingrese un número de documento solo de números.
-                          </div>
-  
-                          <label for="correo">Correo*</label>
-                          <input type="email" class="form-control" id="correo2"
-                            placeholder="Ingrese el correo electrónico" required email name="correo2"
-                            value="{{usuario.4}}" />
-                          <div class="invalid-feedback">
-                            Por favor ingrese un correo electrónico valido.
-                          </div>
-  
-                          <label for="rol_crear" class="form-label">Rol*</label>
-                          <select class="form-select" id="rol_crear2" required name="rol_crear2" value="{{usuario.8}}">
-                            <option value="3">Usuario final</option>
-                            {% if session.rol == "SuperAdministrador" %}
-                            <option class="select-editar-admin" value="2">Administrador</option>
-                            <option class="select-editar-super" value="1">Super Administrador</option>
-                            {% endif %}
-                          </select>
-                          <div class="invalid-feedback">
-                            Por favor ingrese el rol.
-                          </div>
-                        </div>
-  
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            <!-- <button class="btn btn-secondary" type="button" id="no"> -->
-                            Cancelar
-                          </button>
-                          <button class="btn btn-primary" type="submit">
-                            Editar usuario
-                          </button>
-                        </div>
-                      </form>
-                    </div>
+          <td class="py-1 px-2" text-align="center">
+          {% else %}
+          <td class="py-1 px-2 col-sticky js-sticky" text-align="center">
+          {% endif %}
+            {% if usuario.6 == None %}
+            <button class="btn btn-primary table-buttons" id="editar" data-bs-toggle="modal"
+              data-bs-target="#modal_editar-{{usuario.0}}">
+              <span class="fas fa-edit"></span>
+            </button>
+            <div class="modal fade" id="modal_editar-{{usuario.0}}" tabindex="-1" role="dialog" aria-labelledby="titulo_crear" aria-hidden="true">
+              <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="titulo_crear">Editar Usuario</h5>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
                   </div>
-                </div>
-              </div>
-              <!-- /Fin Modal Editar -->
-  
-              &nbsp;
-              <button href="{{usuario.0}}" class="btn btn-danger table-buttons" data-bs-toggle="modal"
-                data-bs-target="#modal_eliminar-{{usuario.0}}">
-                <i class="fa fa-trash"></i>
-              </button>
-  
-              <!-- /Inicio Modal Eliminar -->
-              <div class=" modal fade" id="modal_eliminar-{{usuario.0}}" tabindex="-1" role="dialog"
-                aria-labelledby="titulo_eliminar" aria-hidden="true">
-                <div class="modal-dialog modal-sm" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 id="titulo_eliminar">Eliminar Usuario</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-  
-                    </div>
-                    <div class="modal-body">
-                      <form id="form_crear" action="{{url_for('users')}}" class="row g-3 needs-validation" method="POST"
-                        novalidate>
-                        <input type="hidden" name="oculto" value="eliminar" />
-                        <input type="hidden" name="ocultoborrar" value="{{usuario.0}}">
-                        <div>
-                          <div>
-                            <label for="">¿Está seguro que desea eliminar el usuario?</label>
-                          </div>
-  
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                              <!-- <button class="btn btn-secondary" type="button" id="no"> -->
-                              Cancelar
-                            </button>
-                            <button class="btn btn-primary" type="submit" id="si">
-                              Eliminar usuario
-                            </button>
-                          </div>
+                  <div class="modal-body">
+                    <form action="{{url_for('users')}}" class="form_crear row g-3 needs-validation" method="POST" novalidate>
+                      <div class="form-group">
+                        <label for="id">Nombre de usuario*</label>
+                        <input type="text" class="form-control" placeholder="Nombre de usuario" required
+                          value="{{usuario.0}}" Disabled disabled />
+                        <input type="hidden" name="oculto" value="editar" />
+                        <input type="hidden" name="ocultoeditar" value="{{usuario.0}}" />
+
+                        <div class="invalid-feedback">
+                          Por favor ingrese el nombre de usuario.
                         </div>
-                    </div>
+
+                        <label for="nombres">Nombres*</label>
+                        <input type="text" class="form-control" placeholder="Ingrese los nombres" required
+                          name="nombres2" value="{{usuario.1}}" />
+
+                        <div class="invalid-feedback">
+                          Por favor ingrese los nombres.
+                        </div>
+
+                        <label for="apellidos">Apellidos*</label>
+                        <input type="text" class="form-control" placeholder="Ingrese los apellidos"
+                          required name="apellidos2" value="{{usuario.2}}" />
+                        <div class="invalid-feedback">
+                          Por favor ingrese los apellidos.
+                        </div>
+
+                        <label for="cedula">Documento*</label>
+                        <input type="number" class="form-control"
+                          placeholder="Ingrese el número del documento" required number name="cedula2"
+                          value="{{usuario.3}}" />
+                        <div class="invalid-feedback">
+                          Por favor ingrese un número de documento solo de números.
+                        </div>
+
+                        <label for="correo">Correo*</label>
+                        <input type="email" class="form-control"
+                          placeholder="Ingrese el correo electrónico" required email name="correo2"
+                          value="{{usuario.4}}" />
+                        <div class="invalid-feedback">
+                          Por favor ingrese un correo electrónico valido.
+                        </div>
+
+                        <label for="rol_crear" class="form-label">Rol*</label>
+                        <select class="form-select" required name="rol_crear2" value="{{usuario.8}}">
+                          <option value="3">Usuario final</option>
+                          {% if session.rol == "SuperAdministrador" %}
+                          <option class="select-editar-admin" value="2">Administrador</option>
+                          <option class="select-editar-super" value="1">Super Administrador</option>
+                          {% endif %}
+                        </select>
+                        <div class="invalid-feedback">
+                          Por favor ingrese el rol.
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                          Cancelar
+                        </button>
+                        <button class="btn btn-primary" type="submit">
+                          Editar usuario
+                        </button>
+                      </div>
                     </form>
                   </div>
                 </div>
               </div>
-              <!-- /Fin Modal Eliminar -->
-  
-              <!-- &nbsp;
-              <a href=" {{usuario.0}}" class="btn btn-info table-buttons" data-bs-toggle="modal"
-                data-bs-target="#modalDelete-{{usuario.0}}">
-                <span><i class="fas fa-award"></i></i></span>
-              </a> -->
-              {% endif %}
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+            </div>
+            <!-- Final modal editar -->
+            &nbsp;
+            <button href="{{usuario.0}}" class="btn btn-danger table-buttons" data-bs-toggle="modal"
+              data-bs-target="#modal_eliminar-{{usuario.0}}">
+              <i class="fa fa-trash"></i>
+            </button>
+            <!-- Modal eliminar -->
+            <div class=" modal fade" id="modal_eliminar-{{usuario.0}}" tabindex="-1" role="dialog"
+              aria-labelledby="titulo_eliminar" aria-hidden="true">
+              <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 id="titulo_eliminar">Eliminar Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form action="{{url_for('users')}}" class="form_eliminar row g-3 needs-validation" method="POST" novalidate>
+                      <input type="hidden" name="oculto" value="eliminar" />
+                      <input type="hidden" name="ocultoborrar" value="{{usuario.0}}">
+                      <p class="text-center">¿Está seguro que desea eliminar el usuario?</p>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                          Cancelar
+                        </button>
+                        <button class="btn btn-primary" type="submit" name="si">
+                          Eliminar usuario
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Final modal eliminar -->
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
-
-  <!-- / Inicio Modal Crear -->
-  <div class="modal fade" id="modal_crear" nombre="modal_crear" tabindex="-1" role="dialog"
-    aria-labelledby="titulo_crear" aria-hidden="true">
+  <!-- Modal crear usuario -->
+  <div class="modal fade" id="modal_crear" nombre="modal_crear" tabindex="-1" role="dialog" aria-labelledby="titulo_crear" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -239,12 +200,10 @@ Usuarios
         <div class="modal-body">
           <form id="form_crear" action="{{url_for('users')}}" class="row g-3 needs-validation" method="POST" novalidate>
             <div class="form-group">
-              <label class="form-label" for="id">Nombre de usuario*</label>
-              <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Nombre de usuario"
-                required>
-
               <input type="hidden" name="oculto" value="crear" />
 
+              <label class="form-label" for="usuario">Nombre de usuario*</label>
+              <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Nombre de usuario" required>
               <div class="invalid-feedback">
                 Por favor ingrese el nombre de usuario.
               </div>
@@ -254,45 +213,37 @@ Usuarios
               </div>
 
               <label for="nombres">Nombres*</label>
-              <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Ingrese los nombres"
-                required>
+              <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Ingrese los nombres" required>
               <div class="invalid-feedback">
                 Por favor ingrese los nombres.
               </div>
-
               <div id="errornombre" style="color: red">
                 {% if data2 %} {{data2}} {% endif %}
               </div>
 
               <label for="apellidos">Apellidos*</label>
-              <input type="text" class="form-control" id="apellidos" name="apellidos"
-                placeholder="Ingrese los apellidos" required>
+              <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Ingrese los apellidos" required>
               <div class="invalid-feedback">
                 Por favor ingrese los apellidos.
               </div>
-
               <div id="errorapellido" style="color: red">
                 {% if data3 %} {{data3}} {% endif %}
               </div>
 
               <label for="cedula">Documento*</label>
-              <input type="number" class="form-control" id="cedula" name="cedula"
-                placeholder="Ingrese el número del documento" required number>
+              <input type="number" class="form-control" id="cedula" name="cedula" placeholder="Ingrese el número del documento" required number>
               <div class="invalid-feedback">
                 Por favor ingrese el número de documento.
               </div>
-
               <div id="errordocumento" style="color: red">
                 {% if data4 %} {{data4}} {% endif %}
               </div>
 
               <label for="correo">Correo*</label>
-              <input type="email" class="form-control" id="correo" name="correo"
-                placeholder="Ingrese el correo electrónico" required email>
+              <input type="email" class="form-control" id="correo" name="correo" placeholder="Ingrese el correo electrónico" required email>
               <div class="invalid-feedback">
                 Por favor ingrese un correo electrónico valido.
               </div>
-
               <div id="errorcorreo" style="color: red">
                 {% if data5 %} {{data5}} {% endif %}
               </div>
@@ -312,55 +263,44 @@ Usuarios
                 {% if data6 %} {{data6}} {% endif %}
               </div>
 
-              <label for="correo">Contraseña*</label>
-              <input type="password" class="form-control" id="passw" name="passw" placeholder="Ingrese la contraseña"
-                required minlength="6">
+              <label for="passw">Contraseña*</label>
+              <input type="password" class="form-control" id="passw" name="passw" placeholder="Ingrese la contraseña" required minlength="6">
               <div class="invalid-feedback">
                 Por favor ingrese una contraseña valida de mínimo 6 caracteres.
               </div>
-
               <div id="errorclave" style="color: red">
                 {% if data7 %} {{data7}} {% endif %}
               </div>
-
             </div>
-
             <div class="modal-footer">
               <button class="btn btn-primary" type="submit">
                 Crear
               </button>
             </div>
           </form>
-
           {% if error %}
           <script type="text/javascript">
-            $("#usuario").val("{{select}}");
+            $("#usuario").val("{{usuario}}");
+            $("#nombres").val("{{nombre}}");
+            $("#apellidos").val("{{apellido}}");
+            $("#cedula").val("{{documento}}");
+            $("#correo").val("{{correo}}");
+            $("#rol_crear").val("{{rol}}");
           </script>
           {% endif %}
-
         </div>
       </div>
     </div>
   </div>
-  <!-- / Fin Modal Crear -->
-
-
-
-
-
 </main>
-<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-  integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script> -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
-  integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script> -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+
 <script src="{{ url_for('static', filename='js/validacionCrearUsuario.js') }}"></script>
 <script>
   $('#modal_crear').on('show.bs.modal', function (event) {
-    $('#form_crear').trigger("reset");
+    $('.form_crear').trigger("reset");
   });
 </script>
 {% endblock content %}
