@@ -65,3 +65,11 @@ td.col-sticky {
 .table-bordered>:not(caption)>* {
   border-width: 0;
 }
+
+.desactivado{
+  background-color:rgb(224, 148, 148);
+  color: aliceblue;
+}
+.desactivado td{
+  position: relative;
+}

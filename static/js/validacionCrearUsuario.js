@@ -14,28 +14,16 @@
     }, false);
     });
     }, false);
-    const buscador = document.getElementById('buscar');
-    buscador.addEventListener('click', function(e) {
-        e.preventDefault();
-        const valor = document.getElementById('buscador').value.toLowerCase();
-        const rows = document.querySelectorAll('.js-row');
-        const checkCodigo = document.getElementById('check-codigo');
-        rows.forEach((row) => {
-            let child;
-            if (checkCodigo.checked) {
-                child = row.childNodes[1];
-            } else {
-                child = row.childNodes[3];
-            }
-            const coincidencia = child.dataset.valor.toLowerCase();
-            if (valor === undefined || valor === null || valor === "") {
-                child.parentElement.classList.remove('none');
-            }
-            else if (valor !== coincidencia) {
-                child.parentElement.classList.add('none');
-            } else {
-                child.parentElement.classList.remove('none');
-            }
+    
+
+    $(document).ready(function(){
+        $("#buscar_usuario").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#tablausuario tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
         });
-    });
+      });
+
+
 })();
