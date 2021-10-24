@@ -80,19 +80,34 @@ def productos():
             if (registrarcalifiacion(codigo, valor) == True):
                 proveedores = consultarproveedores()
                 productos = consultartodoslosproductos()
+                mensaje = "Calificacion registrada con exito"
+                flash(mensaje)
+                return render_template('modules/products.html', proveedores=proveedores, productos=productos)
+            else:
+                proveedores = consultarproveedores()
+                productos = consultartodoslosproductos()
+                mensaje = "No se ha podido registrar la calificación del producto"
+                flash(mensaje)
                 return render_template('modules/products.html', proveedores=proveedores, productos=productos)
 
         if(formulario == "filtroprov"):
             codigo = request.form.get('provfiltro')
             if (codigo == "Todos"):
-                print("trae desde filto: "+codigo)
-                print(productos)
                 return render_template('modules/products.html', proveedores=proveedores, productos=productos)
             else:
                 productos = buscarproductoporproveedor(codigo)
-                print(productos)
                 proveedores = consultarproveedores()
                 return render_template('modules/products.html', proveedores=proveedores, productos=productos)
+
+        if(formulario == "filtrodisponibles"):
+            productos = listardisponibles()
+            disponibles = True
+            return render_template('modules/products.html', proveedores=proveedores, productos=productos, disponibles=disponibles)
+
+        if(formulario == "filtrominimos"):
+            productos = productosdebajominimo()
+            minimos = True
+            return render_template('modules/products.html', proveedores=proveedores, productos=productos, minimos=minimos)
 
     return render_template('modules/products.html', proveedores=proveedores, productos=productos)
 
