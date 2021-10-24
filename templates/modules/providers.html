@@ -9,6 +9,18 @@ block content %} {% if error %}
   })();
 </script>
 {% endif %}
+
+{% if erroreditar %}
+<script>
+  (function abrirmodal2() {
+    $(function () {
+      // abrir modal
+      $("#modal_editar-{{id}}").modal("show");
+    });
+  })();
+</script>
+{% endif %}
+
 <main class="card">
   <div class="card-body border-bottom">
     <h2>Proveedores</h2>
@@ -22,22 +34,27 @@ block content %} {% if error %}
           id="searchProveedores"
         />
       </div>
-      <div
-        class="col-sm-12 col-md-6 d-flex align-items-center justify-content-end"
-      >
-        <label for="crear" class="form-label mr-1">Crear Proveedores</label>
-        <button
-          class="btn btn-primary"
-          id="crear"
-          data-toggle="modal"
-          data-target="#modal_crear"
-        >
-          <span class="fa fa-plus"></span>
-        </button>
-      </div>
+      
+       <!-- Boton y Modal Crear Proveedor -->
+
+       {% include "/modules/modals/crear_proveedor.html" %}
+
+       <!-- Fin Boton y Modal Crear Proveedor  -->
+
     </div>
   </div>
-  <div class="card-dataTable table-responsive" style="padding: 5px">
+
+  {% with messages = get_flashed_messages() %} {% if messages %} {% for message
+    in messages %}
+    <div class="alert alert-warning text-center alert-dismissible fade show" role="alert">
+      <strong>{{ message }}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %} {% endif %} {% endwith %}
+
+    <div class="card-dataTable table-responsive" style="padding: 5px">
     <table class="table table-bordered table-hover table-fit">
       <thead>
         <tr>
@@ -60,209 +77,24 @@ block content %} {% if error %}
           <td>{{proveedor.4}}</td>
           <td>{{proveedor.5}}</td>
           <td class="py-1 px-2 col-sticky js-sticky">
-            <button
-              class="btn btn-primary table-buttons"
-              data-toggle="modal"
-              data-target="#modal_editar-{{proveedor.0}}"
-            >
-              <span class="fas fa-edit"></span>
-            </button>
-            <!-- / Inicio Modal Editar -->
-            <div
-              class="modal fade"
-              id="modal_editar-{{proveedor.0}}"
-              tabindex="-1"
-              role="dialog"
-              aria-labelledby="titulo_editar"
-              aria-hidden="true"
-            >
-              <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 id="titulo_editar">Editar Proveedor</h5>
-                    <button
-                      class="btn-close"
-                      data-dismiss="modal"
-                      aria-label="Cerrar"
-                    ></button>
-                  </div>
 
-                  <div class="modal-body">
-                    <form
-                      id="form_editar"
-                      method="POST"
-                      class="row g-3 needs-validation"
-                      action="{{url_for('providers')}}"
-                      novalidate
-                    >
-                      <div class="form-group">
-                        <label for="{{proveedor.0}}">ID Proveedor*</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="{{proveedor.0}}"
-                          placeholder="ID Proveedor"
-                          value="{{proveedor.0}}"
-                          name="id"
-                          disabled
-                        />
+            
+                <!-- Boton y modal Editar Proveedor -->
 
-                        <input type="hidden" name="oculto" value="editar" />
-                        <input
-                          type="hidden"
-                          name="oculto2"
-                          value="{{proveedor.0}}"
-                        />
+                {% include "/modules/modals/editar_proveedor.html" %}
 
-                        <label for="name-{{proveedor.0}}">Nombre*</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="name-{{proveedor.0}}"
-                          placeholder="Nombre"
-                          value="{{proveedor.1}}"
-                          name="nombre"
-                          required
-                        />
-                        <div class="invalid-feedback">
-                          Por favor digite un Nombre
-                        </div>
+                <!-- Fin Modal Editar -->
 
-                        <label for="correo-{{proveedor.0}}">Correo*</label>
-                        <input
-                          type="email"
-                          class="form-control"
-                          id="correo-{{proveedor.0}}"
-                          placeholder="Email"
-                          value="{{proveedor.2}}"
-                          name="correo"
-                          required
-                          email
-                        />
-                        <div class="invalid-feedback">
-                          Por favor digite un correo válido
-                        </div>
+                &nbsp;
 
-                        <label for="tel-{{proveedor.0}}">Teléfono*</label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="tel-{{proveedor.0}}"
-                          placeholder="Teléfono"
-                          value="{{proveedor.4}}"
-                          name="telefono"
-                          required
-                          number
-                        />
-                        <div class="invalid-feedback">
-                          Por favor digite un teléfono
-                        </div>
+                <!-- Boton y modal Eliminar Proveedor -->
 
-                        <label for="dir-{{proveedor.0}}">Dirección*</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="dir-{{proveedor.0}}"
-                          placeholder="Dirección"
-                          value="{{proveedor.3}}"
-                          name="direccion"
-                          required
-                        />
-                        <div class="invalid-feedback">
-                          Por favor digite la dirección
-                        </div>
+                {% include "/modules/modals/eliminar_proveedor.html" %}
 
-                        <label for="pais-{{proveedor.0}}">Pais*</label>
-                        <select
-                          class="form-select"
-                          id="pais-{{proveedor.0}}"
-                          required
-                          name="menupais"
-                        >
-                          {%for i in pais%}
-                          <option value="{{i.0}}">{{i.1}}</option>
-                          {% endfor %}
-                        </select>
-                        <div class="invalid-feedback">
-                          Por favor digite el país
-                        </div>
+                <!-- Fin Modal Eliminar -->
+                &nbsp;
 
-                        <div class="modal-footer">
-                          <button class="btn btn-primary" type="submit">
-                            Editar
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <button
-              class="btn btn-danger table-buttons"
-              id="eliminar"
-              data-toggle="modal"
-              data-target="#modal_eliminar-{{proveedor.0}}"
-            >
-              <span class="fas fa-trash-alt"></span>
-            </button>
-            <!-- / Inicio Modal Eliminar -->
-            <div
-              class="modal fade"
-              id="modal_eliminar-{{proveedor.0}}"
-              tabindex="-1"
-              role="dialog"
-              aria-labelledby="titulo_eliminar"
-              aria-hidden="true"
-            >
-              <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 id="titulo_eliminar">Eliminar Proveedor</h5>
-                    <button
-                      class="btn-close"
-                      data-dismiss="modal"
-                      aria-label="Cerrar"
-                    ></button>
-                  </div>
-                  <form
-                    id="borrarproveedor"
-                    action="{{url_for('providers')}}"
-                    method="POST"
-                  >
-                    <input type="hidden" name="oculto" value="eliminar" />
-                    <input
-                      type="hidden"
-                      name="ocultoborrar"
-                      value="{{proveedor.0}}"
-                    />
-                    <div class="modal-body">
-                      <p class="text-center">
-                        ¿Está seguro que desea eliminar el proveedor?
-                      </p>
-                      <p class="text-center fw-bold">{{proveedor.1}}</p>
-                    </div>
-                    <div class="modal-footer">
-                      <button class="btn btn-primary" type="submit" id="si">
-                        SI
-                      </button>
-                      <button
-                        class="btn btn-secondary"
-                        type="button"
-                        id="no"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-label="Cerrar"
-                      >
-                        NO
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <!-- Final modal eliminar -->
+            
           </td>
         </tr>
         {% endfor %}
@@ -270,145 +102,18 @@ block content %} {% if error %}
     </table>
   </div>
 
-  <!-- Modal crear -->
-  <div
-    class="modal fade"
-    id="modal_crear"
-    nombre="modal_crear"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="titulo_crear"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-sm" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 id="titulo_crear">Crear Proveedor</h5>
-          <button
-            class="btn-close"
-            data-dismiss="modal"
-            aria-label="Cerrar"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <form
-            id="form_crear"
-            method="POST"
-            action="{{url_for('providers')}}"
-            class="row g-3 needs-validation"
-            novalidate
-          >
-            <input type="hidden" name="oculto" value="crear" />
-            <div class="col-12 my-1">
-              <label for="">ID Proveedor*</label>
-              <input
-                type="number"
-                class="form-control"
-                id="id"
-                name="id"
-                placeholder="ID Proveedor"
-                required
-                number
-              />
-              <input type="hidden" name="oculto" value="crear" />
-              <div class="invalid-feedback">
-                Por favor digite el ID del proveedor
-              </div>
-            </div>
-            <div id="errorIdproveedor" style="color: red">
-              {% if data1 %} {{data1}} {% endif %}
-            </div>
 
-            <div class="col-12 mb-1">
-              <label for="">Nombre*</label>
-              <input
-                type="text"
-                class="form-control"
-                id="nombre"
-                name="nombre"
-                placeholder="Nombre"
-                required
-              />
-              <div class="invalid-feedback">Por favor digite un Nombre</div>
-            </div>
-            <div id="errorNombres" style="color: red">
-              {% if data2 %} {{data2}} {% endif %} <
-              <label for="">Correo*</label>
-              <input
-                type="email"
-                class="form-control"
-                id="correo"
-                name="correo"
-                placeholder="Email"
-                required
-                email
-              />
-              <div class="invalid-feedback">
-                Por favor digite un correo válido
-              </div>
-            </div>
-            <div id="errorcorreo" style="color: red">
-              {% if data3 %} {{data3}} {% endif %} <
-              <label for="">Teléfono*</label>
-              <input
-                type="number"
-                class="form-control"
-                id="telefono"
-                name="telefono"
-                placeholder="Teléfono"
-                required
-                number
-              />
-              <div class="invalid-feedback">Por favor digite un teléfono</div>
-            </div>
-            <div id="errortelefono" style="color: red">
-              {% if data4 %} {{data4}} {% endif %} <
-              <label for="">Dirección*</label>
-              <input
-                type="text"
-                class="form-control"
-                id="direccion"
-                name="direccion"
-                placeholder="Dirección"
-                required
-              />
-              <div class="invalid-feedback">Por favor digite la dirección</div>
-            </div>
-            <div id="errordireccion" style="color: red">
-              {% if data5 %} {{data5}} {% endif %} <
-              <label for="">Pais*</label>
-              <select
-                class="custom-select"
-                id="menupais"
-                required
-                name="menupais"
-              >
-                <option selected disabled value="">Seleccione</option>
-                {%for i in pais%}
-                <option value="{{i.0}}">{{i.1}}</option>
-                {% endfor %}
-              </select>
-              <div class="invalid-feedback">Por favor digite el país</div>
-            </div>
-            <div id="errorpais" style="color: red">
-              {% if data6 %} {{data6}} {% endif %}
-            </div>
+  {% if erroreditar %}
+  <script type="text/javascript">
+      $("#id").val("{{id}}");
+      $("#nombre").val("{{nombre}}");
+      $("#correo").val("{{correo}}");
+      $("#telefono").val("{{telefono}}");
+      $("#direccion").val("{{direccion}}");
+      $("#menupais").val("{{pais}}");
+  </script>
+  {% endif %}
 
-            <div class="modal-footer">
-              <button class="btn btn-primary" type="submit">Crear</button>
-            </div>
-          </form>
-
-          {% if error %}
-          <script type="text/javascript">
-            $("#id").val("{{select}}");
-          </script>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Fin modal -->
 </main>
 
 <script
@@ -422,6 +127,5 @@ block content %} {% if error %}
     $("#form_crear").trigger("reset");
   });
 </script>
-<script src="{{ url_for('static', filename='js/vendors.min.js') }}"></script>
 
 {% endblock content %}

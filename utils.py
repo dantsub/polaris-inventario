@@ -57,7 +57,7 @@ def consultartodoslosusuarios():
 
     cursor = conexion.cursor()
     cursor.execute(
-        "SELECT U.user_name,  U.nombres, U.apellidos, U.documento, U.correo,  U.fecha_creacion, U.fecha_vencimiento, R.Descripcion, U.idrol FROM Usuarios U Join Roles R WHERE U.idrol = R.idrol ORDER BY U.fecha_vencimiento ASC, R.idRol DESC")
+        "SELECT U.user_name,  U.nombres, U.apellidos, U.documento, U.correo,  U.fecha_creacion, U.fecha_vencimiento, R.Descripcion, U.idrol FROM Usuarios U Join Roles R WHERE U.idrol = R.idrol ORDER BY U.fecha_vencimiento ASC, R.idRol DESC, U.user_name ASC")
     filas = cursor.fetchall()
     conexion.close()
     return filas
@@ -68,7 +68,7 @@ def consultartodoslosusuariosadmin():
 
     cursor = conexion.cursor()
     cursor.execute(
-        "SELECT U.user_name,  U.nombres, U.apellidos, U.documento, U.correo,  U.fecha_creacion, U.fecha_vencimiento, R.Descripcion, U.idrol FROM Usuarios U LEFT JOIN Roles R ON U.idrol = R.idrol WHERE R.idrol=3 ORDER BY U.fecha_vencimiento ASC ")
+        "SELECT U.user_name,  U.nombres, U.apellidos, U.documento, U.correo,  U.fecha_creacion, U.fecha_vencimiento, R.Descripcion, U.idrol FROM Usuarios U LEFT JOIN Roles R ON U.idrol = R.idrol WHERE R.idrol=3 ORDER BY U.fecha_vencimiento, U.user_name ASC ")
     filas = cursor.fetchall()
     conexion.close()
     return filas
@@ -98,11 +98,6 @@ def eliminarusuario(user_name):
     conexion.close()
     return True
 
-
-def fecha():
-    Fecha = date.today()
-    return Fecha
-
 def registrarprovedor(id, nombre, correo, direccion, telefono, pais):
     conexion = sqlite3.connect("Polaris")
     print("Esto ingresa desde la funcion: "+pais)
@@ -123,7 +118,7 @@ def consultarpais():
     conexion = sqlite3.connect('Polaris')
 
     cursor = conexion.cursor()
-    cursor.execute("SELECT * FROM pais")
+    cursor.execute("SELECT * FROM pais ORDER BY nombrePais ASC")
     filas = cursor.fetchall()
     conexion.close()
     return filas
@@ -132,7 +127,7 @@ def consultarproveedorpais():
     conexion = sqlite3.connect('Polaris')
 
     cursor = conexion.cursor()
-    cursor.execute("SELECT P.idProveedor, P.nombre, P.correo, P.direccion, P.telefono, C.nombrePais FROM proveedores P JOIN pais C WHERE P.idPais = C.idPais")
+    cursor.execute("SELECT P.idProveedor, P.nombre, P.correo, P.direccion, P.telefono, C.nombrePais FROM proveedores P JOIN pais C WHERE P.idPais = C.idPais ORDER BY P.nombre ASC")
     filas = cursor.fetchall()
     conexion.close()
     return filas
@@ -151,39 +146,6 @@ def actualizarproveedor(id, nombre, correo, direccion, telefono, pais):
     except:
         return False
 
-def eliminarproveedor(id):
-    conexion = sqlite3.connect("Polaris")
-
-    cursor = conexion.cursor()
-    try:
-        cursor.execute("DELETE FROM proveedores WHERE idProveedor = ?", (id,))
-        conexion.commit()
-        conexion.close()
-        return True
-    except:
-        return False
-
-def validarproveedorproductos(codigo):
-    with sqlite3.connect("Polaris") as conn:
-        sql = "select * from producto where idProveedor = ?",(codigo)
-        cur = conn.cursor()
-        proceso=cur.execute(sql)
-        if proceso !=0:
-           return True
-        else:
-            return False
-
-
-def pruebaborrar(sql)->int:
-    
-    with sqlite3.connect("Polaris") as conn:
-
-        cur = conn.cursor()
-        proceso=cur.execute(sql)
-        if proceso !=0:
-            print ("hay registros")
-        else:
-            print("No hay registros")
 
 def borrarproveedor(codigo):
     conexion = sqlite3.connect("Polaris")
@@ -197,3 +159,18 @@ def borrarproveedor(codigo):
     else:
         conexion.close()
         return False
+
+
+
+def validarexistenciadeproveedor(codigo):
+    conexion = sqlite3.connect("Polaris")
+
+    cursor = conexion.cursor()
+    cursor.execute(
+        "SELECT idProveedor FROM proveedores  WHERE idProveedor = ?", [codigo])
+    filas = cursor.fetchone()
+    conexion.close()
+    if filas is None:
+        return False
+    else:
+        return True

@@ -168,6 +168,12 @@ def providers():
     data5 = ""
     data6 = ""
     error = False
+    data12 = ""
+    data22 = ""
+    data32 = ""
+    data42 = ""
+    data52 = ""
+    erroreditar = False
     # >Consulta para traer los paises
     pais = utils.consultarpais()
     proveedores = utils.consultarproveedorpais()
@@ -201,16 +207,23 @@ def providers():
                 data6 = "El campo país no puede estar vacio"
                 error = True
             if error == True:
-                return render_template('modules/providers.html', data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, error=error, proveedores=proveedores)
+                return render_template('modules/providers.html', data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, error=error, proveedores=proveedores, pais=pais)
             else:
-                if (utils.registrarprovedor(id, nombre, correo, direccion, telefono, pais) == True):
-                    print("Se registro el producto")
-                    proveedores = utils.consultarproveedorpais()
-                    pais = utils.consultarpais()
-                    return render_template('modules/providers.html', proveedores=proveedores, pais=pais)
+                if(utils.validarexistenciadeproveedor(id) == True):
+                    error = True
+                    data1 = "Ya existe un producto registrado con este id"
+                    return render_template('modules/providers.html', data1=data1, error=error, id=id, nombre=nombre, correo=correo, direccion=direccion, telefono=telefono, proveedores=proveedores, pais=pais)
                 else:
-                    return render_template('modules/providers.html', pais=pais, proveedores=proveedores)
-
+                    if (utils.registrarprovedor(id, nombre, correo, direccion, telefono, pais) == True):
+                        print("Se registró el producto")
+                        mensaje = "Proveedor registrado con exito"
+                        flash(mensaje)
+                        proveedores = utils.consultarproveedorpais()
+                        pais = utils.consultarpais()
+                        return render_template('modules/providers.html', proveedores=proveedores, pais=pais)
+                    else:
+                        return render_template('modules/providers.html', pais=pais, proveedores=proveedores)
+ 
         if(formulario == "editar"):
 
             id = request.form.get('oculto2')
@@ -220,17 +233,39 @@ def providers():
             direccion = request.form.get('direccion')
             pais = request.form.get('menupais')
             print(id, nombre, correo, direccion, telefono, pais)
-            if(utils.actualizarproveedor(id, nombre, correo, direccion, telefono, pais)):
-                proveedores = utils.consultarproveedorpais()
-                pais = utils.consultarpais()
-                return render_template('modules/providers.html', proveedores=proveedores, pais=pais)
+            if nombre == "":
+                data12 = "El campo Nombre no puede estar vacio"
+                erroreditar = True
+            if not utils.isEmailValid(correo):
+                data22 = "El campo Correo no puede estar vacio"
+                erroreditar = True
+            if telefono == "":
+                data32 = "El campo Telefono no puede estar vacio"
+                erroreditar = True
+            if direccion == "":
+                data42 = "El campo Dirección no puede estar vacio"
+                erroreditar = True
+            if pais == "":
+                data52 = "El campo país no puede estar vacio"
+                erroreditar = True
+            if erroreditar == True:
+                return render_template('modules/providers.html', data12=data12, data22=data22, data32=data32, data42=data42, data52=data52, erroreditar=erroreditar, id=id, nombre=nombre, correo=correo, direccion=direccion, telefono=telefono, proveedores=proveedores, pais=pais)
             else:
-                return render_template('modules/providers.html', pais=pais, proveedores=proveedores)
+                if(utils.actualizarproveedor(id, nombre, correo, direccion, telefono, pais)):
+                    mensaje = "Proveedor editado con exito"
+                    flash(mensaje)
+                    proveedores = utils.consultarproveedorpais()
+                    pais = utils.consultarpais()
+                    return render_template('modules/providers.html', proveedores=proveedores, pais=pais)
+                else:
+                    return render_template('modules/providers.html', pais=pais, proveedores=proveedores)
 
         if(formulario == "eliminar"):
             codigo = request.form.get('ocultoborrar')
             if (utils.borrarproveedor(codigo) == True):
                 print("Se elimino el proveedor")
+                mensaje = "Proveedor eliminado con éxito"
+                flash(mensaje)
                 proveedores = utils.consultarproveedorpais()
                 pais = utils.consultarpais()
                 return render_template('modules/providers.html', proveedores=proveedores, pais=pais)
@@ -295,7 +330,7 @@ def users():
                 data7 = "La clave debe tener debe tener mínimo 6 caracteres y ser alfanumérica o con caracteres:@$!%*?&."
                 error = True
             if error == True:
-                return render_template('modules/users.html', data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, data7=data7, error=error, nombre=nombre, usuario=usuario, apellido=apellido, clave=clave, documento=documento, correo=correo, rol=rol, usuarios=usuarios)
+                return render_template('modules/users.html', data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, data7=data7, error=error, nombre=nombre, usuario=usuario, apellido=apellido, documento=documento, correo=correo, rol=rol, usuarios=usuarios)
             else:
                 salt = secrets.token_hex(8)
                 clave_encrypt = generate_password_hash(salt+clave)
@@ -308,16 +343,20 @@ def users():
                         cur.execute('INSERT INTO usuarios (user_name, documento, nombres, apellidos, correo, password, fecha_creacion, idRol, salt) VALUES(LOWER(?),?,?,?,?,?,?,?,?)',
                                     (usuario, documento, nombre, apellido, correo, clave_encrypt, today, rol, salt))
                         conn.commit()
-                        return redirect(url_for('users'))
+                        mensaje = "Usuario registrado con exito"
+                        flash(mensaje)
+                        return render_template('modules/users.html', usuarios=usuarios)
                     else:
                         error = True
                         data1 = "Este nombre de usuario ya existe"
-                        return render_template('modules/users.html', data1=data1, error=error, usuarios=usuarios)
+                        return render_template('modules/users.html', data1=data1, error=error, usuarios=usuarios, nombre=nombre, usuario=usuario, apellido=apellido, documento=documento, correo=correo, rol=rol)
 
         if(formulario == "eliminar"):
             ##codigo = request.form.get('ocultoborrar')
             usuario = request.form.get('ocultoborrar')
             if (utils.eliminarusuario(usuario) == True):
+                mensaje = "Usuario eliminado con exito"
+                flash(mensaje)
                 if session.get('rol') == "SuperAdministrador":
                     usuarios = utils.consultartodoslosusuarios()
                 if session.get('rol') == "Administrador":
@@ -333,6 +372,8 @@ def users():
             correo = request.form.get('correo2')
             rol = request.form.get('rol_crear2')
             if (utils.actualizarusuario(usuario, documento, nombre, apellido,  correo, rol) == True):
+                mensaje = "Usuario editado con exito"
+                flash(mensaje)
                 if session.get('rol') == "SuperAdministrador":
                     usuarios = utils.consultartodoslosusuarios()
                 if session.get('rol') == "Administrador":

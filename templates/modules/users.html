@@ -38,6 +38,17 @@ block content %} {% if error %}
       </div>
     </div>
   </div>
+
+  {% with messages = get_flashed_messages() %} {% if messages %} {% for message
+    in messages %}
+    <div class="alert alert-warning text-center alert-dismissible fade show" role="alert">
+      <strong>{{ message }}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %} {% endif %} {% endwith %}
+       
   <!-- Lista de usuarios -->
   <div class="card-dataTable table-responsive" style="padding: 5px">
     <table class="table table-bordered table-hover">
@@ -106,7 +117,7 @@ block content %} {% if error %}
                   <div class="modal-body">
                     <form
                       action="{{url_for('users')}}"
-                      class="form_crear row g-3 needs-validation"
+                      class="row g-3 needs-validation"
                       method="POST"
                       novalidate
                     >
@@ -478,7 +489,7 @@ block content %} {% if error %}
 <script src="{{ url_for('static', filename='js/validacionCrearUsuario.js') }}"></script>
 <script>
   $("#modal_crear").on("show.bs.modal", function (event) {
-    $(".form_crear").trigger("reset");
+    $("#form_crear").trigger("reset");
   });
 </script>
 
