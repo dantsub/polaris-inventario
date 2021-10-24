@@ -15,11 +15,12 @@ block content %} {% if error %}
   (function abrirmodal2() {
     $(function () {
       // abrir modal
-      $("#modal_editar-{{id}}").modal("show");
+      $("#modal_editar-{{id}}").appendTo("body").modal("show");
     });
   })();
 </script>
 {% endif %}
+
 
 <main class="card">
   <div class="card-body border-bottom">

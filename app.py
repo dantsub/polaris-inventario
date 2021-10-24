@@ -285,6 +285,8 @@ def providers():
                 pais = utils.consultarpais()
                 return render_template('modules/providers.html', proveedores=proveedores, pais=pais)
             else:
+                mensaje = "Proveedor no pudo ser eliminado porque está siendo usado en la tabla producto"
+                flash(mensaje)
                 print("No se eliminó el proveedor por constrain por producto")
                 return render_template('modules/providers.html', pais=pais, proveedores=proveedores)
     return render_template('modules/providers.html', pais=pais, proveedores=proveedores)
