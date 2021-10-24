@@ -1,0 +1,128 @@
+<button
+  class="btn btn-primary table-buttons"
+  id="editar"
+  data-bs-toggle="modal"
+  data-bs-target="#modalEdit-{{producto.0}}"
+>
+  <span class="fas fa-edit"></span>
+</button>
+
+<!-- Modal Editar -->
+<div
+  class="modal fade"
+  id="modalEdit-{{producto.0}}"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Producto</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form
+        method="post"
+        action="{{url_for('productos')}}"
+        id="formularioeditarprod"
+        class="needs-validation"
+        novalidate
+      >
+        <div class="modal-body">
+          <div class="form-group">
+            <input type="hidden" name="oculto" value="editar" />
+            <input type="hidden" name="ocultoeditar" value="{{producto.0}}" />
+            <label for="exampleInputPassword1">Nombre*</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nombreproducto2"
+              placeholder="Nombre"
+              required
+              name="nombreproducto2"
+              value="{{producto.1}}"
+            />
+            <div id="errornomprod2" style="color: red">
+              {% if data %} {{data}} {% endif %}
+            </div>
+            <div class="invalid-feedback">
+              Por favor ingrese el nombre del producto.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Descripcion*</label>
+            <textarea
+              class="form-control"
+              id="descripcionprod2"
+              placeholder="Descripcion"
+              name="descripcionprod2"
+              required="required"
+            >
+{{producto.2}}</textarea
+            >
+            <div id="errordescripcion2" style="color: red"></div>
+            <div class="invalid-feedback">
+              Por favor ingrese la descripción.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="menuproveedor">Proveedores*</label>
+            <select
+              class="form-select"
+              id="menuproveedor2"
+              required="required"
+              name="menuproveedor2"
+            >
+              {% for proveedor in proveedores %}
+              <option value="{{proveedor.0}}">{{proveedor.1}}</option>
+              {% endfor %}
+            </select>
+            <div id="errorproveedor2" style="color: red"></div>
+            <div class="invalid-feedback">Seleccione un proveedor.</div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Cant. Minima*</label>
+            <input
+              type="number"
+              class="form-control"
+              id="cantminima2"
+              placeholder="Cant. Minima"
+              name="cantminima2"
+              min="1"
+              value="{{producto.3}}"
+            />
+            <div id="errorcantmin"></div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Existencia*</label>
+            <input
+              type="number"
+              class="form-control"
+              id="cantexistencia2"
+              placeholder="Existencia"
+              name="cantexistencia2"
+              min="1"
+              value="{{producto.4}}"
+            />
+            <div id="errorexistencia"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

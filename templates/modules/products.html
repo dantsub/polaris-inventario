@@ -34,58 +34,65 @@ content %} {% if error %}
 <div class="card">
   <div class="card-body border-bottom">
     <h2>Productos</h2>
-
     <!-- Seccion de filtros -->
     <h4 class="card-title">Busqueda y filtros</h4>
     <div class="row">
       <div class="col-md-3">
         <label class="form-label" for="Searchproducto">Busqueda producto</label>
         <input
-          type="search"
+          type="text"
           class="form-control"
           id="Searchproducto"
           placeholder="Busqueda"
           aria-controls="Buscar"
         />
       </div>
-      <div class="col-md-3">
-        <label class="form-label" for="Search">Proveedores</label>
-        <select id="Supplier" class="form-control">
-          <option value="">Todos</option>
-          {% for proveedor in proveedores %}
-          <option value="{{ proveedor.0 }}">{{proveedor.1}}</option>
-          {% endfor %}
-        </select>
+      <div class="col-md-6">
+        <form class="row g-3" action="{{url_for('productos')}}" method="post">
+          <input type="hidden" name="oculto" value="filtroprov" />
+          <div class="col-auto">
+            <label class="form-label" for="Search">Proveedores</label>
+            <select id="Supplier" class="form-control" name="provfiltro">
+              <option value="Todos">Todos</option>
+              {% for proveedor in proveedores %}
+              <option value="{{ proveedor.0 }}">{{proveedor.1}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-auto d-flex align-items-end">
+            <button type="submit" class="btn btn-primary align-self-end">
+              Buscar
+            </button>
+          </div>
+        </form>
       </div>
-      <div class="col-md-3 d-flex align-items-end">
-        <button type="button" class="btn btn-primary align-self-end">
-          Buscar 
-        </button>
-      </div>
-      <div class="col-md-3 d-flex align-items-end">
-        <span class="mr-1" style="margin-bottom: 10px">Crear producto</span>
-        <button
-          type="button"
-          id="abrirmodalnuevo"
-          class="btn btn-primary align-self-end btn-crear"
-          data-bs-toggle="modal"
-          data-bs-target="#modalNew"
-          title="Crear Nuevo Producto"
-        >
-          <i class="fas fa-plus"></i>
-        </button>
-      </div>
+
+      <!-- Boton y Modal Crear Producto -->
+
+      {% include "/modules/modals/crear_producto.html" %}
+
+      <!-- Fin Boton y Modal Crear Producto  -->
     </div>
+
     <div class="row" style="padding-top: 10px; padding-left: 14px">
       <div class="col-md-3 form-check-inline">
         <label class="form-check-label" for="listar-disponibles">
-          <input type="checkbox" class="form-check-input" id="listar-disponibles" />
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="listar-disponibles"
+          />
           Listar productos disponibles
         </label>
       </div>
       <div class="col-md-4 form-check-inline">
         <label class="form-check-label" for="listar-requeridos">
-          <input type="checkbox" class="form-check-input"  id="listar-requeridos" value="1" />
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="listar-requeridos"
+            value="1"
+          />
           Listar productos por debajo del minimo
         </label>
       </div>
@@ -99,10 +106,10 @@ content %} {% if error %}
     <!-- Seccion de tabla -->
     <div
       class="card-dataTable table-responsive pt-0"
-      style="padding: 5px !important"
+      style="padding: 0px 5px 5px !important"
     >
-      <div class="table-responsive" id = "Div-tablaProducto">
-        <table class="table table-bordered table-fit" id="tablaprod">
+      <div class="table-responsive mt-3 table-bordered" id="Div-tablaProducto">
+        <table class="table table-hover" id="tablaprod">
           <thead>
             <tr>
               <th>Codigo</th>
@@ -115,9 +122,9 @@ content %} {% if error %}
               <th class="col-sticky">Acciones</th>
             </tr>
           </thead>
-          <tbody class="js-table-body" id= "tablaproducto">
+          <tbody class="js-table-body" id="tablaproducto">
             {% for producto in productos %}
-            <tr>
+            <tr class="js-row">
               <td>{{producto.0}}</td>
               <td>{{producto.1}}</td>
               <td>{{producto.2}}</td>
@@ -128,35 +135,30 @@ content %} {% if error %}
               <td>
                 <i class="far fa-star"></i>
               </td>
-              {% endif %}
-              {% if producto.6 is not none %}
-              {% if producto.6 < 2 %}
+              {% endif %} {% if producto.6 is not none %} {% if producto.6 < 2
+              %}
               <td>
                 <i class="fa fa-star"></i>
               </td>
-              {% endif %}
-              {% if producto.6 >= 2 and producto.6 < 3 %}
+              {% endif %} {% if producto.6 >= 2 and producto.6 < 3 %}
               <td>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
               </td>
-              {% endif %}
-              {% if producto.6 >= 3 and producto.6 < 4 %}
+              {% endif %} {% if producto.6 >= 3 and producto.6 < 4 %}
               <td>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
               </td>
-              {% endif %}
-              {% if producto.6 >= 4 and producto.6 < 5 %}
+              {% endif %} {% if producto.6 >= 4 and producto.6 < 5 %}
               <td>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
               </td>
-              {% endif %}
-              {% if producto.6 == 5 %}
+              {% endif %} {% if producto.6 == 5 %}
               <td>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
@@ -164,297 +166,28 @@ content %} {% if error %}
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
               </td>
-              {% endif %}
-              {% endif %}
+              {% endif %} {% endif %}
 
-
-              <td class="py-1 px-2 col-sticky js-sticky d-flex" text-align="center">
-                <button
-                  class="btn btn-primary table-buttons"
-                  id="editar"
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalEdit-{{producto.0}}"
-                >
-                  <span class="fas fa-edit"></span>
-                </button>
-
-                <!-- Modal Editar -->
-        <div
-          class="modal fade"
-          id="modalEdit-{{producto.0}}"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Editar Producto
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <form
-                method="post"
-                action="{{url_for('productos')}}"
-                id="formularioeditarprod"
-                class="needs-validation"
-                novalidate
+              <td
+                class="py-1 px-2 col-sticky js-sticky d-flex"
+                text-align="center"
               >
-                <div class="modal-body">
-                  <div class="form-group">
-                    <input type="hidden" name="oculto" value="editar"/>
-                    <input type="hidden" name="ocultoeditar" value="{{producto.0}}" />
-                    <label for="exampleInputPassword1">Nombre*</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="nombreproducto2"
-                      placeholder="Nombre"
-                      required
-                      name="nombreproducto2"
-                      value="{{producto.1}}"
-                    />
-                    <div id="errornomprod2" style="color: red">
-                      {% if data %} {{data}} {% endif %}
-                    </div>
-                    <div class="invalid-feedback">
-                      Por favor ingrese el nombre del producto.
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Descripcion*</label>
-                    <textarea
-                      class="form-control"
-                      id="descripcionprod2"
-                      placeholder="Descripcion"
-                      name="descripcionprod2"
-                      required="required"
-                    >{{producto.2}}</textarea>
-                    <div id="errordescripcion2" style="color: red"></div>
-                    <div class="invalid-feedback">
-                      Por favor ingrese la descripción.
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="menuproveedor">Proveedores*</label>
-                    <select
-                      class="form-select"
-                      id="menuproveedor2"
-                      required="required"
-                      name="menuproveedor2"
-                    >
-                      {% for proveedor in proveedores %}
-                      <option value="{{proveedor.0}}">{{proveedor.1}}</option>
-                      {% endfor %}
-                    </select>
-                    <div id="errorproveedor2" style="color: red"></div>
-                    <div class="invalid-feedback">Seleccione un proveedor.</div>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Cant. Minima*</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="cantminima2"
-                      placeholder="Cant. Minima"
-                      name="cantminima2"
-                      min="1"
-                      value="{{producto.3}}"
-                    />
-                    <div id="errorcantmin"></div>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Existencia*</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="cantexistencia2"
-                      placeholder="Existencia"
-                      name="cantexistencia2"
-                      min="1"
-                      value="{{producto.4}}"
-                    />
-                    <div id="errorexistencia"></div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Cancelar
-                  </button>
-                  <button type="submit" class="btn btn-primary">
-                    Guardar Cambios
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+                <!-- Boton y modal Editar Producto -->
 
-                        <!-- Fin Modal Editar -->
+                {% include "/modules/modals/editar_producto.html" %}
 
+                <!-- Fin Modal Editar -->
 
                 &nbsp;
-                <button
-                  href="{{producto.0}}"
-                  class="btn btn-danger table-buttons"
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalDelete-{{producto.0}}"
-                >
-                <i class="fa fa-trash"></i>
-                </button>
+                <!-- Boton y modal Eliminar Producto -->
 
+                {% include "/modules/modals/eliminar_producto.html" %}
 
-
-                <!-- Modal Eliminar -->
-                <div
-                  class="modal fade"
-                  id="modalDelete-{{producto.0}}"
-                  tabindex="-1"
-                  aria-labelledby="exampleModalLabel"
-                  aria-hidden="true"
-                >
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                          Eliminar producto
-                        </h5>
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <form
-                      id="borrarproducto"
-                      action="{{url_for('productos')}}"
-                      method="POST"
-                      >
-                      <input type="hidden" name="oculto" value="eliminar">
-                      <input type="hidden" name="ocultoborrar" value="{{producto.0}}">
-                      <div class="modal-body">
-                        ¿Está seguro de eliminar este producto?
-                      </div>
-                      <div class="modal-footer">
-                        <button
-                          type="button"
-                          class="btn btn-secondary"
-                          data-bs-dismiss="modal"
-                        >
-                          Cancelar
-                        </button>
-                        <button
-                          type="submit"
-                          class="btn btn-primary""
-                        >
-                          Eliminar Producto
-                        </button>
-
-
-                      </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
                 <!-- Fin Modal Eliminar -->
                 &nbsp;
-                <button
-                  href="{{producto.0}}"
-                  class="btn btn-info table-buttons"
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalGrade-{{producto.0}}"
-                >
-                  <i class="fas fa-award"></i>
-                </button>
-                <!-- Inicio Modal Calificacion -->
-                 <div
-                  class="modal fade"
-                  id="modalGrade-{{producto.0}}"
-                  tabindex="-1"
-                  aria-labelledby="Mo"
-                  aria-hidden="true"
-                >
-                <!-- Inicio Contenido del Modal Califiacion -->
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="Mo">
-                          Calificar producto
-                        </h5>
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <form
-                      id="calificarproducto"
-                      action="{{url_for('productos')}}"
-                      method="POST"
-                      >
-                      <input type="hidden" name="oculto" value="calificar">
-                      <input type="hidden" name="ocultocalificar" value="{{producto.0}}">
-                      <div class="modal-body">
-                      </br>
-                        <div class="form-group text-center">
-                            <div class="rating">
-                              <input type="radio" name="rating" value="5" id="5-{{producto.0}}">
-                              <label for="5-{{producto.0}}">☆</label>
-                              <input type="radio" name="rating" value="4" id="4-{{producto.0}}">
-                              <label for="4-{{producto.0}}">☆</label>
-                              <input type="radio" name="rating" value="3" id="3-{{producto.0}}">
-                              <label for="3-{{producto.0}}">☆</label>
-                              <input type="radio" name="rating" value="2" id="2-{{producto.0}}">
-                              <label for="2-{{producto.0}}">☆</label>
-                              <input type="radio" name="rating" value="1" id="1-{{producto.0}}">
-                              <label for="1-{{producto.0}}">☆</label>
-                            </div>
+                <!-- Boton y modal Calificar Producto -->
 
-                          <div id="errorcalificacion"></div>
-                        </div>
-                        <!-- <div class="form-group">
-                          <label for="exampleInputPassword1">Comentario*</label>
-                          <textarea
-                            class="form-control"
-                            id="comentario"
-                            placeholder="Comentario"
-                            name="comentario"
-                            rows="3"
-                            value="{{producto.6}}"
-                          ></textarea>
-                          <div id="errorcomentario"></div>
-                        </div> -->
-                      </div>
-                      <div class="modal-footer">
-                        <button
-                          type="button"
-                          class="btn btn-secondary"
-                          data-bs-dismiss="modal"
-                        >
-                          Cancelar
-                        </button>
-                        <button type="submit" class="btn btn-primary">
-                          Calificar Producto
-                        </button>
-                      </div>
-                      </form>
-                    </div>
-                  </div>
-
-                <!-- Fin Contenido del Modal Califiacion -->
-                 </div>
+                {% include "/modules/modals/calificar_producto.html" %}
 
                 <!-- Fin Modal Calificacion -->
               </td>
@@ -464,173 +197,20 @@ content %} {% if error %}
         </table>
 
         <!-- #fin de la tabla -->
-
-        <!-- Sección del modal crear -->
-
-        <!-- Modal Crear Producto -->
-        <div
-          class="modal fade"
-          id="modalNew"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-          name="modalNew"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Crear Producto
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <form
-                id="formulariocrearprod"
-                method="post"
-                action="{{url_for('productos')}}"
-                class="needs-validation"
-                novalidate
-              >
-                <div class="modal-body">
-                  <div class="form-group">
-                    <input type="hidden" name="oculto" value="crear" />
-
-                    <label for="codigoproducto">Codigo*</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="codigoproducto"
-                      placeholder="Codigo"
-                      required
-                      name="codigoproducto"
-                    />
-                    <div id="errorcodprod" style="color: red">
-                      {% if data4 %} {{data4}} {% endif %}
-                    </div>
-                    <div class="invalid-feedback">
-                      Por favor ingrese el código del producto.
-                    </div>
-
-                    <label for="nombreproducto">Nombre*</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="nombreproducto"
-                      placeholder="Nombre"
-                      required
-                      name="nombreproducto"
-                    />
-
-                    <div id="errornomprod" style="color: red">
-                      {% if data1 %} {{data1}} {% endif %}
-                    </div>
-                    <div class="invalid-feedback">
-                      Por favor ingrese el nombre del producto.
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Descripcion*</label>
-                    <textarea
-                      class="form-control"
-                      id="descripcionprod"
-                      placeholder="Descripcion"
-                      required
-                      name="descripcionprod"
-                    ></textarea>
-                    <div id="errordescripcion" style="color: red">
-                      {% if data2 %} {{data2}} {% endif %}
-                    </div>
-                    <div class="invalid-feedback">
-                      Por favor ingrese la descripción.
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="menuproveedor">Proveedores*</label>
-                    <select
-                      class="custom-select"
-                      id="menuproveedor"
-                      required
-                      name="menuproveedor"
-                    >
-                      <option selected disabled value="">Seleccione</option>
-                      {%for proveedor in proveedores%}
-                      <option value="{{proveedor.0}}">{{proveedor.1}}</option>
-                      {% endfor %}
-                    </select>
-                    <div id="errorproveedor" style="color: red">
-                      {% if data3 %} {{data3}} {% endif %}
-                    </div>
-                    <div class="invalid-feedback">
-                      Por favor seleccione un proveedor.
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Cant. Minima*</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="cantminima"
-                      placeholder="Cant. Minima" 
-                      min="1"
-                      name="cantminima"
-                    />
-                    <div id="errorcantmin"></div>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Existencia*</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="cantexistencia"
-                      placeholder="Existencia"
-                      min="1"
-                      name="cantexistencia"
-                    />
-                    <div id="errorexistencia"></div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Cancelar
-                  </button>
-                  <button
-                    type="submit"
-                    class="btn btn-primary"
-                    onclick="Javascript:fnt_create_product_validate()"
-                  >
-                    Crear Producto
-                  </button>
-                </div>
-              </form>
-              {% if error %}
-              <script type="text/javascript">
-                $("#nombreproducto").val("{{nombre}}");
-                $("#descripcionprod").val("{{descripcion}}");
-                $("#menuproveedor").val("{{select}}");
-                $("#codigoproducto").val("{{codigo}}");
-              </script>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-
-        <!-- Fin modal crear -->
-
-        <!-- Fin Sección Modal -->
-
-
       </div>
     </div>
   </div>
+  <script>
+    $(document).ready(function () {
+      $("#tablaprod").DataTable({
+        dom: "lrtip",
+        language: {
+          url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json",
+        },
+        order: [[0, "desc"]],
+      });
+    });
+  </script>
 </div>
 <script
   src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
