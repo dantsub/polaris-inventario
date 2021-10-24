@@ -82,6 +82,18 @@ def productos():
                 productos = consultartodoslosproductos()
                 return render_template('modules/products.html', proveedores=proveedores, productos=productos)
 
+        if(formulario == "filtroprov"):
+            codigo = request.form.get('provfiltro')
+            if (codigo == "Todos"):
+                print("trae desde filto: "+codigo)
+                print(productos)
+                return render_template('modules/products.html', proveedores=proveedores, productos=productos)
+            else:
+                productos = buscarproductoporproveedor(codigo)
+                print(productos)
+                proveedores = consultarproveedores()
+                return render_template('modules/products.html', proveedores=proveedores, productos=productos)
+
     return render_template('modules/products.html', proveedores=proveedores, productos=productos)
 
 
