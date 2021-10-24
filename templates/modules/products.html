@@ -101,6 +101,10 @@ content %} {% if error %}
   <!-- Fin card-body -->
 
   <!-- Fin seccion del filtros -->
+  {% with messages = get_flashed_messages() %} {% if messages %} {% for message
+  in messages %}
+  <div class="alert alert-success text-center">{{ message }}</div>
+  {% endfor %} {% endif %} {% endwith %}
 
   <div>
     <!-- Seccion de tabla -->

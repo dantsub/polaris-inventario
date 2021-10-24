@@ -1,5 +1,5 @@
 import re
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 import utils
 from markupsafe import escape
 import os
@@ -38,36 +38,28 @@ def productos():
             codigo = request.form.get('codigoproducto')
             cantmin = request.form.get('cantminima')
             cantexist = request.form.get('cantexistencia')
-            if nombre == "11":
-                data1 = "El campo nombre no puede estar vacio"
+
+            if(validarexistenciadeproducto(codigo) == True):
                 error = True
-            if descripcion == "":
-                data2 = "El campo descripcion no puede estar vacio"
-                error = True
-            if select == None:
-                data3 = "Seleccione un proveedor"
-                error = True
-            if codigo == "":
-                data4 = "El campo codigo no puede estar vacio"
-                error = True
-            if error:
-                return render_template('modules/products.html', data1=data1, data2=data2, data3=data3, data4=data4, error=error, nombre=nombre, select=select, descripcion=descripcion, proveedores=proveedores, productos=productos)
+                data4 = "Ya existe un producto registrado con este codigo"
+                return render_template('modules/products.html', data4=data4, error=error, nombre=nombre, select=select, descripcion=descripcion, codigo=codigo, proveedores=proveedores, productos=productos)
             else:
-                if(validarexistenciadeproducto(codigo) == True):
-                    error = True
-                    data4 = "Ya existe un producto registrado con este codigo"
-                    return render_template('modules/products.html', data4=data4, error=error, nombre=nombre, select=select, descripcion=descripcion, codigo=codigo, proveedores=proveedores, productos=productos)
-                else:
-                    if (registrarproducto(codigo, nombre, descripcion, cantmin, cantexist, select) == True):
-                        proveedores = consultarproveedores()
-                        productos = consultartodoslosproductos()
-                        return render_template('modules/products.html', proveedores=proveedores, productos=productos)
+                if (registrarproducto(codigo, nombre, descripcion, cantmin, cantexist, select) == True):
+                    proveedores = consultarproveedores()
+                    productos = consultartodoslosproductos()
+                    mensaje = "Producto registrado con exito"
+                    flash(mensaje)
+                    return render_template('modules/products.html', proveedores=proveedores, productos=productos)
+
         if(formulario == "eliminar"):
             codigo = request.form.get('ocultoborrar')
             if (eliminarproducto(codigo) == True):
                 proveedores = consultarproveedores()
                 productos = consultartodoslosproductos()
+                mensaje = "Producto eliminado con exito"
+                flash(mensaje)
                 return render_template('modules/products.html', proveedores=proveedores, productos=productos)
+
         if(formulario == "editar"):
             codigo = request.form.get('ocultoeditar')
             nombre = request.form.get('nombreproducto2')
@@ -79,6 +71,7 @@ def productos():
                 proveedores = consultarproveedores()
                 productos = consultartodoslosproductos()
                 return render_template('modules/products.html', proveedores=proveedores, productos=productos)
+
         if(formulario == "calificar"):
             codigo = request.form.get('ocultocalificar')
             valor = request.form['rating']
@@ -156,12 +149,12 @@ def logout():
 
 @app.route('/providers', methods=["GET", "POST"])
 def providers():
-    data1 = ""  
-    data2 = ""  
-    data3 = ""  
-    data4 = ""  
-    data5 = ""  
-    data6 = ""  
+    data1 = ""
+    data2 = ""
+    data3 = ""
+    data4 = ""
+    data5 = ""
+    data6 = ""
     error = False
     # >Consulta para traer los paises
     pais = utils.consultarpais()
@@ -196,43 +189,43 @@ def providers():
                 data6 = "El campo país no puede estar vacio"
                 error = True
             if error == True:
-                return render_template('modules/providers.html', data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, error=error, proveedores = proveedores)
+                return render_template('modules/providers.html', data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, error=error, proveedores=proveedores)
             else:
                 if (utils.registrarprovedor(id, nombre, correo, direccion, telefono, pais) == True):
                     print("Se registro el producto")
                     proveedores = utils.consultarproveedorpais()
-                    pais = utils.consultarpais()    
-                    return render_template('modules/providers.html', proveedores = proveedores, pais=pais)
+                    pais = utils.consultarpais()
+                    return render_template('modules/providers.html', proveedores=proveedores, pais=pais)
                 else:
-                    return render_template('modules/providers.html', pais=pais, proveedores = proveedores)
-        
+                    return render_template('modules/providers.html', pais=pais, proveedores=proveedores)
+
         if(formulario == "editar"):
-            
+
             id = request.form.get('oculto2')
             nombre = request.form.get('nombre')
             correo = request.form.get('correo')
             telefono = request.form.get('telefono')
             direccion = request.form.get('direccion')
             pais = request.form.get('menupais')
-            print (id, nombre, correo, direccion, telefono, pais)
+            print(id, nombre, correo, direccion, telefono, pais)
             if(utils.actualizarproveedor(id, nombre, correo, direccion, telefono, pais)):
                 proveedores = utils.consultarproveedorpais()
-                pais = utils.consultarpais()    
-                return render_template('modules/providers.html', proveedores = proveedores, pais=pais)
+                pais = utils.consultarpais()
+                return render_template('modules/providers.html', proveedores=proveedores, pais=pais)
             else:
-                return render_template('modules/providers.html', pais=pais, proveedores = proveedores)
+                return render_template('modules/providers.html', pais=pais, proveedores=proveedores)
 
         if(formulario == "eliminar"):
             codigo = request.form.get('ocultoborrar')
             if (utils.borrarproveedor(codigo) == True):
                 print("Se elimino el proveedor")
                 proveedores = utils.consultarproveedorpais()
-                pais = utils.consultarpais()    
-                return render_template('modules/providers.html', proveedores = proveedores, pais=pais)
+                pais = utils.consultarpais()
+                return render_template('modules/providers.html', proveedores=proveedores, pais=pais)
             else:
                 print("No se eliminó el proveedor por constrain por producto")
-                return render_template('modules/providers.html', pais=pais, proveedores = proveedores) 
-    return render_template('modules/providers.html', pais=pais, proveedores = proveedores)
+                return render_template('modules/providers.html', pais=pais, proveedores=proveedores)
+    return render_template('modules/providers.html', pais=pais, proveedores=proveedores)
 
 
 @app.route('/users', methods=["GET", "POST"])
