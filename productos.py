@@ -87,3 +87,25 @@ def buscarproductoporproveedor(codigo):
     conexion.close()
     print(filas)
     return filas
+
+
+def listardisponibles():
+    conexion = sqlite3.connect("Polaris")
+
+    cursor = conexion.cursor()
+    cursor.execute("SELECT p.idProducto, p.nombre, p.descripcion, p.cantminima, p.cantdisponible, c.nombre, ( SELECT ROUND(AVG(valor), 1) AS avg_amount FROM calificacion WHERE p.idProducto=idProducto GROUP BY idProducto) AS promedio FROM producto p JOIN proveedores c WHERE p.idProveedor=c.idProveedor and p.cantdisponible>0")
+    filas = cursor.fetchall()
+    conexion.close()
+    print(filas)
+    return filas
+
+
+def productosdebajominimo():
+    conexion = sqlite3.connect("Polaris")
+
+    cursor = conexion.cursor()
+    cursor.execute("SELECT p.idProducto, p.nombre, p.descripcion, p.cantminima, p.cantdisponible, c.nombre, ( SELECT ROUND(AVG(valor), 1) AS avg_amount FROM calificacion WHERE p.idProducto=idProducto GROUP BY idProducto) AS promedio FROM producto p JOIN proveedores c WHERE p.idProveedor=c.idProveedor and p.cantdisponible<p.cantminima")
+    filas = cursor.fetchall()
+    conexion.close()
+    print(filas)
+    return filas

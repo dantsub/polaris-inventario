@@ -99,6 +99,16 @@ def productos():
                 proveedores = consultarproveedores()
                 return render_template('modules/products.html', proveedores=proveedores, productos=productos)
 
+        if(formulario == "filtrodisponibles"):
+            productos = listardisponibles()
+            disponibles = True
+            return render_template('modules/products.html', proveedores=proveedores, productos=productos, disponibles=disponibles)
+
+        if(formulario == "filtrominimos"):
+            productos = productosdebajominimo()
+            minimos = True
+            return render_template('modules/products.html', proveedores=proveedores, productos=productos, minimos=minimos)
+
     return render_template('modules/products.html', proveedores=proveedores, productos=productos)
 
 

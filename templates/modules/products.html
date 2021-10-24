@@ -76,17 +76,52 @@ content %} {% if error %}
 
     <div class="row" style="padding-top: 10px; padding-left: 14px">
       <div class="col-md-3 form-check-inline">
-        <label class="form-check-label" for="listar-disponibles">
+        {% if disponibles %}
+        <form class="row g-3" action="{{url_for('productos')}}" method="post">
+          <div class="col-auto d-flex align-items-end">
+            <button type="submit" class="btn btn-primary align-self-end">
+              Regresar
+            </button>
+          </div>
+        </form>
+        {%else%}
+        <form class="row g-3" action="{{url_for('productos')}}" method="post">
+          <input type="hidden" name="oculto" value="filtrodisponibles">
+          <div class="col-auto d-flex align-items-end">
+            <button type="submit" class="btn btn-primary align-self-end">
+              Listar Disponibles
+            </button>
+          </div>
+        <!-- <label class="form-check-label" for="listar-disponibles">
           <input
             type="checkbox"
             class="form-check-input"
             id="listar-disponibles"
           />
           Listar productos disponibles
-        </label>
+        </label> -->
+        </form>
+        {% endif %}
+        
       </div>
       <div class="col-md-4 form-check-inline">
-        <label class="form-check-label" for="listar-requeridos">
+        {% if minimos %}
+        <form class="row g-3" action="{{url_for('productos')}}" method="post">
+          <div class="col-auto d-flex align-items-end">
+            <button type="submit" class="btn btn-primary align-self-end">
+              Regresar
+            </button>
+          </div>
+        </form>
+        {%else%}
+        <form class="row g-3" action="{{url_for('productos')}}" method="post">
+          <input type="hidden" name="oculto" value="filtrominimos">
+          <div class="col-auto d-flex align-items-end">
+            <button type="submit" class="btn btn-primary align-self-end">
+              Productos debajo del minimo
+            </button>
+          </div>
+        <!-- <label class="form-check-label" for="listar-requeridos">
           <input
             type="checkbox"
             class="form-check-input"
@@ -94,7 +129,9 @@ content %} {% if error %}
             value="1"
           />
           Listar productos por debajo del minimo
-        </label>
+        </label> -->
+        </form>
+        {%endif%}
       </div>
     </div>
   </div>
