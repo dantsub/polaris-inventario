@@ -201,7 +201,7 @@ def providers():
             telefono = request.form.get('telefono')
             direccion = request.form.get('direccion')
             menupais = request.form.get('menupais')
-            print("Este es el id: del pais: "+pais)
+            print("Este es el id: del pais: "+menupais)
 
             if id == "":
                 data1 = "El campo Id del Proveedor no puede estar vacio"
@@ -229,7 +229,7 @@ def providers():
                     data1 = "Ya existe un producto registrado con este id"
                     return render_template('modules/providers.html', data1=data1, error=error, id=id, nombre=nombre, correo=correo, direccion=direccion, telefono=telefono, menupais=menupais, proveedores=proveedores, pais=pais)
                 else:
-                    if (utils.registrarprovedor(id, nombre, correo, direccion, telefono, pais) == True):
+                    if (utils.registrarprovedor(id, nombre, correo, direccion, telefono, menupais) == True):
                         print("Se registró el producto")
                         mensaje = "Proveedor registrado con exito"
                         flash(mensaje)
@@ -242,12 +242,12 @@ def providers():
         if(formulario == "editar"):
 
             id = request.form.get('oculto2')
-            nombre = request.form.get('nombre')
-            correo = request.form.get('correo')
-            telefono = request.form.get('telefono')
-            direccion = request.form.get('direccion')
-            menupais = request.form.get('menupais')
-            print(id, nombre, correo, direccion, telefono, pais)
+            nombre = request.form.get('nombre2')
+            correo = request.form.get('correo2')
+            telefono = request.form.get('telefono2')
+            direccion = request.form.get('direccion2')
+            menupais = request.form.get('menupais2')
+            print(id, nombre, correo, direccion, telefono, menupais)
             if nombre == "":
                 data12 = "El campo Nombre no puede estar vacio"
                 erroreditar = True
@@ -266,7 +266,7 @@ def providers():
             if erroreditar == True:
                 return render_template('modules/providers.html', data12=data12, data22=data22, data32=data32, data42=data42, data52=data52, erroreditar=erroreditar, id=id, nombre=nombre, correo=correo, direccion=direccion, telefono=telefono, proveedores=proveedores, pais=pais, menupais=menupais)
             else:
-                if(utils.actualizarproveedor(id, nombre, correo, direccion, telefono, pais)):
+                if(utils.actualizarproveedor(id, nombre, correo, direccion, telefono, menupais)):
                     mensaje = "Proveedor editado con exito"
                     flash(mensaje)
                     proveedores = utils.consultarproveedorpais()
@@ -362,6 +362,10 @@ def users():
                         conn.commit()
                         mensaje = "Usuario registrado con exito"
                         flash(mensaje)
+                        if session.get('rol') == "SuperAdministrador":
+                            usuarios = utils.consultartodoslosusuarios()
+                        if session.get('rol') == "Administrador":
+                            usuarios = utils.consultartodoslosusuariosadmin()
                         return render_template('modules/users.html', usuarios=usuarios)
                     else:
                         error = True

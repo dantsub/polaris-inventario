@@ -9,6 +9,19 @@ block content %} {% if error %}
   })();
 </script>
 {% endif %}
+
+{% if erroreditar  %}
+<script>
+  (function abrirmodal2() {
+    $(function () {
+      // abrir modal
+      $("#modal_editar-{{usuario}}").appendTo("body").modal("show");
+      
+    });
+  })();
+</script>
+{% endif %}
+
 <main class="card">
   <div class="card-body border-bottom">
     <h2>Usuarios</h2>
@@ -101,6 +114,16 @@ block content %} {% if error %}
       </tbody>
     </table>
   </div>
+  {% if erroreditar %}
+  <script type="text/javascript">
+      $("#usuario").val("{{usuario}}");
+      $("#nombres").val("{{nombre}}");
+      $("#apellidos").val("{{apellido}}");
+      $("#cedula").val("{{documento}}");
+      $("#correo").val("{{correo}}");
+      $("#rol_crear").val("{{rol}}");
+  </script>
+  {% endif %}
 </main>
 
 <script

@@ -127,7 +127,7 @@ def consultarproveedorpais():
     conexion = sqlite3.connect('Polaris')
 
     cursor = conexion.cursor()
-    cursor.execute("SELECT P.idProveedor, P.nombre, P.correo, P.direccion, P.telefono, C.nombrePais FROM proveedores P JOIN pais C WHERE P.idPais = C.idPais ORDER BY P.nombre ASC")
+    cursor.execute("SELECT P.idProveedor, P.nombre, P.correo, P.direccion, P.telefono, C.nombrePais, P.idPais FROM proveedores P JOIN pais C WHERE P.idPais = C.idPais ORDER BY P.nombre ASC")
     filas = cursor.fetchall()
     conexion.close()
     return filas
