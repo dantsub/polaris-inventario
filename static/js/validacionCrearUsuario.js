@@ -17,9 +17,9 @@
     
 
     $(document).ready(function(){
-        $("#buscar_usuario").on("keyup", function() {
+        $("#searchUsuario").on("keyup", function() {
           var value = $(this).val().toLowerCase();
-          $("#tablausuario tr").filter(function() {
+          $("#tablabodyusuario tr").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
           });
         });

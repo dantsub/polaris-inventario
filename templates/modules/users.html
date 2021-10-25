@@ -30,9 +30,9 @@ block content %} {% if error %}
       <div class="col-sm-12 col-md-6">
         <label class="form-label" for="searchUsuario"></label>
         <input
-          type="search"
+          type="text"
           class="form-control w-50"
-          placeholder="Buscar"
+          placeholder="Buscar Usuario"
           id="searchUsuario" 
         />
       </div>
@@ -71,7 +71,7 @@ block content %} {% if error %}
           <th class="col-sticky">Acciones</th>
         </tr>
       </thead>
-      <tbody id="tablausuario" class="js-table-body">
+      <tbody id="tablabodyusuario" class="js-table-body">
         {% for usuario in usuarios %} {% if usuario.6 %}
         <tr class="table-danger">
           {% else %}
@@ -132,8 +132,14 @@ block content %} {% if error %}
         language: {
           url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json",
         },
-        order: [[0, "desc"]],
+        order: [[7, "desc"]],
       });
+      var table = $('#tablausuario').DataTable();
+ 
+        // #myInput is a <input type="text"> element
+        $('#searchUsuario').on( 'keyup', function () {
+            table.search( this.value ).draw();
+        } );
     });
   </script>
 
