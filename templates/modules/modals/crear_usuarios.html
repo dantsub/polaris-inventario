@@ -1,0 +1,198 @@
+<div
+        class="col-sm-12 col-md-6 d-flex align-items-center justify-content-end"
+      >
+        <label for= "crear" class="form-label mr-1" >Crear usuario</label>
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="crear"
+          data-toggle="modal"
+          data-target="#modal_crear"
+        >
+          <span class="fa fa-user-plus"></span>
+        </button>
+</div>
+  <!-- Modal crear usuario -->
+<div
+class="modal fade"
+id="modal_crear"
+nombre="modal_crear"
+tabindex="-1"
+role="dialog"
+aria-labelledby="titulo_crear"
+aria-hidden="true"
+>
+<div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="titulo_crear">Crear Usuario</h5>
+            <button
+                type="button"
+                class="btn-close"
+                data-dismiss="modal"
+                aria-label="Close"
+            ></button>
+        </div>
+        <form
+                id="form_crear"
+                action="{{url_for('users')}}"
+                class="row g-3 needs-validation"
+                method="POST"
+                novalidate
+            >
+            <div class="modal-body">
+            
+                <div class="form-group">
+                <input type="hidden" name="oculto" value="crear" />
+
+                <label class="form-label" for="usuario">Nombre de usuario*</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="usuario"
+                    name="usuario"
+                    placeholder="Nombre de usuario"
+                    required
+                />
+                <div class="invalid-feedback">
+                    Por favor ingrese el nombre de usuario.
+                </div>
+
+                <div id="errorusuario" style="color: red">
+                    {% if data1 %} {{data1}} {% endif %}
+                </div>
+                </div>
+                <div class="form-group">
+                <label for="nombres">Nombres*</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="nombres"
+                    name="nombres"
+                    placeholder="Ingrese los nombres"
+                    required
+                />
+                <div class="invalid-feedback">Por favor ingrese los nombres.</div>
+                <div id="errornombre" style="color: red">
+                    {% if data2 %} {{data2}} {% endif %}
+                </div>
+                </div>
+                <div class="form-group">
+                <label for="apellidos">Apellidos*</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="apellidos"
+                    name="apellidos"
+                    placeholder="Ingrese los apellidos"
+                    required
+                />
+                <div class="invalid-feedback">
+                    Por favor ingrese los apellidos.
+                </div>
+                <div id="errorapellido" style="color: red">
+                    {% if data3 %} {{data3}} {% endif %}
+                </div>
+                </div>
+                <div class="form-group">
+                <label for="cedula">Documento*</label>
+                <input
+                    type="number"
+                    class="form-control"
+                    id="cedula"
+                    name="cedula"
+                    placeholder="Ingrese el número del documento"
+                    required
+                    number
+                />
+                <div class="invalid-feedback">
+                    Por favor ingrese el número de documento.
+                </div>
+                <div id="errordocumento" style="color: red">
+                    {% if data4 %} {{data4}} {% endif %}
+                </div>
+                </div>
+                <div class="form-group">
+                <label for="correo">Correo*</label>
+                <input
+                    type="email"
+                    class="form-control"
+                    id="correo"
+                    name="correo"
+                    placeholder="Ingrese el correo electrónico"
+                    required
+                    email
+                />
+                <div class="invalid-feedback">
+                    Por favor ingrese un correo electrónico valido.
+                </div>
+                <div id="errorcorreo" style="color: red">
+                    {% if data5 %} {{data5}} {% endif %}
+                </div>
+                </div>
+
+                <div class="form-group">
+                <label for="rol_crear" class="form-label">Rol*</label>
+                <select
+                    class="form-select"
+                    id="rol_crear"
+                    name="rol_crear"
+                    required
+                >
+                    <option value="3">Usuario final</option>
+                    {% if session.rol == "SuperAdministrador" %}
+                    <option class="select-crear-admin" value="2">
+                    Administrador
+                    </option>
+                    <option class="select-crear-super" value="1">
+                    Super Administrador
+                    </option>
+                    {% endif %}
+                </select>
+                <div class="invalid-feedback">Por favor ingrese el rol.</div>
+                <div id="errorrol" style="color: red">
+                    {% if data6 %} {{data6}} {% endif %}
+                </div>
+                </div>
+
+                <div class="form-group">
+                <label for="passw">Contraseña*</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    id="passw"
+                    name="passw"
+                    placeholder="Ingrese la contraseña"
+                    required
+                    minlength="6"
+                />
+                <div class="invalid-feedback">
+                    Por favor ingrese una contraseña valida de mínimo 6 caracteres.
+                </div>
+                <div id="errorclave" style="color: red">
+                    {% if data7 %} {{data7}} {% endif %}
+                </div>
+                </div>
+                
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button class="btn btn-primary" type="submit">Crear Usuario</button>
+                </div>
+            
+            </div>
+        </form>
+
+        {% if error %}
+        <script type="text/javascript">
+            $("#usuario").val("{{usuario}}");
+            $("#nombres").val("{{nombre}}");
+            $("#apellidos").val("{{apellido}}");
+            $("#cedula").val("{{documento}}");
+            $("#correo").val("{{correo}}");
+            $("#rol_crear").val("{{rol}}");
+        </script>
+        {% endif %}
+
+        </div>
+    </div> 
+</div>
