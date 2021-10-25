@@ -48,23 +48,20 @@ content %} {% if error %}
         />
       </div>
       <div class="col-md-6">
-        <form class="row g-3" action="{{url_for('productos')}}" method="post">
-          <input type="hidden" name="oculto" value="filtroprov" />
-          <div class="col-auto">
-            <label class="form-label" for="Search">Proveedores</label>
-            <select id="Supplier" class="form-control" name="provfiltro">
+        <label class="form-label" for="filtroprov">Busqueda producto</label>
+        <form action="{{url_for('productos')}}" method="post">
+          <input type="hidden" name="oculto" value="filtroprov"/>
+          <div class="input-group">
+            <select class="form-select" id="filtroprov" name="provfiltro">
               <option value="Todos">Todos</option>
-              {% for proveedor in proveedores %}
-              <option value="{{ proveedor.0 }}">{{proveedor.1}}</option>
-              {% endfor %}
+                {% for proveedor in proveedores %}
+                <option value="{{ proveedor.0 }}">{{proveedor.1}}</option>
+                {% endfor %}
             </select>
+            <button class="btn btn-primary" type="submit">Buscar por proveedor</button>
           </div>
-          <div class="col-auto d-flex align-items-end">
-            <button type="submit" class="btn btn-primary align-self-end">
-              Buscar
-            </button>
-          </div>
-        </form>
+        </form>        
+        
       </div>
 
       <!-- Boton y Modal Crear Producto -->
@@ -74,8 +71,8 @@ content %} {% if error %}
       <!-- Fin Boton y Modal Crear Producto  -->
     </div>
 
-    <div class="row" style="padding-top: 10px; padding-left: 14px">
-      <div class="col-md-3 form-check-inline">
+    <div class="row" style="padding-top: 10px; ">
+      <div class="col-md-3">
         {% if disponibles %}
         <form class="row g-3" action="{{url_for('productos')}}" method="post">
           <div class="col-auto d-flex align-items-end">
@@ -92,19 +89,11 @@ content %} {% if error %}
               Listar Disponibles
             </button>
           </div>
-        <!-- <label class="form-check-label" for="listar-disponibles">
-          <input
-            type="checkbox"
-            class="form-check-input"
-            id="listar-disponibles"
-          />
-          Listar productos disponibles
-        </label> -->
         </form>
         {% endif %}
-        
       </div>
-      <div class="col-md-4 form-check-inline">
+
+      <div class="col-md-4">
         {% if minimos %}
         <form class="row g-3" action="{{url_for('productos')}}" method="post">
           <div class="col-auto d-flex align-items-end">
