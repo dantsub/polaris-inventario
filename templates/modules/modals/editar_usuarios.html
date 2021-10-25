@@ -1,0 +1,160 @@
+<button
+class="btn btn-primary table-buttons"
+id="editar"
+data-bs-toggle="modal"
+data-bs-target="#modal_editar-{{usuario.0}}"
+>
+<span class="fas fa-edit"></span>
+</button>
+<div
+class="modal fade"
+id="modal_editar-{{usuario.0}}"
+tabindex="-1"
+role="dialog"
+aria-labelledby="titulo_crear"
+aria-hidden="true"
+>
+<div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="titulo_crear">
+                Editar Usuario
+            </h5>
+            <button
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="close"
+            ></button>
+            </div>
+            <form
+            action="{{url_for('users')}}"
+            class="row g-3 needs-validation"
+            method="POST"
+            novalidate
+        >
+            <div class="modal-body">
+
+                <div class="form-group">
+                <label for="id">Nombre de usuario*</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Nombre de usuario"
+                    required
+                    value="{{usuario.0}}"
+                    disabled
+                    disabled
+                />
+                <input type="hidden" name="oculto" value="editar" />
+                <input
+                    type="hidden"
+                    name="ocultoeditar"
+                    value="{{usuario.0}}"
+                />
+
+                <div class="invalid-feedback">
+                    Por favor ingrese el nombre de usuario.
+                </div>
+                </div>
+                <div class="form-group">
+                <label for="nombres">Nombres*</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ingrese los nombres"
+                    required
+                    name="nombres2"
+                    value="{{usuario.1}}"
+                />
+
+                <div class="invalid-feedback">
+                    Por favor ingrese los nombres.
+                </div>
+                </div>
+                <div class="form-group">
+                <label for="apellidos">Apellidos*</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ingrese los apellidos"
+                    required
+                    name="apellidos2"
+                    value="{{usuario.2}}"
+                />
+                <div class="invalid-feedback">
+                    Por favor ingrese los apellidos.
+                </div>
+                </div>
+                <div class="form-group">
+                <label for="cedula">Documento*</label>
+                <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Ingrese el número del documento"
+                    required
+                    number
+                    name="cedula2"
+                    value="{{usuario.3}}"
+                />
+                <div class="invalid-feedback">
+                    Por favor ingrese un número de documento solo de
+                    números.
+                </div>
+                </div>
+                <div class="form-group">
+                <label for="correo">Correo*</label>
+                <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Ingrese el correo electrónico"
+                    required
+                    email
+                    name="correo2"
+                    value="{{usuario.4}}"
+                />
+                <div class="invalid-feedback">
+                    Por favor ingrese un correo electrónico valido.
+                </div>
+                </div>
+                <div class="form-group">
+                <label for="rol_crear" class="form-label">Rol*</label>
+                <select
+                    class="form-select"
+                    required
+                    name="rol_crear2"
+                    value="{{usuario.8}}"
+                >
+                    <option value="3">Usuario final</option>
+                    {% if session.rol == "SuperAdministrador" %}
+                    <option class="select-editar-admin" value="2">
+                    Administrador
+                    </option>
+                    <option class="select-editar-super" value="1">
+                    Super Administrador
+                    </option>
+                    {% endif %}
+                </select>
+                <div class="invalid-feedback">
+                    Por favor ingrese el rol.
+                </div>
+
+                </div>
+                <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+                    Cancelar
+                </button>
+                <button class="btn btn-primary" type="submit">
+                    Editar usuario
+                </button>
+                </div>
+            </div>
+            </form>
+
+        </div>
+</div>
+</div>
+<!-- Final modal editar -->
