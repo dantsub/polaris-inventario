@@ -52,20 +52,21 @@
     <div class="content-wrapper">
       <div class="content-body">
         <div class="auth-wrapper auth-cover">
-          <div class="auth-inner row m-0">
-            <!-- Brand logo-->
-            <a class="brand-logo" href="">
-              <img class="mx-auto" src="{{ url_for('static', filename='img/Logo_Polaris.png') }}" width="250" height="50">
-            </a>
-            <!-- /Brand logo-->
+          <div class="auth-inner m-0">
             <!-- Left Text-->
-            <div class="d-lg-flex row align-items-center p-5">
-              <div class="w-150 col-md-8 d-lg-flex align-items-center justify-content-center px-5">
-                <img class="img-fluid" src="{{ url_for('static', filename='img/Carro.png') }}" alt="Login V2" />
+            <!-- Login-->
+            <div class="d-flex p-5 container flex-wrap">
+              <!-- Brand logo-->
+              <a class="w-100" href="">
+                <img src="{{ url_for('static', filename='img/Logo_Polaris.png') }}" width="250" height="50">
+              </a>
+              <!-- /Brand logo-->
+              <div class="col-md-8 d-flex align-items-center justify-content-center px-5">
+                <img class="img-fluid" src="{{ url_for('static', filename='img/Carro.png') }}" alt="Login V2">
               </div>
               <!-- Login-->
-              <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
-                <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
+              <div class="d-flex col-12 col-md-4 align-items-center auth-bg px-2 p-lg-5">
+                <div class="">
                   <h2 class="card-title fw-bold mb-1">Hola, Bienvenidos a Inventario Polaris 👋</h2>
                   <p class="card-text mb-2">Por favor inicia sesión para empezar</p>
                   <form class="auth-login-form mt-2" action="{{url_for('login')}}" method="POST" novalidate="novalidate">
