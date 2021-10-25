@@ -302,6 +302,12 @@ def users():
     data6 = ""  # error rol #rol_crear
     data7 = ""  # error clave #passw
     error = False
+    data22 = ""  # error nombres #nombres2
+    data32 = ""  # error apellidos #apellidos2
+    data42 = ""  # error documento #cedula2
+    data52 = ""  # error correo #correo2
+    data62 = ""  # error rol #rol_crear2
+    erroreditar = False
     usuario = ""
     nombre = ""
     apellido = ""
@@ -392,14 +398,33 @@ def users():
             documento = request.form.get('cedula2')
             correo = request.form.get('correo2')
             rol = request.form.get('rol_crear2')
-            if (utils.actualizarusuario(usuario, documento, nombre, apellido,  correo, rol) == True):
-                mensaje = "Usuario editado con exito"
-                flash(mensaje)
-                if session.get('rol') == "SuperAdministrador":
-                    usuarios = utils.consultartodoslosusuarios()
-                if session.get('rol') == "Administrador":
-                    usuarios = utils.consultartodoslosusuariosadmin()
-                return render_template('modules/users.html', usuarios=usuarios)
+
+            if nombre == "":
+                data22 = "El campo Nombres no puede estar vacio"
+                erroreditar = True
+            if apellido == "":
+                data32 = "El campo Apellidos no puede estar vacio"
+                erroreditar = True
+            if documento == "":
+                data42 = "El campo Documentos no puede estar vacio y debe ser númerico"
+                erroreditar = True
+            if not utils.isEmailValid(correo):
+                data52 = "Por favor coloque un email válido"
+                erroreditar = True
+            if rol == None:
+                data62 = "Seleccione un rol"
+                erroreditar = True
+            if erroreditar == True:
+                return render_template('modules/users.html', data22=data22, data32=data32, data42=data42, data52=data52, data62=data62, erroreditar=erroreditar, nombre=nombre, usuario=usuario, apellido=apellido, documento=documento, correo=correo, rol=rol, usuarios=usuarios)
+            else:
+                if (utils.actualizarusuario(usuario, documento, nombre, apellido,  correo, rol) == True):
+                    mensaje = "Usuario editado con exito"
+                    flash(mensaje)
+                    if session.get('rol') == "SuperAdministrador":
+                        usuarios = utils.consultartodoslosusuarios()
+                    if session.get('rol') == "Administrador":
+                        usuarios = utils.consultartodoslosusuariosadmin()
+                    return render_template('modules/users.html', usuarios=usuarios)
     return render_template('modules/users.html', usuarios=usuarios)
 
 

@@ -56,7 +56,7 @@ block content %} {% if error %}
     {% endfor %} {% endif %} {% endwith %}
 
     <div class="card-dataTable table-responsive" style="padding: 5px">
-    <table class="table table-bordered table-hover table-fit">
+    <table class="table table-bordered table-hover table-fit" id= "tablaproveedores">
       <thead>
         <tr>
           <th>ID Proveedor</th>
@@ -106,15 +106,25 @@ block content %} {% if error %}
 
   {% if erroreditar %}
   <script type="text/javascript">
-      $("#id").val("{{id}}");
-      $("#nombre").val("{{nombre}}");
-      $("#correo").val("{{correo}}");
-      $("#telefono").val("{{telefono}}");
-      $("#direccion").val("{{direccion}}");
-      $("#menupais").val("{{pais}}");
+      $("#id").val("{{id2}}");
+      $("#nombre").val("{{nombre2}}");
+      $("#correo").val("{{correo2}}");
+      $("#telefono").val("{{telefono2}}");
+      $("#direccion").val("{{direccion2}}");
+      $("#menupais").val("{{pais2}}");
   </script>
   {% endif %}
-
+  <script>
+    $(document).ready(function () {
+      $("#tablaproveedores").DataTable({
+        dom: "lrtip",
+        language: {
+          url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json",
+        },
+        order: [[0, "desc"]],
+      });
+    });
+  </script>
 </main>
 
 <script
@@ -123,11 +133,11 @@ block content %} {% if error %}
   crossorigin="anonymous"
 ></script>
 <script src="./../../static/js/validacionCrearProveedor.js"></script>
-<script>
+<!-- <script>
   $("#modal_crear").on("show.bs.modal", function (event) {
     $("#form_crear").trigger("reset");
   });
-</script>
+</script> -->
 <script>
   $("#modal_editar-{{id}}").on("show.bs.modal", function (event) {
     $("#form_editar").trigger("reset");

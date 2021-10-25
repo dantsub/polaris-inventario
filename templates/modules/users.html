@@ -4,7 +4,7 @@ block content %} {% if error %}
   (function abrirmodal() {
     $(function () {
       // abrir modal
-      $("#modal_crear").modal("show");
+      $("#modal_crear").appendTo("body").modal("show");
     });
   })();
 </script>
@@ -57,7 +57,7 @@ block content %} {% if error %}
        
   <!-- Lista de usuarios -->
   <div class="card-dataTable table-responsive" style="padding: 5px">
-    <table class="table table-bordered table-hover">
+    <table class="table table-bordered table-hover" id= "tablausuario">
       <thead>
         <tr>
           <th>Nombre usuario</th>
@@ -116,14 +116,27 @@ block content %} {% if error %}
   </div>
   {% if erroreditar %}
   <script type="text/javascript">
-      $("#usuario").val("{{usuario}}");
-      $("#nombres").val("{{nombre}}");
-      $("#apellidos").val("{{apellido}}");
-      $("#cedula").val("{{documento}}");
-      $("#correo").val("{{correo}}");
-      $("#rol_crear").val("{{rol}}");
+      $("#usuario").val("{{usuario2}}");
+      $("#nombres").val("{{nombre2}}");
+      $("#apellidos").val("{{apellido2}}");
+      $("#cedula").val("{{documento2}}");
+      $("#correo").val("{{correo2}}");
+      $("#rol_crear").val("{{rol2}}");
   </script>
   {% endif %}
+
+  <script>
+    $(document).ready(function () {
+      $("#tablausuario").DataTable({
+        dom: "lrtip",
+        language: {
+          url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json",
+        },
+        order: [[0, "desc"]],
+      });
+    });
+  </script>
+
 </main>
 
 <script
@@ -133,10 +146,10 @@ block content %} {% if error %}
 ></script>
 
 <script src="{{ url_for('static', filename='js/validacionCrearUsuario.js') }}"></script>
-<script>
+<!-- <script>
   $("#modal_crear").on("show.bs.modal", function (event) {
     $("#form_crear").trigger("reset");
   });
-</script>
+</script> -->
 
 {% endblock content %}

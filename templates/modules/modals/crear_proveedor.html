@@ -5,8 +5,8 @@
         <button
           class="btn btn-primary"
           id="crear"
-          data-toggle="modal"
-          data-target="#modal_crear"
+          data-bs-toggle="modal"
+          data-bs-target="#modal_crear"
         >
           <span class="fa fa-plus"></span>
         </button>
@@ -23,14 +23,14 @@
     aria-labelledby="titulo_crear"
     aria-hidden="true"
   >
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="titulo_crear">Crear Proveedor</h5>
           <button
             type="button"
             class="btn-close"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             aria-label="Cerrar"
           ></button>
         </div>
@@ -43,7 +43,7 @@
             novalidate
           >
             <input type="hidden" name="oculto" value="crear" />
-            <div class="col-12 my-1">
+            <div class="form-group">
               <label for="">ID Proveedor*</label>
               <input
                 type="number"
@@ -52,18 +52,16 @@
                 name="id"
                 placeholder="ID Proveedor"
                 required
-                number
-              />
+                number/>
               <input type="hidden" name="oculto" value="crear" />
               <div class="invalid-feedback">
                 Por favor digite el ID del proveedor
               </div>
+              <div id="errorIdproveedor" style="color: red">
+                {% if data1 %} {{data1}} {% endif %}
+              </div>
             </div>
-            <div id="errorIdproveedor" style="color: red">
-              {% if data1 %} {{data1}} {% endif %}
-            </div>
-
-            <div class="col-12 mb-1">
+            <div class="form-group">
               <label for="">Nombre*</label>
               <input
                 type="text"
@@ -74,9 +72,11 @@
                 required
               />
               <div class="invalid-feedback">Por favor digite un Nombre</div>
+              <div id="errorNombres" style="color: red">
+                {% if data2 %} {{data2}} {% endif %}
+              </div>
             </div>
-            <div id="errorNombres" style="color: red">
-              {% if data2 %} {{data2}} {% endif %}
+
               <label for="">Correo*</label>
               <input
                 type="email"
@@ -90,9 +90,10 @@
               <div class="invalid-feedback">
                 Por favor digite un correo válido
               </div>
-            </div>
+          
             <div id="errorcorreo" style="color: red">
               {% if data3 %} {{data3}} {% endif %}
+            </div>
               <label for="">Teléfono*</label>
               <input
                 type="number"
@@ -104,9 +105,10 @@
                 number
               />
               <div class="invalid-feedback">Por favor digite un teléfono</div>
-            </div>
+
             <div id="errortelefono" style="color: red">
               {% if data4 %} {{data4}} {% endif %}
+            </div>
               <label for="">Dirección*</label>
               <input
                 type="text"
@@ -117,9 +119,10 @@
                 required
               />
               <div class="invalid-feedback">Por favor digite la dirección</div>
-            </div>
+
             <div id="errordireccion" style="color: red">
               {% if data5 %} {{data5}} {% endif %}
+            </div>
               <label for="">Pais*</label>
               <select
                 class="custom-select"
@@ -133,13 +136,13 @@
                 {% endfor %}
               </select>
               <div class="invalid-feedback">Por favor digite el país</div>
-            </div>
+
             <div id="errorpais" style="color: red">
               {% if data6 %} {{data6}} {% endif %}
             </div>
 
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
               <button class="btn btn-primary" type="submit">Crear Proveedor</button>
             </div>
           </form>

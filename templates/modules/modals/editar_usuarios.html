@@ -39,7 +39,7 @@ aria-hidden="true"
             </div>
             <form
             action="{{url_for('users')}}"
-            class="row g-3 needs-validation"
+            class="row g-3  needs-validation"
             method="POST"
             novalidate
         >
@@ -81,6 +81,9 @@ aria-hidden="true"
                 <div class="invalid-feedback">
                     Por favor ingrese los nombres.
                 </div>
+                <div id="errornombre2" style="color: red">
+                    {% if data22 %} {{data22}} {% endif %}
+                </div>
                 </div>
                 <div class="form-group">
                 <label for="apellidos">Apellidos*</label>
@@ -95,6 +98,9 @@ aria-hidden="true"
                 <div class="invalid-feedback">
                     Por favor ingrese los apellidos.
                 </div>
+                <div id="errorapellido2" style="color: red">
+                    {% if data32 %} {{data32}} {% endif %}
+                </div>               
                 </div>
                 <div class="form-group">
                 <label for="cedula">Documento*</label>
@@ -111,6 +117,9 @@ aria-hidden="true"
                     Por favor ingrese un número de documento solo de
                     números.
                 </div>
+                <div id="errordocumento2" style="color: red">
+                    {% if data42 %} {{data42}} {% endif %}
+                </div>               
                 </div>
                 <div class="form-group">
                 <label for="correo">Correo*</label>
@@ -126,6 +135,9 @@ aria-hidden="true"
                 <div class="invalid-feedback">
                     Por favor ingrese un correo electrónico valido.
                 </div>
+                <div id="errorcorreo2" style="color: red">
+                    {% if data52 %} {{data52}} {% endif %}
+                </div>                
                 </div>
                 <div class="form-group">
                 <label for="rol_crear" class="form-label">Rol*</label>
@@ -150,7 +162,9 @@ aria-hidden="true"
                 <div class="invalid-feedback">
                     Por favor ingrese el rol.
                 </div>
-
+                <div id="errorrol2" style="color: red">
+                    {% if data62 %} {{data62}} {% endif %}
+                </div>
                 </div>
                 <div class="modal-footer">
                 <button
