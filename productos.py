@@ -5,7 +5,7 @@ def consultarproveedores():
     conexion = sqlite3.connect('Polaris')
 
     cursor = conexion.cursor()
-    cursor.execute("SELECT * FROM proveedores")
+    cursor.execute("SELECT * FROM proveedores ORDER BY nombre")
     filas = cursor.fetchall()
     conexion.close()
     return filas

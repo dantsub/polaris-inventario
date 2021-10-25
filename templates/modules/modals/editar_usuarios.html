@@ -1,3 +1,12 @@
+<script>
+    $(document).on('show.bs.modal','#modal_editar-{{usuario.0}}', function () {
+        $("#rol_crear2 option").removeAttr('selected');
+          // Set the tag <option> attribute to 'selected'
+              var valor = parseInt("{{usuario.8}}")
+          $('#rol_crear2 option[value="{{usuario.8}}"]').prop({defaultSelected: true});
+       });
+</script> 
+
 <button
 class="btn btn-primary table-buttons"
 id="editar"
@@ -6,6 +15,8 @@ data-bs-target="#modal_editar-{{usuario.0}}"
 >
 <span class="fas fa-edit"></span>
 </button>
+
+
 <div
 class="modal fade"
 id="modal_editar-{{usuario.0}}"
@@ -118,10 +129,12 @@ aria-hidden="true"
                 </div>
                 <div class="form-group">
                 <label for="rol_crear" class="form-label">Rol*</label>
+                    
                 <select
                     class="form-select"
                     required
                     name="rol_crear2"
+                    id="rol_crear2"
                     value="{{usuario.8}}"
                 >
                     <option value="3">Usuario final</option>

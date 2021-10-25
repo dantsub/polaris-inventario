@@ -1,3 +1,11 @@
+<script>
+  $(document).on('show.bs.modal','#modalEdit-{{producto.0}}', function () {
+      $("#menuproveedor2 option").removeAttr('selected');
+        // Set the tag <option> attribute to 'selected'
+        $('#menuproveedor2 option[value="{{producto.6}}"]').prop({defaultSelected: true});
+     });
+</script> 
+
 <button
   class="btn btn-primary table-buttons"
   id="editar"
@@ -78,10 +86,10 @@
               required="required"
               name="menuproveedor2"
             >
-              <option value="{{producto.6}}">{{producto.5}}</option>
-              {% for proveedor in proveedores %}
+              <!-- <option value="{{producto.6}}">{{producto.5}}</option>
+              {% for proveedor in proveedores %} -->
               <option value="{{proveedor.0}}">{{proveedor.1}}</option>
-              {% endfor %}
+              <!-- {% endfor %} -->
             </select>
             <div id="errorproveedor2" style="color: red"></div>
             <div class="invalid-feedback">Seleccione un proveedor.</div>
