@@ -309,6 +309,7 @@ block content %} {% if error %}
     </table>
   </div>
   <!-- Modal crear usuario -->
+
   <div
     class="modal fade"
     id="modal_crear"
@@ -463,6 +464,7 @@ block content %} {% if error %}
             <div class="modal-footer">
               <button class="btn btn-primary" type="submit">Crear</button>
             </div>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
           </form>
           {% if error %}
           <script type="text/javascript">
@@ -478,6 +480,15 @@ block content %} {% if error %}
       </div>
     </div>
   </div>
+
+  <script>
+    (function modalInBody() {
+      $(function () {
+        $("#modal_crear").appendTo("body")
+      });
+    })();
+  </script>
+
 </main>
 
 <script

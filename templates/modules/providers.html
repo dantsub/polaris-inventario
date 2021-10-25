@@ -16,11 +16,11 @@ block content %} {% if error %}
     $(function () {
       // abrir modal
       $("#modal_editar-{{id}}").appendTo("body").modal("show");
+      
     });
   })();
 </script>
 {% endif %}
-
 
 <main class="card">
   <div class="card-body border-bottom">
@@ -128,5 +128,9 @@ block content %} {% if error %}
     $("#form_crear").trigger("reset");
   });
 </script>
-
+<script>
+  $("#modal_editar-{{id}}").on("show.bs.modal", function (event) {
+    $("#form_editar").trigger("reset");
+  });
+</script>
 {% endblock content %}

@@ -1,160 +1,108 @@
-
-<button
-class="btn btn-primary table-buttons"
-id="editar"
-data-bs-toggle="modal"
-data-bs-target="#modal_editar-{{proveedor.0}}"
->
+<button class="btn btn-primary table-buttons" id="editar" data-toggle="modal"
+data-target="#modal_editar-{{proveedor.0}}">
 <span class="fas fa-edit"></span>
 </button>
 
 <!-- / Inicio Modal Editar -->
-<div
-class="modal fade"
-id="modal_editar-{{proveedor.0}}"
-tabindex="-1"
-aria-labelledby="titulo_editar"
-aria-hidden="true"
->
-    <div class="modal-dialog" role="document">
+
+<div class="modal fade" id="modal_editar-{{proveedor.0}}" tabindex="-1" role="dialog" aria-labelledby="titulo_editar"   
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="titulo_editar">Editar Proveedor</h5>
-                <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Cerrar"
-                ></button>
-            </div>
-            <form
-            id="form_editar"
-            method="POST"
-
-            action="{{url_for('providers')}}"
-            novalidate
-            >
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="{{proveedor.0}}">ID Proveedor*</label>
-                        <input
-                        type="text"
-                        class="form-control"
-                        id="{{proveedor.0}}"
-                        placeholder="ID Proveedor"
-                        value="{{proveedor.0}}"
-                        name="id"
-                        disabled
-                        />
-
-                        <input type="hidden" name="oculto" value="editar" />
-                        <input
-                        type="hidden"
-                        name="oculto2"
-                        value="{{proveedor.0}}"
-                        />
-
-                        <label for="name-{{proveedor.0}}">Nombre*</label>
-                        <input
-                        type="text"
-                        class="form-control"
-                        id="name-{{proveedor.0}}"
-                        placeholder="Nombre"
-                        value="{{proveedor.1}}"
-                        name="nombre"
-                        required
-                        />
-                        <div class="invalid-feedback">
-                        Por favor digite un Nombre
-                        </div>
-                        <div id="errornombre2" style="color: red">
-                            {% if data12 %} {{data12}} {% endif %}
-                        </div>
-
-                        <label for="correo-{{proveedor.0}}">Correo*</label>
-                        <input
-                        type="email"
-                        class="form-control"
-                        id="correo-{{proveedor.0}}"
-                        placeholder="Email"
-                        value="{{proveedor.2}}"
-                        name="correo"
-                        required
-                        email
-                        />
-                        <div class="invalid-feedback">
-                        Por favor digite un correo válido
-                        </div>
-
-                        <div id="errorcorreo2" style="color: red">
-                            {% if data22 %} {{data22}} {% endif %}
-                        </div>
-
-                        <label for="tel-{{proveedor.0}}">Teléfono*</label>
-                        <input
-                        type="number"
-                        class="form-control"
-                        id="tel-{{proveedor.0}}"
-                        placeholder="Teléfono"
-                        value="{{proveedor.4}}"
-                        name="telefono"
-                        required
-                        number
-                        />
-                        <div class="invalid-feedback">
-                        Por favor digite un teléfono
-                        </div>
-                        
-                        <div id="errortelefono2" style="color: red">
-                            {% if data32 %} {{data32}} {% endif %}
-                        </div>
-                    
-                        <label for="dir-{{proveedor.0}}">Dirección*</label>
-                        <input
-                        type="text"
-                        class="form-control"
-                        id="dir-{{proveedor.0}}"
-                        placeholder="Dirección"
-                        value="{{proveedor.3}}"
-                        name="direccion"
-                        required
-                        />
-                        <div class="invalid-feedback">
-                        Por favor digite la dirección
-                        </div>
-                        
-                        <div id="errordireccion2" style="color: red">
-                            {% if data42 %} {{data42}} {% endif %}
-                        </div>
-
-                        <label for="pais-{{proveedor.0}}">Pais*</label>
-                        <select
-                        class="form-select"
-                        id="pais-{{proveedor.0}}"
-                        required
-                        name="menupais"
-                        >
-                        {%for i in pais%}
-                        <option value="{{i.0}}">{{i.1}}</option>
-                        {% endfor %}
-                        </select>
-                        <div class="invalid-feedback">
-                        Por favor digite el país
-                        </div>
-                        <div id="errorpais2" style="color: red">
-                            {% if data52 %} {{data52}} {% endif %}
-                        </div>
-
-                        <div class="modal-footer">
-                            <button class="btn btn-primary" type="submit">
-                                Editar
-                            </button>
-                        </div>
-                    </div>
-                
-
+                <h5 id="titulo_editar">Editar Proveedor</h5>
+                <button class="btn-close" data-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
-            </form>
+                    <div class="modal-body">
+                        <form id="form_editar" method= "POST" class="needs-validation" action="{{url_for('providers')}}" novalidate >
+                            <div class="form-group">
+                                <div class="col-12 my-1">
+                                    <label for="">ID Proveedor*</label>
+                                    <input type="text" class="form-control" id="id" placeholder="ID Proveedor" value="{{proveedor.0}}" name="id" disabled>
+                                
+                                </div>
+                                    <input type="hidden" name="oculto" value="editar">
+                                    <input type="hidden" name="oculto2" value="{{proveedor.0}}">
+
+                                <div class="col-12  mb-1">
+                                    <label for="">Nombre*</label>
+                                    <input type="text" class="form-control" id="nombre" placeholder="Nombre" value="{{proveedor.1}}" name="nombre" required>
+                                    <div class="invalid-feedback">
+                                        Por favor digite un Nombre
+                                    </div>
+                                    <div id="errornombre2" style="color: red">
+                                        {% if data12 %} {{data12}} {% endif %}
+                                    </div>
+
+                                </div>
+
+                                <div class="col-12 mb-1">
+                                    <label for="">Correo*</label>
+                                    <input type="email" class="form-control" id="correo" placeholder="Email" value="{{proveedor.2}}" name="correo" required email>
+                                    <div class="invalid-feedback">
+                                        Por favor digite un correo válido
+                                    </div>
+                                    <div id="errorcorreo2" style="color: red">
+                                        {% if data22 %} {{data22}} {% endif %}
+                                    </div>
+                                </div> 
+
+                                <div class="col-12 mb-1">
+                                    <label for="">Teléfono*</label>
+                                    <input type="text" class="form-control" id="telefono" placeholder="Teléfono" value="{{proveedor.4}}" name="telefono" required number>
+                                    <div class="invalid-feedback">
+                                        Por favor digite un teléfono 
+                                    </div>
+                                    <div id="errortelefono2" style="color: red">
+                                        {% if data32 %} {{data32}} {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="col-12 mb-1">
+                                    <label for="">Dirección*</label>
+                                    <input type="text" class="form-control" id="direccion" placeholder="Dirección" value="{{proveedor.3}}" name="direccion" required>
+                                    <div class="invalid-feedback">
+                                        Por favor digite la dirección 
+                                    </div>
+                                    <div id="errordireccion2" style="color: red">
+                                        {% if data42 %} {{data42}} {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="col-12 mb-1">
+                                    <label for="">Pais*</label>
+                                    <div>
+                                    <select
+                                        class="custom-select"
+                                        id="menupais"
+                                        required
+                                        name="menupais"
+                                    >
+                                        {%for i in pais%}
+                                        <option value="{{i.0}}">{{i.1}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Por favor digite el país
+                                    </div>
+                                    <div id="errorpais2" style="color: red">
+                                        {% if data52 %} {{data52}} {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button class="btn btn-primary" type="submit">
+                                        Editar
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
         </div>
+
     </div>
 </div>
+
+

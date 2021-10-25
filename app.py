@@ -200,7 +200,7 @@ def providers():
             correo = request.form.get('correo')
             telefono = request.form.get('telefono')
             direccion = request.form.get('direccion')
-            pais = request.form.get('menupais')
+            menupais = request.form.get('menupais')
             print("Este es el id: del pais: "+pais)
 
             if id == "":
@@ -218,16 +218,16 @@ def providers():
             if direccion == "":
                 data5 = "El campo Dirección no puede estar vacio"
                 error = True
-            if pais == "":
+            if menupais == "":
                 data6 = "El campo país no puede estar vacio"
                 error = True
             if error == True:
-                return render_template('modules/providers.html', data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, error=error, proveedores=proveedores, pais=pais)
+                return render_template('modules/providers.html', data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, error=error, proveedores=proveedores, pais=pais, menupais=menupais)
             else:
                 if(utils.validarexistenciadeproveedor(id) == True):
                     error = True
                     data1 = "Ya existe un producto registrado con este id"
-                    return render_template('modules/providers.html', data1=data1, error=error, id=id, nombre=nombre, correo=correo, direccion=direccion, telefono=telefono, proveedores=proveedores, pais=pais)
+                    return render_template('modules/providers.html', data1=data1, error=error, id=id, nombre=nombre, correo=correo, direccion=direccion, telefono=telefono, menupais=menupais, proveedores=proveedores, pais=pais)
                 else:
                     if (utils.registrarprovedor(id, nombre, correo, direccion, telefono, pais) == True):
                         print("Se registró el producto")
@@ -246,25 +246,25 @@ def providers():
             correo = request.form.get('correo')
             telefono = request.form.get('telefono')
             direccion = request.form.get('direccion')
-            pais = request.form.get('menupais')
+            menupais = request.form.get('menupais')
             print(id, nombre, correo, direccion, telefono, pais)
             if nombre == "":
                 data12 = "El campo Nombre no puede estar vacio"
                 erroreditar = True
             if not utils.isEmailValid(correo):
-                data22 = "El campo Correo no puede estar vacio"
+                data22 = "Por favor digite un correo válido"
                 erroreditar = True
             if telefono == "":
-                data32 = "El campo Telefono no puede estar vacio"
+                data32 = "El campo Teléfono no puede estar vacio"
                 erroreditar = True
             if direccion == "":
                 data42 = "El campo Dirección no puede estar vacio"
                 erroreditar = True
-            if pais == "":
+            if menupais == "":
                 data52 = "El campo país no puede estar vacio"
                 erroreditar = True
             if erroreditar == True:
-                return render_template('modules/providers.html', data12=data12, data22=data22, data32=data32, data42=data42, data52=data52, erroreditar=erroreditar, id=id, nombre=nombre, correo=correo, direccion=direccion, telefono=telefono, proveedores=proveedores, pais=pais)
+                return render_template('modules/providers.html', data12=data12, data22=data22, data32=data32, data42=data42, data52=data52, erroreditar=erroreditar, id=id, nombre=nombre, correo=correo, direccion=direccion, telefono=telefono, proveedores=proveedores, pais=pais, menupais=menupais)
             else:
                 if(utils.actualizarproveedor(id, nombre, correo, direccion, telefono, pais)):
                     mensaje = "Proveedor editado con exito"
