@@ -16,13 +16,13 @@
     }, false);
 
 
-    $(document).ready(function(){
-        $("#searchProveedores").on("keyup", function() {
-          var value = $(this).val().toLowerCase();
-          $("#tablaproveedor tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-          });
-        });
-      });
+    // $(document).ready(function(){
+    //     $("#searchProveedores").on("keyup", function() {
+    //       var value = $(this).val().toLowerCase();
+    //       $("#tablaproveedor tr").filter(function() {
+    //         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    //       });
+    //     });
+    //   });
 
     })();
