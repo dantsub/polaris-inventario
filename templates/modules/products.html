@@ -130,13 +130,13 @@ content %} {% if error %}
   {% with messages = get_flashed_messages() %} {% if messages %} {% for message
   in messages %} {% if message != 'No se ha podido registrar la calificación del
   producto' %}
-  <div class="alert alert-success text-center alert-dismissible fade show">
+  <div class="alert alert-success text-center alert-dismissible py-1 fade show">
     <span>{{ message }}</span>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
   </div>
   {%else %}
-  <div class="alert alert-danger text-center alert-dismissible fade show">
+  <div class="alert alert-danger text-center alert-dismissible py-1 fade show">
     <span>{{ message }}</span>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
@@ -147,9 +147,9 @@ content %} {% if error %}
     <!-- Seccion de tabla -->
     <div
       class="card-dataTable table-responsive pt-0"
-      style="padding: 0px 5px 5px !important"
+      style="padding: 5px !important"
     >
-      <div class="table-responsive mt-3 table-bordered" id="Div-tablaProducto">
+      <div class="table-responsive table-bordered" id="Div-tablaProducto">
         <table class="table table-hover" id="tablaprod">
           <thead>
             <tr>
@@ -210,7 +210,8 @@ content %} {% if error %}
               {% endif %} {% endif %}
 
               <td
-                class="py-1 px-2 col-sticky js-sticky d-flex"
+                class="py-1 px-2 col-sticky js-sticky"
+                style="min-width: 127px;"
                 text-align="center"
               >
                 <!-- Boton y modal Editar Producto -->

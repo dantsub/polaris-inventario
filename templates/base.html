@@ -126,14 +126,7 @@
           </li>
         </ul>
         <li class="nav-item dropdown dropdown-user">
-          <a
-            class="nav-link dropdown-toggle dropdown-user-link d-flex"
-            id="dropdown-user"
-            href="#"
-            data-bs-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
+          <div class="d-flex mr-1">
             <div class="user-nav d-sm-flex d-none flex-column mr-1">
               <span class="user-name fw-bolder">
                 {% if 'usuario' in session %} {{session.nombre}}
@@ -147,14 +140,14 @@
             <span class="avatar">
               <img
                 class="round"
-                src="{{ url_for('static', filename='img/9-small.png') }}"
+                src="{{ url_for('static', filename='img/avatar.jpeg') }}"
                 alt="avatar"
                 height="40"
                 width="40"
               />
               <span class="avatar-status-online"></span>
             </span>
-          </a>
+          </div>
         </li>
       </ul>
     </nav>

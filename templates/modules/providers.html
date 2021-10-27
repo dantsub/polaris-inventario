@@ -47,7 +47,7 @@ block content %} {% if error %}
 
   {% with messages = get_flashed_messages() %} {% if messages %} {% for message
     in messages %}
-    <div class="alert alert-warning text-center alert-dismissible fade show" role="alert">
+    <div class="alert alert-success text-center alert-dismissible py-1 fade show" role="alert">
       <strong>{{ message }}</strong>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -56,7 +56,7 @@ block content %} {% if error %}
     {% endfor %} {% endif %} {% endwith %}
 
     <div class="card-dataTable table-responsive" style="padding: 5px">
-    <table class="table table-bordered table-hover table-fit" id= "tablaproveedores">
+    <table class="table table-bordered table-hover" id= "tablaproveedores">
       <thead>
         <tr>
           <th>ID Proveedor</th>
@@ -77,7 +77,7 @@ block content %} {% if error %}
           <td>{{proveedor.3}}</td>
           <td>{{proveedor.4}}</td>
           <td>{{proveedor.5}}</td>
-          <td class="py-1 px-2 col-sticky js-sticky">
+          <td class="py-1 px-2 col-sticky js-sticky" style="min-width: 83px;">
 
             
                 <!-- Boton y modal Editar Proveedor -->

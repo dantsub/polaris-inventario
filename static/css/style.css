@@ -13,7 +13,7 @@
 }
 
 .col-sticky {
-  position: sticky;
+  position: sticky !important;
   right: 0;
   top: 0;
 }
@@ -72,15 +72,4 @@ td.col-sticky {
 }
 .desactivado td{
   position: relative;
-}
-table.table-fit {
-  width: auto !important;
-  table-layout: auto !important;
-}
-table.table-fit thead th, table.table-fit tfoot th {
-  width: auto !important;
-}
-table.table-fit tbody td, table.table-fit tfoot td {
-  white-space: nowrap;
-  width: auto !important;
 }
