@@ -23,6 +23,12 @@
     ></script>
     <script src="{{ url_for('static', filename='js/vendors.min.js') }}"></script>
 
+    <!-- Avatar -->
+
+    <script src="{{ url_for('static', filename='js/avatar.js') }}"></script>
+
+    <!-- END Avatar  -->
+
     <title>{% block title %}{% endblock %}</title>
 
     <!-- BEGIN: Theme CSS-->
@@ -138,13 +144,14 @@
               </span>
             </div>
             <span class="avatar">
-              <img
+              <!-- <img
                 class="round"
                 src="{{ url_for('static', filename='img/avatar.jpeg') }}"
                 alt="avatar"
                 height="40"
                 width="40"
-              />
+              /> -->
+              <div class="avatar-initials round" width="40" height="40" data-name="{{session.nombre}} {{session.apellido}}"></div>
               <span class="avatar-status-online"></span>
             </span>
           </div>
