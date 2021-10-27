@@ -44,16 +44,23 @@ block content %} {% if error %}
 
     </div>
   </div>
-
+  
   {% with messages = get_flashed_messages() %} {% if messages %} {% for message
-    in messages %}
+    in messages %} {% if message != 'Proveedor no pudo ser eliminado porque está siendo usado en la tabla producto' %}
     <div class="alert alert-success text-center alert-dismissible py-1 fade show" role="alert">
       <strong>{{ message }}</strong>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    {% endfor %} {% endif %} {% endwith %}
+    {%else %}
+    <div class="alert alert-danger text-center alert-dismissible py-1 fade show">
+      <span>{{ message }}</span>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+  
 
     <div class="card-dataTable table-responsive" style="padding: 5px">
     <table class="table table-bordered table-hover" id= "tablaproveedores">
