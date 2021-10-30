@@ -232,7 +232,7 @@
             <span class="menu-title text-truncate">Proveedores</span>
           </a>
         </li>
-        {% if session.rol != "Usuario" %}
+        {% if session.rol != "Usufinal" %}
         <li class="nav-item-usuarios">
           <a href="{{url_for('users')}}" restrict access="user">
             <i class="fa fa-users"></i>
